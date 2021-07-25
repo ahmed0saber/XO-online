@@ -1,6 +1,6 @@
-1-Home (log in , sign up)
-2-Log in
-3-Sign up
+1-Home (log in , sign up) > url
+2-Log in > url
+3-Sign up > url
 4-Game home (easy bot , unbeatable bot , 2 local players , online mode)
 5-Easy bot
 6-unbeatable bot
