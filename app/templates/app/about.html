@@ -9,27 +9,78 @@
       #div1{
         height: 450px;
         width: 300px;
-        border: 2px solid green;
+        border: 2px solid #33F;
+        box-shadow: 0 0 5px #117;
         margin: auto;
         margin-top: 25px;
-        text-align: center;
+        text-align: left;
       }
-      .btns{
-        height: 30px;
-        width: 150px;
+      button{
+        height: 40px;
+        width: 225px;
         margin: 15px;
+        border: 2px solid #117;
+        border-radius: 10px;
+        padding: 5px;
+        font-size: 18px;
+        font-family: Times New Roman;
+      }
+      #header_p{
+        font-size: 25px;
+        font-family: Times New Roman;
+      }
+      #back{
+        height: 40px;
+        width: 100px;
+        float: left;
+        margin: 10px;
+      }
+      #profile{
+        height: 40px;
+        width: 100px;
+        float: right;
+        margin: 10px;
+      }
+      #header{
+        background-color: #33F;
+        height: 60px;
+      }
+      #info{
+        height: 370px;
+        overflow-y: scroll;
+        padding: 10px;
+      }
+      #p2{
+        padding-left: 10px;
+      }
+      #p3{
+        padding-left: 20px;
       }
       p{
-        text-align: left;
-        padding: 10px;
+        margin: 5px;
+      }
+      hr{
+        background-color: #33F;
+        height: 1px;
       }
     </style>
   </head>
   <body>
     <div id="div1">
-      <p>Online Tic Tac Toe is a game ...</p>
-      <p>Developed by ...</p>
-      <a href=""><button class="btns">Back to home page</button></a>
+      <div id="header">
+        <a href=""><button id="back">Back</button></a>
+      </div>
+      <div id="info">
+      <p id="header_p">About the game</p>
+      <p id="p2">Online Tic Tac Toe is a web game where you can play 4 different modes</p>
+      <p id="p3">•play vs easy bot or a random-move bot</p>
+      <p id="p3">•play vs AI bot or unbeatable bot that works with artificial intelligence using minimax algorithm</p>
+      <p id="p3">•play vs a person locally , from one device</p>
+      <p id="p3">•play vs a person online , from 2 different devices</p><hr>
+      <p id="header_p">About the developers</p>
+      <p id="p2"><a href="">Ahmed Saber</a> , A frontend web developer</p>
+      <p id="p2"><a href="">Ahmed Yasser</a> , A backend web developer</p>
+      </div>
     </div>
   </body>
 </html>
