@@ -27,7 +27,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY", config("SECRET_KEY"))
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['xo-online.herokuapp.com', 'localhost']
 
 
 # Application definition
