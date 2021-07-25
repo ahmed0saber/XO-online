@@ -9,26 +9,54 @@
       #div1{
         height: 450px;
         width: 300px;
-        border: 2px solid green;
+        border: 2px solid #33F;
+        box-shadow: 0 0 5px #117;
         margin: auto;
         margin-top: 25px;
         text-align: center;
       }
-      .btns{
-        height: 30px;
-        width: 180px;
+      button{
+        height: 40px;
+        width: 225px;
         margin: 15px;
+        border: 2px solid #117;
+        border-radius: 10px;
+        padding: 5px;
+        font-size: 18px;
+        font-family: Times New Roman;
+      }
+      #header_p{
+        font-size: 25px;
+        font-family: Times New Roman;
+      }
+      #back{
+        height: 40px;
+        width: 100px;
+        float: left;
+        margin: 10px;
+      }
+      #profile{
+        height: 40px;
+        width: 100px;
+        float: right;
+        margin: 10px;
+      }
+      #header{
+        background-color: #33F;
+        height: 60px;
       }
     </style>
   </head>
   <body>
     <div id="div1">
-      <p>online mode</p>
-      <a href=""><button class="btns">View profile</button></a>
+      <div id="header">
+        <a href=""><button id="back">Back</button></a>
+        <a href=""><button id="profile" class="btns">Profile</button></a>
+      </div>
+      <p id="header_p">Online mode</p>
       <a href=""><button class="btns">Play</button></a>
       <a href=""><button class="btns">Leaderboard</button></a>
       <a href=""><button class="btns">Chat</button></a>
-      <a href=""><button class="btns">Back to home page</button></a>
     </div>
   </body>
 </html>
