@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'app'
+    'app',
+    'accounts',
 ]
 
 MIDDLEWARE = [
@@ -82,6 +83,11 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+import dj_database_url
+postgress = dj_database_url.config(conn_max_age=600)
+DATABASES["default"].update(postgress)
+
 
 
 # Password validation

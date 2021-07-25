@@ -1,0 +1,11 @@
+1-Home (log in , sign up)
+2-Log in
+3-Sign up
+4-Game home (easy bot , unbeatable bot , 2 local players , online mode)
+5-Easy bot
+6-unbeatable bot
+7-2 local players
+8-online mode(start a game , check the leaderboard)
+9-starting a game , plz wait
+10-leaderboard
+11-game
