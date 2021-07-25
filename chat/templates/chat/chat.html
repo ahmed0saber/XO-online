@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <title>online Tic Tac Toe</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+        <style>
+            body{
+                background-color: #EEE;
+                margin: 0;
+            }
+            #send , #back{
+                float: right;
+                width: 100px;
+                height: 50px;
+                color: #000;
+                border: none;
+                transition-duration: 0.7s;
+                font-size:22px;
+                font-family: 'Times New Roman', Times, serif;
+            }
+            #back{
+              float: left;
+              height: 40px;
+            }
+            .fa{
+              float: right;
+              width: 50px;
+              height: 50px;
+              color: #000;
+              text-shadow: 0 0 2px #FFF;
+              border: none;
+              transition-duration: 0.7s;
+              font-size:22px;
+              background: rgba(0,0,255,0.2);
+              border-radius: 50%;
+              position: relative;
+              left: -20px;
+              top: -125px;
+            }
+            #loadmsgs{
+              margin: 10px;
+              margin-left: calc(50% - 60px);
+              height: 40px;
+              width: 120px;
+              transition-duration: 0.7s;
+              font-size:12px;
+              color: #000;
+              font-family: Times New Roman;
+            }
+            input{
+                width: calc(100% - 110px);
+                height: 48px;
+                border: none;
+                padding-left: 5px;
+                font-size:16px;
+                font-family: 'Times New Roman', Times, serif;
+                color: #333;
+                outline: none;
+            }
+            #msg_container{
+                height:335px;
+                background-color: #FFF;
+                overflow-y: auto;
+                overflow-x: hidden;
+            }
+            #header{
+                padding:10px;
+                height: 42px;
+                border:none;
+                background-color: #33F;
+            }
+            p{
+                padding:10px;
+                border-radius: 0px 10px 10px 10px;
+                margin:10px;
+                background-color: #222;
+                color: #EEE;
+                word-break: break-all;
+                width: auto;
+                display: inline-block;
+            }
+            #user_msg{
+                background-color: #33C;
+                color: #FFF;
+                border-radius: 10px 0px 10px 10px;
+                direction:rtl;
+            }
+            #user_div{
+                direction:rtl;
+            }
+            ::-webkit-scrollbar {
+                width: 15px;
+            }
+            ::-webkit-scrollbar-track {
+                background: #f1f1ff; 
+            }
+            ::-webkit-scrollbar-track:hover {
+                background: #D1D1DD; 
+            }
+            ::-webkit-scrollbar-thumb {
+                background: #88F; 
+            }
+            ::-webkit-scrollbar-thumb:hover {
+                background: #55F; 
+            }
+            #div1{
+              height: 450px;
+              width: 300px;
+              margin: auto;
+              box-shadow: 0 0 5px #117;
+              margin-top: 25px;
+              border: 2px solid #33F;
+            }
+            #input_area{
+              border-top: 2px solid #33F;
+            }
+        </style>
+    </head>
+    <body onload="_start()">
+      <div id="div1">
+        <div id="header">
+            <button id="back">Back</button>
+        </div>
+        <div id="msg_container">
+            <button onclick="_load()" id="loadmsgs">Load previous messages</button>
+            <div><p>User : Hello</p></div>
+            <div id="user_div"><p id="user_msg">Ahmed : My name is Ahmed</p></div>
+            <div><p>User : What is your name ??</p></div>
+            <div><p>How are you ??</p></div>
+            <div id="user_div"><p id="user_msg">I am fine</p></div>
+            <div><p>What about you ??</p></div>
+            <div><p>Hope you are good too</p></div>
+            <div><p>aaaaaa</p></div>
+            <div><p>long msg aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p></div>
+            <div><p>hhhhhhhhhhhh</p></div>
+            <div><p>Hellooooooooooooo</p></div>
+            <div><p>Helloooooooooo</p></div>
+            <div><p>Hellooooooo</p></div>
+            <div><p>Helloooo</p></div>
+            <div><p>Hello</p></div>
+        </div>
+        <div id="input_area">
+            <input type="text" id="tx1" placeholder="Enter your message here">
+            <button id="send" onclick="_send()">Send</button>
+        </div>
+        <button id="down" class="fa fa-chevron-down" onclick="_start()"></button>
+      </div>
+    </body>
+
+
+
+
+        <script>
+            var scrolled = true;
+        function _load()
+        {
+          var element = document.getElementById("msg_container");
+          var dimension1 = element.scrollHeight ;
+   
+   for(var i=0;i<5;i++)
+   {
+     var myobj = document.getElementById("loadmsgs");
+     myobj.remove();
+   element.innerHTML = `<button onclick="_load()" id="loadmsgs">Load previous messages</button>` + `
+                    <div id="user_div"><p id="user_msg">Ahmed : Test</p></div>` + element.innerHTML;
+   }
+          var dimension2 = element.scrollHeight ;
+          element.scrollTop = dimension2 - dimension1 ;
+        }
+        
+        
+        
+        function _start()
+        {
+          var element = document.getElementById("msg_container");
+          element.scrollTop = element.scrollHeight;
+        }
+        
+        
+        
+function _send()
+{
+  var element = document.getElementById("msg_container");
+   element.innerHTML = element.innerHTML + `
+                    <div id="user_div"><p id="user_msg">Ahmed : Test</p></div>`;
+  document.getElementById("tx1").value="";
+    if (scrolled)
+    {
+        element.scrollTop = element.scrollHeight;
+    }
+}
+
+
+var element = document.getElementById("msg_container");
+element.addEventListener('scroll', function(event)
+{
+    var element = event.target;
+    if (element.scrollHeight - element.scrollTop === element.clientHeight)
+    {
+        scrolled = true;
+    }
+    else{
+        scrolled = false;
+    }
+});
+        </script>
+</html>

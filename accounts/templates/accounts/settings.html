@@ -1,0 +1,101 @@
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Tic Tac Toe</title>
+    <script>
+          window.addEventListener('load', function() {
+  document.querySelector('input[type="file"]').addEventListener('change', function() {
+      if (this.files && this.files[0]) {
+          var img = document.querySelector('img');
+          img.onload = () => {
+              URL.revokeObjectURL(img.src);  // no longer needed, free memory
+          }
+
+          img.src = URL.createObjectURL(this.files[0]); // set src to blob url
+      }
+  });
+});
+        </script>
+    <style>
+      body{
+        margin: 0;
+        background-color: #EEE;
+      }
+      #div1{
+        height: 450px;
+        width: 300px;
+        box-shadow: 0px 0px 5px #117;
+        border: 2px solid #33F;
+        margin: auto;
+        margin-top: 25px;
+        text-align: center;
+        background-color: #FFF;
+      }
+      .btns{
+        height: 30px;
+        width: 110px;
+        margin: 10px;
+      }
+      #profile_pic{
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        margin: 25px;
+        padding: 3px;
+        background-color: #FFF;
+        position: relative;
+        top: -78px;
+      }
+      #space{
+        width: 100%;
+        height: 75px;
+        background-color: #33F;
+      }
+      #img_div{
+        height: 128px;
+      }
+      #username{
+        font-family: Times New Roman;
+        font-size: 18px;
+        padding: 0;
+        margin: 0;
+      }
+      fieldset{
+        margin: 20px;
+        border-color: #33F;
+        box-shadow: 0 0 5px #117;
+      }
+      legend{
+        background-color: #FFF;
+      }
+      #tx{
+        height: 30px;
+        width: 200px;
+        margin: 10px;
+        padding: 5px;
+      }
+      #save{
+        width: 75px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="div1">
+      <div id="img_div">
+        <div id="space"></div>
+        <img id="profile_pic" src="https://drive.google.com/uc?id=1Kqx9kaXrrOoBeqUhrBpFjD0FlHETkk4b&export=download">
+      </div>
+      <p id="username">Ahmed Saber</p>
+      <fieldset>
+        <legend>Change account info</legend>
+        <form>
+          <input id="tx" type="text" placeholder="Username" value="Ahmed Saber">
+          <input id="tx" type="text" placeholder="Email" value="ahmed0saber33@gmail.com">
+          <input type="file" id="selectedFile" style="display: none;" accept="image/*"/>
+          <input class="btns" type="button" value="Change picture" onclick="document.getElementById('selectedFile').click();"/><br>
+          <input id="save" class="btns" type="submit" value="Save">
+        </form>
+      </fieldset>
+    </div>
+  </body>
+</html>
