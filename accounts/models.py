@@ -12,7 +12,7 @@ class CustomUser(AbstractUser):
     email = models.EmailField(_('email address'), unique=True)
     first_name = models.CharField(max_length=200)
     last_name = models.CharField(max_length=200)
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    front_id = models.UUIDField(default=uuid.uuid4, editable=False)
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
 
