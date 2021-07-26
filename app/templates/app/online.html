@@ -50,13 +50,13 @@
   <body>
     <div id="div1">
       <div id="header">
-        <a href=""><button id="back">Back</button></a>
-        <a href=""><button id="profile" class="btns">Profile</button></a>
+        <a href="{% url 'app:home' %}"><button id="back">Back</button></a>
+        <a href="{% url 'accounts:profile' %}"><button id="profile" class="btns">Profile</button></a>
       </div>
       <p id="header_p">Online mode</p>
-      <a href=""><button class="btns">Play</button></a>
-      <a href=""><button class="btns">Leaderboard</button></a>
-      <a href=""><button class="btns">Chat</button></a>
+      <a href="{% url 'app:game' %}"><button class="btns">Play</button></a>
+      <a href="{% url 'app:board' %}"><button class="btns">Leaderboard</button></a>
+      <a href="{% url 'chat:chat' %}"><button class="btns">Chat</button></a>
     </div>
   </body>
 </html>

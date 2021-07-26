@@ -121,7 +121,9 @@
     <body onload="_start()">
       <div id="div1">
         <div id="header">
-            <button id="back">Back</button>
+            <a href="{% url 'app:online' %}">
+                <button id="back">Back</button>
+            </a>
         </div>
         <div id="msg_container">
             <button onclick="_load()" id="loadmsgs">Load previous messages</button>
