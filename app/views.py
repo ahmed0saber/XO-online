@@ -1,5 +1,5 @@
 from django.shortcuts import render
-
+from accounts.decorators import *
 # Create your views here.
 def home(request):
     return render(request, 'app/start.html')
@@ -16,9 +16,11 @@ def board(request):
 def local(request):
     return render(request, 'app/local.html')
 
+@restrict_unlogged
 def online(request):
     return render(request, 'app/online.html')
 
+@restrict_unlogged
 def game(request):
     return render(request, 'app/match_found.html')
 

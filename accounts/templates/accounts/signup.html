@@ -57,15 +57,20 @@
         <a href=""><button id="back">Back</button></a>
       </div>
       <p id="p1">Create new account</p>
-      <form>
-        <input id="name" type="text" placeholder="First name">
-        <input id="name" type="text" placeholder="Last name">
-        <input type="text" placeholder="Email">
-        <input type="password" placeholder="Password">
-        <input type="password" placeholder="Confirm password">
+      <form action="" method="POST">
+        {% csrf_token %}
+        <input id="name" type="text" placeholder="First name" name="first_name">
+        <input id="name" type="text" placeholder="Last name" name="last_name">
+        <input type="text" placeholder="Email" name="email">
+        {{form.email.errors}}
+        <input type="password" placeholder="Password" name="password1">
+        {{form.password1.errors}}
+        <input type="password" placeholder="Confirm password" name="password2">
+        {{form.password2.errors}}
         <input type="submit" id="btn" value="sign up">
+
       </form>
-      <p>Already have account ?! <a href="">Log in</a></p>
+      <p>Already have account ?! <a href="{% url 'accounts:login' %}">Log in</a></p>
     </div>
   </body>
 </html>

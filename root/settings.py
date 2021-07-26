@@ -111,7 +111,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 AUTH_USER_MODEL = 'accounts.CustomUser'
-
+LOGOUT_REDIRECT_URL = "app:home"
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/

@@ -50,12 +50,13 @@
         <a href=""><button id="back">Back</button></a>
       </div>
       <p id="p1">Log in to continue</p>
-      <form>
-        <input type="text" placeholder="Email">
-        <input type="password" placeholder="Password">
+      <form action="" method="POST">
+        {% csrf_token %}
+        <input type="text" placeholder="Email" name="email">
+        <input type="password" placeholder="Password" name="password">
         <input type="submit" id="btn" value="log in">
       </form>
-      <p>Don't have account ?! <a href="{% url 'signup' %}">Create one</a></p>
+      <p>Don't have account ?! <a href="{% url 'accounts:signup' %}">Create one</a></p>
     </div>
   </body>
 </html>
