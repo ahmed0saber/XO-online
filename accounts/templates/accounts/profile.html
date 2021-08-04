@@ -58,15 +58,15 @@
         <div id="space"></div>
         <img id="profile_pic" src="https://drive.google.com/uc?id=1OZT_ONPaRwLdOex21vVzAvyLW1Oc6weP&export=download">
       </div>
-      <p id="username">Ahmed Saber</p>
+      <p id="username">{{ user }}</p>
       <a href="{% url 'app:online' %}"><button class="btns">Back</button></a>
       <a href="{% url 'accounts:settings' %}"><button class="btns">Settings</button></a>
       <div id="user_stats">
-        <p>Played 0 games</p>
-        <p>win : 0</p>
-        <p>lose : 0</p>
-        <p>draw : 0</p>
-        <p>win rate : 0%</p>
+        <p>Played {{ user.total_games }} games</p>
+        <p>win : {{ user.won_games }}</p>
+        <p>lose : {{ user.lost_games }}</p>
+        <p>draw : {{ user.draw_games }}</p>
+        <p>win rate : {{ win_rate }}</p>
       </div>
     </div>
   </body>

@@ -13,11 +13,14 @@ class CustomUser(AbstractUser):
     first_name = models.CharField(max_length=200)
     last_name = models.CharField(max_length=200)
     front_id = models.UUIDField(default=uuid.uuid4, editable=False)
+    total_games = models.IntegerField(default=0)
+    won_games = models.IntegerField(default=0)
+    lost_games = models.IntegerField(default=0)
+    draw_games = models.IntegerField(default=0)
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
-
     objects = Manager()
 
     def __str__(self):
-        return self.email
+        return f"{self.first_name} {self.last_name}"
     

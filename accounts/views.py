@@ -1,6 +1,6 @@
 from django.shortcuts import redirect, render
 from django.contrib.auth import login, authenticate, logout
-from .forms import CustomUserCreationForm
+from .forms import CustomUserCreationForm, CustomUserChangeForm
 from accounts.decorators import *
 
 # Create your views here.
@@ -31,8 +31,17 @@ def log_in(request):
 
 @restrict_unlogged
 def profile(request):
-    return render(request, 'accounts/profile.html')
+    if request.user.total_games != 0:
+        rate = request.user.won_games / request.user.total_games
+    else:
+        rate = 0
+    return render(request, 'accounts/profile.html', {'win_rate': rate})
 
 @restrict_unlogged
 def settings(request):
+    if request.method == "POST":
+        form = CustomUserChangeForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect('app:home')
     return render(request, 'accounts/settings.html')
