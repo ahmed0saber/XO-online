@@ -5,24 +5,15 @@
     <style>
       body{
         margin: 0;
+        padding: 0;
+        width: 300px;
+        height: 407px;
+        background-color: #EEE;
+        overflow: hidden;
       }
       #div1{
-        height: 450px;
-        width: 300px;
-        border: 2px solid #33F;
-        box-shadow: 0 0 5px #117;
         margin: auto;
-        margin-top: 25px;
         text-align: center;
-      }
-      #back{
-        height: 30px;
-        float: left;
-        margin: 10px;
-      }
-      #header{
-        background-color: #33F;
-        height: 52px;
       }
       #leaderboard{
         overflow-y: auto;
@@ -52,9 +43,6 @@
   </head>
   <body>
     <div id="div1">
-      <div id="header">
-        <a href="{% url 'app:online' %}"><button id="back">Back</button></a>
-      </div>
       <div id="leaderboard">
         <table>
           <tr id="tr1">
