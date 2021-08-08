@@ -31,6 +31,47 @@
         color: #117;
         background:transparent;
       }
+      table{
+        margin-top: -10px;
+        
+      }
+      input{
+        width: 75px;
+        height: 75px;
+        font-size:55px;
+        color: #007;
+        border: 2px solid #0077;
+        font-family: sans-serif;
+        transition-duration: 0.3s;
+      }
+      input:hover{
+        background-color: #88E;
+      }
+      input:disabled,
+      input[disabled]{
+        background-color: #BBF;
+      }
+      .btns{
+        height: 35px;
+        width: 100px;
+        margin-top:15px;
+        font-size:22px;
+        font-family: 'Times New Roman', Times, serif;
+        background-color: #00B;
+        color: #EEE;
+        border: 1px solid #000;
+        border-radius:10px;
+      }
+      p{
+        margin-top: 15px;
+        padding: 0px;
+        font-size:22px;
+        font-family: 'Times New Roman', Times, serif;
+      }
+      span{
+        color: #00A;
+        font-family: sans-serif;
+      }
     </style>
   </head>
   <body>
@@ -38,7 +79,96 @@
         <div id="header">
             <a href="{% url 'app:home' %}"><button id="back"><i class="fa fa-arrow-left"></i></button></a>
         </div>
-      Local
+        <p>Player <span id="p1">X</span>'s turn</p>
+        <table align="center">
+          <tr>
+            <td><input type="button" value="" onclick="done('0')" id="b0"/></td>
+            <td><input type="button" value="" onclick="done('1')" id="b1"/></td>
+            <td><input type="button" value="" onclick="done('2')" id="b2"/></td>
+          </tr>
+          <tr>
+            <td><input type="button" value="" onclick="done('3')" id="b3"/></td>
+            <td><input type="button" value="" onclick="done('4')" id="b4"/></td>
+            <td><input type="button" value="" onclick="done('5')" id="b5"/></td>
+          </tr>
+          <tr>
+            <td><input type="button" value="" onclick="done('6')" id="b6"/></td>
+            <td><input type="button" value="" onclick="done('7')" id="b7"/></td>
+            <td><input type="button" value="" onclick="done('8')" id="b8"/></td>
+          </tr>
+        </table>
+        <button onclick="restart()" class="btns">Restart</button>
     </div>
   </body>
+  <script>
+    var turn=0 , board=[];
+    
+
+    function done(x){
+      var my_element = document.getElementById('b'+x) ;
+      var text = document.getElementById('p1') ;
+        if(turn==0){my_element.disabled=true;
+            turn=1;
+            my_element.value="X";
+            text.innerHTML="O";
+            board[x]='X';
+        }
+        else if(turn==1)
+        {
+            my_element.disabled=true;
+            turn=0;
+            my_element.value="O";
+            text.innerHTML="X";
+            board[x]='O';
+        }
+        if(check_win(board[x]))
+        {
+            alert(board[x]+' wins');
+            for(var i=0;i<=8;i++)
+            {
+                document.getElementById('b'+i).disabled=true;
+            }
+        }
+    }
+
+
+    function check_win(player)
+    {
+        for(var i=0;i<=2;i++)
+        {
+            if(board[i]==board[i+3]&&board[i]==board[i+6]&&board[i]==player)
+            {
+                return true;
+            }
+        }
+        for(var i=0;i<=6;i+=3)
+        {
+            if(board[i]==board[i+1]&&board[i]==board[i+2]&&board[i]==player)
+            {
+                return true;
+            }
+        }
+        if(board[0]==board[4]&&board[0]==board[8]&&board[0]==player)
+        {
+            return true;
+        }
+        if(board[2]==board[4]&&board[2]==board[6]&&board[2]==player)
+        {
+            return true;
+        }
+    }
+
+
+    function restart()
+    {
+        for(var i=0;i<=8;i++)
+        {
+            document.getElementById('b'+i).disabled=false;
+            document.getElementById('b'+i).value='';
+            board[i]='';
+            turn=0;
+            document.getElementById('p1').innerHTML="X";
+        }
+    }
+    </script>
 </html>
