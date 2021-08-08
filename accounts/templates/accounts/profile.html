@@ -5,17 +5,15 @@
     <style>
       body{
         margin: 0;
+        padding: 0;
+        width: 300px;
+        height: 407px;
         background-color: #EEE;
+        overflow: hidden;
       }
       #div1{
-        height: 450px;
-        width: 300px;
-        box-shadow: 0px 0px 5px #117;
-        border: 2px solid #33F;
         margin: auto;
-        margin-top: 25px;
         text-align: center;
-        background-color: #FFF;
       }
       .btns{
         height: 30px;
@@ -59,7 +57,6 @@
         <img id="profile_pic" src="https://drive.google.com/uc?id=1OZT_ONPaRwLdOex21vVzAvyLW1Oc6weP&export=download">
       </div>
       <p id="username">{{ user }}</p>
-      <a href="{% url 'app:online' %}"><button class="btns">Back</button></a>
       <a href="{% url 'accounts:settings' %}"><button class="btns">Settings</button></a>
       <div id="user_stats">
         <p>Played {{ user.total_games }} games</p>

@@ -1,50 +1,83 @@
+<!DOCTYPE html>
 <html>
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>online Tic Tac Toe</title>
-    <style>
-      body{
-        margin: 0;
-      }
-      #div1{
-        height: 450px;
-        width: 300px;
-        border: 2px solid #33F;
-        box-shadow: 0 0 5px #117;
-        margin: auto;
-        margin-top: 25px;
-        text-align: center;
-      }
-      button{
-        height: 40px;
-        width: 225px;
-        margin: 15px;
-        border: 2px solid #117;
-        border-radius: 10px;
-        padding: 5px;
-        font-size: 18px;
-        font-family: Times New Roman;
-      }
-      #header_p{
-        font-size: 25px;
-        font-family: Times New Roman;
-      }
-    </style>
-  </head>
-  <body>
-    <div id="div1">
-      <p id="header_p">Online Tic Tac Toe</p>
-      <a href="{% url 'app:bot' %}"><button class="btns">VS easy bot</button></a>
-      <a href="{% url 'app:ai' %}"><button class="btns">VS AI bot</button></a>
-      <a href="{% url 'app:local' %}"><button class="btns">2 local players</button></a>
-      <a href="
-      {% if request.user.is_authenticated %}
-      {% url 'app:online' %}
-      {% else %}
-      {% url 'accounts:signup' %}
-      {% endif %}
-      "><button class="btns">Online mode</button></a>
-      <a href="{% url 'app:about' %}"><button class="btns">About</button></a>
-    </div>
-  </body>
+    <head>
+        <title>Online Tic Tac Toe</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <style>
+            body{
+                margin:0;
+                padding:0;
+            }
+            #header{
+                margin:0px auto;
+                margin-top:50px;
+                padding:0;
+                width: 300px;
+                height: 450px;
+                border: 2px solid black;
+                background-color:#CCF;
+                border: 2px solid #33F;
+                box-shadow: 0 0 5px #117;
+            }
+            .h_btns{
+                margin:0;
+                width: 60px;
+                height: 40px;
+                border: none;
+                background-color:#EEF;
+                transition-duration:0.4s;
+            }
+            .h_btns:hover{
+                background-color:#AAF
+            }
+            #selected{
+                height: 3px;
+                background-color:blue;
+                width:60px;
+                margin-left: 0px;
+                transition-duration:0.4s;
+            }
+            #iframe1{
+                height: 407px;
+                overflow-x: hidden;
+                margin: 0;
+                padding: 0;
+                border: none;
+            }
+            .fa{
+                font-size: 25px;
+                color: #117;
+                background:transparent
+            }
+        </style>
+    </head>
+    <body>
+        <div id="header">
+            <button class="h_btns" id="btn1" onclick="move(1)"><i class="fa fa-home"></i></button><button class="h_btns" id="btn2" onclick="move(2)"><i class="fa fa-user"></i></button><button class="h_btns" id="btn3" onclick="move(3)"><i class="fa fa-bell"></i></button><button class="h_btns" id="btn4" onclick="move(4)"><i class="fa fa-envelope"></i></button><button class="h_btns" id="btn5" onclick="move(5)"><i class="fa fa-trophy"></i></button>
+            <div id="selected"></div>
+            <iframe src="test.html" id="iframe1"></iframe>
+        </div>
+    </body>
+    <script>
+        function move(i)
+        {
+            if(i==1)
+            {$("#selected").css("margin-left", "0px");
+            $("#iframe1").attr("src","{% url 'app:home' %}");}
+            else if(i==2)
+            {$("#selected").css("margin-left", "60px");
+            $("#iframe1").attr("src","{% url 'accounts:profile' %}");}
+            else if(i==3)
+            {$("#selected").css("margin-left", "120px");
+            $("#iframe1").attr("src","notifications.html");}
+            else if(i==4)
+            {$("#selected").css("margin-left", "180px");
+            $("#iframe1").attr("src","{% url 'chat:chat' %}");}
+            else if(i==5)
+            {$("#selected").css("margin-left", "240px");
+            $("#iframe1").attr("src","{% url 'app:board' %}");}
+        }
+    </script>
 </html>

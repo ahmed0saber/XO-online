@@ -7,22 +7,22 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
         <style>
             body{
-                background-color: #EEE;
                 margin: 0;
+                padding: 0;
+                width: 300px;
+                height: 407px;
+                background-color: #EEE;
+                overflow: hidden;
             }
-            #send , #back{
+            #send{
                 float: right;
                 width: 100px;
-                height: 50px;
+                height: 42px;
                 color: #000;
                 border: none;
                 transition-duration: 0.7s;
                 font-size:22px;
                 font-family: 'Times New Roman', Times, serif;
-            }
-            #back{
-              float: left;
-              height: 40px;
             }
             .fa{
               float: right;
@@ -51,7 +51,7 @@
             }
             input{
                 width: calc(100% - 110px);
-                height: 48px;
+                height: 40px;
                 border: none;
                 padding-left: 5px;
                 font-size:16px;
@@ -60,16 +60,10 @@
                 outline: none;
             }
             #msg_container{
-                height:335px;
+                height:362px;
                 background-color: #FFF;
                 overflow-y: auto;
                 overflow-x: hidden;
-            }
-            #header{
-                padding:10px;
-                height: 42px;
-                border:none;
-                background-color: #33F;
             }
             p{
                 padding:10px;
@@ -106,12 +100,7 @@
                 background: #55F; 
             }
             #div1{
-              height: 450px;
-              width: 300px;
               margin: auto;
-              box-shadow: 0 0 5px #117;
-              margin-top: 25px;
-              border: 2px solid #33F;
             }
             #input_area{
               border-top: 2px solid #33F;
@@ -120,11 +109,6 @@
     </head>
     <body onload="_start()">
       <div id="div1">
-        <div id="header">
-            <a href="{% url 'app:online' %}">
-                <button id="back">Back</button>
-            </a>
-        </div>
         <div id="msg_container">
             <button onclick="_load()" id="loadmsgs">Load previous messages</button>
             <div><p>User : Hello</p></div>

@@ -1,52 +1,35 @@
 <html>
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>online Tic Tac Toe</title>
     <style>
       body{
         margin: 0;
+        padding: 0;
+        width: 300px;
+        height: 407px;
+        background-color: #EEE;
+        overflow: hidden;
       }
       #div1{
-        height: 450px;
-        width: 300px;
-        border: 2px solid #33F;
-        box-shadow: 0 0 5px #117;
         margin: auto;
-        margin-top: 25px;
         text-align: left;
-      }
-      button{
-        height: 40px;
-        width: 225px;
-        margin: 15px;
-        border: 2px solid #117;
-        border-radius: 10px;
-        padding: 5px;
-        font-size: 18px;
-        font-family: Times New Roman;
       }
       #header_p{
         font-size: 25px;
-        font-family: Times New Roman;
       }
       #back{
         height: 40px;
-        width: 100px;
-        float: left;
-        margin: 10px;
-      }
-      #profile{
-        height: 40px;
-        width: 100px;
-        float: right;
-        margin: 10px;
+        width: 40px;
+        margin: 5px;
       }
       #header{
         background-color: #33F;
-        height: 60px;
+        height: 50px;
       }
       #info{
-        height: 370px;
+        height: 327px;
         overflow-y: scroll;
         padding: 10px;
       }
@@ -63,12 +46,17 @@
         background-color: #33F;
         height: 1px;
       }
+      .fa{
+        font-size: 25px;
+        color: #117;
+        background:transparent;
+      }
     </style>
   </head>
   <body>
     <div id="div1">
       <div id="header">
-        <a href="{% url 'app:home' %}"><button id="back">Back</button></a>
+        <a href="{% url 'app:home' %}"><button id="back"><i class="fa fa-arrow-left"></i></button></a>
       </div>
       <div id="info">
       <p id="header_p">About the game</p>
