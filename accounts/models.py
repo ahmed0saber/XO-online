@@ -17,6 +17,7 @@ class CustomUser(AbstractUser):
     won_games = models.IntegerField(default=0)
     lost_games = models.IntegerField(default=0)
     draw_games = models.IntegerField(default=0)
+    image = models.ImageField(default='images/default.png', upload_to='images')
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
     objects = Manager()
