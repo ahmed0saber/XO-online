@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from accounts.decorators import *
+from accounts.models import CustomUser
 # Create your views here.
 def header(request):
     return render(request, 'app/start.html')
@@ -17,7 +18,8 @@ def notifications(request):
     return render(request, 'app/notifications.html')
 
 def board(request):
-    return render(request, 'app/leaderboard.html')
+    winners = CustomUser.objects.all().order_by('-won_games')
+    return render(request, 'app/leaderboard.html', {'users': winners})
 
 def local(request):
     return render(request, 'app/local.html')
