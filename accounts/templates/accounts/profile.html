@@ -58,6 +58,7 @@
       </div>
       <p id="username">{{ user }}</p>
       <a href="{% url 'accounts:settings' %}"><button class="btns">Settings</button></a>
+      <a href="{% url 'accounts:logout' %}"><button class="btns">Log out</button></a>
       <div id="user_stats">
         <p>Played {{ user.total_games }} games</p>
         <p>win : {{ user.won_games }}</p>
