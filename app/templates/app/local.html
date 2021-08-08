@@ -102,11 +102,11 @@
   </body>
   <script>
     var turn=0 , board=[];
-
+    
 
     function done(x){
-        var my_element = document.getElementById('b'+x) ;
-        var text = document.getElementById('p1') ;
+      var my_element = document.getElementById('b'+x) ;
+      var text = document.getElementById('p1') ;
         if(turn==0){my_element.disabled=true;
             turn=1;
             my_element.value="X";
@@ -167,6 +167,7 @@
             document.getElementById('b'+i).value='';
             board[i]='';
             turn=0;
+            document.getElementById('p1').innerHTML="X";
         }
     }
     </script>
