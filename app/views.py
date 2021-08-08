@@ -1,7 +1,11 @@
 from django.shortcuts import render
 from accounts.decorators import *
 # Create your views here.
+def header(request):
+    return render(request, 'app/header.html')
+
 def home(request):
+    return render(request, 'app/newhome.html')
     return render(request, 'app/start.html')
 
 def bot(request):
@@ -25,4 +29,5 @@ def game(request):
     return render(request, 'app/match_found.html')
 
 def about(request):
+    return render(request, 'app/newabout.html')
     return render(request, 'app/about.html')

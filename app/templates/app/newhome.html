@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>online Tic Tac Toe</title>
+    <style>
+      body{
+        margin: 0;
+        padding: 0;
+        width: 300px;
+        height: 407px;
+        background-color: #EEE;
+        overflow: hidden;
+      }
+      #div1{
+        margin: auto;
+        text-align: center;
+        margin-top:20px;
+      }
+      button{
+        height: 40px;
+        width: 225px;
+        margin: 15px;
+        border: 2px solid #117;
+        border-radius: 10px;
+        font-size: 18px;
+        font-family: Times New Roman;
+        background-color: #00B;
+        color: #EEE;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="div1">
+      <a href="{% url 'app:bot' %}"><button class="btns">VS easy bot</button></a>
+      <a href="{% url 'app:ai' %}"><button class="btns">VS AI bot</button></a>
+      <a href="{% url 'app:local' %}"><button class="btns">2 local players</button></a>
+      <a href="
+      {% if request.user.is_authenticated %}
+      {% url 'app:online' %}
+      {% else %}
+      {% url 'accounts:signup' %}
+      {% endif %}
+      "><button class="btns">Online mode</button></a>
+      <a href="{% url 'app:about' %}"><button class="btns">About</button></a>
+    </div>
+  </body>
+</html>

@@ -29,6 +29,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['xo-online.herokuapp.com', '127.0.0.1']
 
+X_FRAME_OPTIONS = 'SAMEORIGIN'
 
 # Application definition
 
