@@ -10,6 +10,7 @@ urlpatterns = [
     path('leaderboard/', board, name='board'),
     path('local/', local, name='local'),
     path('online/', online, name='online'),
+    path('notifications/', notifications, name='notifications'),
     path('game/', game, name='game'),
     path('about/', about, name='about'),
 ]

@@ -71,7 +71,7 @@
             $("#iframe1").attr("src","{% url 'accounts:profile' %}");}
             else if(i==3)
             {$("#selected").css("margin-left", "120px");
-            $("#iframe1").attr("src","notifications.html");}
+            $("#iframe1").attr("src","{% url 'app:notifications' %}");}
             else if(i==4)
             {$("#selected").css("margin-left", "180px");
             $("#iframe1").attr("src","{% url 'chat:chat' %}");}

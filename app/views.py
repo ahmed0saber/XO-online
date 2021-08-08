@@ -13,6 +13,9 @@ def bot(request):
 def ai(request):
     return render(request, 'app/ai_bot.html')
 
+def notifications(request):
+    return render(request, 'app/notifications.html')
+
 def board(request):
     return render(request, 'app/leaderboard.html')
 
@@ -29,4 +32,3 @@ def game(request):
 
 def about(request):
     return render(request, 'app/newabout.html')
-    return render(request, 'app/about.html')
