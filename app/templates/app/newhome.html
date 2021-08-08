@@ -20,7 +20,7 @@
       button{
         height: 40px;
         width: 225px;
-        margin: 15px;
+        margin: 12px;
         border: 2px solid #117;
         border-radius: 10px;
         font-size: 18px;
@@ -28,21 +28,24 @@
         background-color: #00B;
         color: #EEE;
       }
+      #about {
+        margin: 35px;
+      }
     </style>
   </head>
   <body>
     <div id="div1">
       <a href="{% url 'app:bot' %}"><button class="btns">VS easy bot</button></a>
       <a href="{% url 'app:ai' %}"><button class="btns">VS AI bot</button></a>
-      <a href="{% url 'app:local' %}"><button class="btns">2 local players</button></a>
+      <a href="{% url 'app:local' %}"><button class="btns">VS local player</button></a>
       <a href="
       {% if request.user.is_authenticated %}
-      {% url 'app:online' %}
+      {% url 'app:game' %}
       {% else %}
       {% url 'accounts:signup' %}
       {% endif %}
-      "><button class="btns">Online mode</button></a>
-      <a href="{% url 'app:about' %}"><button class="btns">About</button></a>
+      "><button class="btns">VS online player</button></a>
+      <a href="{% url 'app:about' %}"><button class="btns" id="about">About</button></a>
     </div>
   </body>
 </html>
