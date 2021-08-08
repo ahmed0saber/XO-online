@@ -1,4 +1,5 @@
 from django.shortcuts import redirect, render
+from django.contrib import messages
 from django.contrib.auth import login, authenticate, logout
 from .forms import CustomUserCreationForm, CustomUserChangeForm
 from accounts.decorators import *
@@ -27,6 +28,8 @@ def log_in(request):
         if user:
             login(request, user)
             return redirect('app:online')
+        else:
+            messages.error(request, 'Wrong user name or password please check your info')
     return render(request, 'accounts/login.html')
 
 @restrict_unlogged

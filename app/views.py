@@ -2,11 +2,10 @@ from django.shortcuts import render
 from accounts.decorators import *
 # Create your views here.
 def header(request):
-    return render(request, 'app/header.html')
+    return render(request, 'app/start.html')
 
 def home(request):
     return render(request, 'app/newhome.html')
-    return render(request, 'app/start.html')
 
 def bot(request):
     return render(request, 'app/easy_bot.html')

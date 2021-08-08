@@ -58,6 +58,11 @@
         <input type="password" placeholder="Password" name="password">
         <input type="submit" id="btn" value="log in">
       </form>
+      {% if messages %}
+        {% for message in messages %}
+          <p>{{ message }}</p>
+        {% endfor %}
+      {% endif %}
       <p>Don't have account ?! <a href="{% url 'accounts:signup' %}">Create one</a></p>
     </div>
   </body>

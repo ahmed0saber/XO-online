@@ -3,8 +3,8 @@ from .views import *
 
 app_name = 'app'
 urlpatterns = [
-    path('home', header, name='header'),
-    path('', home, name='home'),
+    path('', header, name='header'),
+    path('home/', home, name='home'),
     path('bot/', bot, name='bot'),
     path('ai/', ai, name='ai'),
     path('leaderboard/', board, name='board'),
