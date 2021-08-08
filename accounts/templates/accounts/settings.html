@@ -92,18 +92,18 @@
     <div id="div1">
       <div id="img_div">
         <div id="space"></div>
-        <img id="profile_pic" src="https://drive.google.com/uc?id=1OZT_ONPaRwLdOex21vVzAvyLW1Oc6weP&export=download">
+        <img id="profile_pic" src="{{ user.image.url }}">
       </div>
       <a href="{% url 'accounts:profile' %}"><button id="back">Back</button></a>
       <p id="username">{{ user }}</p>
       <fieldset>
         <legend>Change account info</legend>
-        <form method="POST" action="">
+        <form method="POST" action="" enctype="multipart/form-data">
           {% csrf_token %}
           <input id="tx" type="text" placeholder="First Name" value="{{ user.first_name }}" name="first_name">
           <input id="tx" type="text" placeholder="Last Name" value="{{ user.last_name }}" name="last_name">
           <input id="tx" type="text" placeholder="Email" value="{{ user.email }}" name="email">
-          <input type="file" id="selectedFile" style="display: none;" accept="image/*"/>
+          <input type="file" id="selectedFile" style="display: none;"  name="image"/>
           <input class="btns" type="button" value="Change picture" onclick="document.getElementById('selectedFile').click();"/><br>
           <input id="save" class="btns" type="submit" value="Save">
         </form>

@@ -1,6 +1,6 @@
 from django.shortcuts import redirect, render
 from django.contrib import messages
-from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth import login, authenticate
 from .forms import CustomUserCreationForm, CustomUserChangeForm
 from accounts.decorators import *
 
@@ -43,8 +43,11 @@ def profile(request):
 @restrict_unlogged
 def settings(request):
     if request.method == "POST":
-        form = CustomUserChangeForm(request.POST, instance=request.user)
+        form = CustomUserChangeForm(request.POST, request.FILES, instance=request.user)
         if form.is_valid():
-            form.save()
-            return redirect('app:home')
+            user = form.save()
+            print(type(request.POST.get('image')))
+            # user.image = request.POST.get('image')
+            # user.save()
+            return redirect('accounts:profile')
     return render(request, 'accounts/settings.html')
