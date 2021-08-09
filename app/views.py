@@ -24,11 +24,11 @@ def board(request):
 def local(request):
     return render(request, 'app/local.html')
 
-@restrict_unlogged
+@restrict_unlogged(next='online')
 def online(request):
     return render(request, 'app/online.html')
 
-@restrict_unlogged
+@restrict_unlogged(next='game')
 def game(request):
     return render(request, 'app/match_found.html')
 

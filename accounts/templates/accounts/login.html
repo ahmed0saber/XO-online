@@ -63,7 +63,7 @@
           <p>{{ message }}</p>
         {% endfor %}
       {% endif %}
-      <p>Don't have account ?! <a href="{% url 'accounts:signup' %}">Create one</a></p>
+      <p>Don't have account ?! <a href="{% url 'accounts:signup' next%}">Create one</a></p>
     </div>
   </body>
 </html>

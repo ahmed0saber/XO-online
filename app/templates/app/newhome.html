@@ -38,13 +38,7 @@
       <a href="{% url 'app:bot' %}"><button class="btns">VS easy bot</button></a>
       <a href="{% url 'app:ai' %}"><button class="btns">VS AI bot</button></a>
       <a href="{% url 'app:local' %}"><button class="btns">VS local player</button></a>
-      <a href="
-      {% if request.user.is_authenticated %}
-      {% url 'app:game' %}
-      {% else %}
-      {% url 'accounts:signup' %}
-      {% endif %}
-      "><button class="btns">VS online player</button></a>
+      <a href="{% url 'app:game' %}"><button class="btns">VS online player</button></a>
       <a href="{% url 'app:about' %}"><button class="btns" id="about">About</button></a>
     </div>
   </body>
