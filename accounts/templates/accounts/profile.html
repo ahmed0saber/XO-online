@@ -54,7 +54,7 @@
     <div id="div1">
       <div id="img_div">
         <div id="space"></div>
-        <img id="profile_pic" src="a.png">
+        <img id="profile_pic" src="{{ user.image.url }}">
       </div>
       <p id="username">{{ user }}</p>
       <a href="{% url 'accounts:logout' %}"><button class="btns">Log out</button></a>
