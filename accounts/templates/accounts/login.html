@@ -48,9 +48,11 @@
   </head>
   <body>
     <div id="div1">
+      {% if request.path == '/accounts/signup/game/' %} 
       <div id="header">
         <a href=""><button id="back">Back</button></a>
       </div>
+      {% endif %}
       <p id="p1">Log in to continue</p>
       <form action="" method="POST">
         {% csrf_token %}
