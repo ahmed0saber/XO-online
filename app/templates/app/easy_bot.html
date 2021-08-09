@@ -31,6 +31,45 @@
         color: #117;
         background:transparent;
       }
+      .pickbtns{
+        height: 100px;
+        width: 100px;
+        margin: 23px;
+        font-size:75px;
+        color: #007;
+        border: 2px solid #0077;
+        font-family: sans-serif;
+        transition-duration: 0.3s;
+      }
+      .pickbtns:hover{
+        background-color: #88E;
+      }
+      #info , #info2{
+        font-size: 18px;
+        font-family: sans-serif;
+        color: #007;
+      }
+      #info2{
+        color: #005B;
+        font-size: 16px;
+      }
+      #pickox{
+        display: block;
+      }
+      #play{
+        display: none;
+      }
+      .btns{
+        height: 35px;
+        width: 100px;
+        margin-top:15px;
+        font-size:22px;
+        font-family: 'Times New Roman', Times, serif;
+        background-color: #00B;
+        color: #EEE;
+        border: 1px solid #000;
+        border-radius:10px;
+      }
     </style>
   </head>
   <body>
@@ -38,7 +77,30 @@
         <div id="header">
             <a href="{% url 'app:home' %}"><button id="back"><i class="fa fa-arrow-left"></i></button></a>
         </div>
-      Easy bot
+      <div id="pickxo">
+        <p id="info">Pick one that you want to play with !</p>
+        <p id="info2">notice that X plays the first turn</p>
+        <button onclick="pickit('X')" class="pickbtns">X</button><button onclick="pickit('O')" class="pickbtns">O</button>
+      </div>
+      <div id="play">
+        <p id="picked">000</p>
+        <button onclick="restart()" class="btns">Restart</button>
+      </div>
     </div>
   </body>
+  <script>
+    var picked;
+    function pickit(a)
+    {
+      picked = a;
+      document.getElementById("pickxo").style.display = 'none';
+      document.getElementById("play").style.display = 'block';
+      document.getElementById("picked").innerHTML = 'You picked ' + picked ;
+    }
+    function restart()
+    {
+      document.getElementById("play").style.display = 'none';
+      document.getElementById("pickxo").style.display = 'block';
+    }
+  </script>
 </html>
