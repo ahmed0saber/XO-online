@@ -51,11 +51,19 @@
             <td id="wins">Wins</td>
           </tr>
           {% for user in users %}
+           {% if forloop.counter %}
+            <div id="rank1">
+              <p>{{ forloop.counter }}</p>
+              <p>{{ user }}</p>
+              <p>{{ user.won_games }}</p>
+            </div>
+           {% else %}
             <tr>
               <td id="rank">{{ forloop.counter }}</td>
               <td id="name">{{ user }}</td>
               <td id="wins">{{ user.won_games }}</td>
             </tr>
+           {% endif %}
           {% endfor %}
         </table>
       </div>
