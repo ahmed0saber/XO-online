@@ -30,10 +30,12 @@
         width: 50px;
       }
       #wins{
-        width: 80px;
+        width: 70px;
       }
       #name{
-        width: 100px;
+        width: 110px;
+      }
+      .names{
         word-break: break-word;
       }
       #pic{
@@ -74,7 +76,7 @@
             <tr>
               <td id="rank{{ forloop.counter }}">{{ forloop.counter }}</td>
               <td id="pic{{ forloop.counter }}"><img src="{{ user.image.url }}"></td>
-              <td id="name{{ forloop.counter }}">{{ user }}</td>
+              <td class="names" id="name{{ forloop.counter }}">{{ user }}</td>
               <td id="wins{{ forloop.counter }}">{{ user.won_games }}</td>
             </tr>
           {% endfor %}
