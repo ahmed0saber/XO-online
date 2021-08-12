@@ -39,6 +39,9 @@
         color: #117;
         background-color: #ddd;
       }
+      #rank1{
+        background-color: #999;
+      }
     </style>
   </head>
   <body>
@@ -52,7 +55,7 @@
           </tr>
           {% for user in users %}
            {% if forloop.counter %}
-            <hr><div id="rank1">
+            <hr><div id="rank{{ forloop.counter }}">
               <p>{{ forloop.counter }}</p>
               <p>{{ user }}</p>
               <p>{{ user.won_games }}</p>
