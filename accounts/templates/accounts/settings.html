@@ -68,7 +68,7 @@
       }
       fieldset{
         margin: 20px;
-        height: 215px;
+        height: 285px;
         border-color: #33F;
         box-shadow: 0 0 5px #117;
       }
@@ -117,6 +117,7 @@
       <p id="username">{{ user }}</p>
       <fieldset>
         <legend>Change account info</legend>
+        <p>Don't forget to scroll down and press the save button !!</p>
         <form method="POST" action="" enctype="multipart/form-data">
           {% csrf_token %}
           <input id="tx" type="text" placeholder="First Name" value="{{ user.first_name }}" name="first_name">
