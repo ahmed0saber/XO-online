@@ -52,7 +52,7 @@
           </tr>
           {% for user in users %}
             <tr>
-              <td id="rank">{{ forloop.counter - 1 }}</td>
+              <td id="rank">{{ forloop.counter }}</td>
               <td id="name">{{ user }}</td>
               <td id="wins">{{ user.won_games }}</td>
             </tr>
