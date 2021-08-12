@@ -39,8 +39,14 @@
         color: #117;
         background-color: #ddd;
       }
-      #rank1{
-        background-color: #999;
+      #rank1 , #name1 , #wins1{
+        background-color: #FFD700;
+      }
+      #rank2 , #name2 , #wins2{
+        background-color: #C0C0C0;
+      }
+      #rank3 , #name3 , #wins3{
+        background-color: #CD7F32;
       }
     </style>
   </head>
@@ -54,10 +60,10 @@
             <td id="wins">Wins</td>
           </tr>
           {% for user in users %}
-            <tr id="rank{{ forloop.counter }}">
-              <td id="rank">{{ forloop.counter }}</td>
-              <td id="name">{{ user }}</td>
-              <td id="wins">{{ user.won_games }}</td>
+            <tr>
+              <td id="rank{{ forloop.counter }}">{{ forloop.counter }}</td>
+              <td id="name{{ forloop.counter }}">{{ user }}</td>
+              <td id="wins{{ forloop.counter }}">{{ user.won_games }}</td>
             </tr>
           {% endfor %}
         </table>
