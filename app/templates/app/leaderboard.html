@@ -33,7 +33,14 @@
         width: 80px;
       }
       #name{
-        width: 160px;
+        width: 100px;
+      }
+      #pic{
+        width: 50px;
+      }
+      img{
+        height: 40px;
+        width: 40px;
       }
       #tr1{
         color: #117;
@@ -56,12 +63,14 @@
         <table>
           <tr id="tr1">
             <td id="rank">Rank</td>
+            <td id="pic">Pic</td>
             <td id="name">Name</td>
             <td id="wins">Wins</td>
           </tr>
           {% for user in users %}
             <tr>
               <td id="rank{{ forloop.counter }}">{{ forloop.counter }}</td>
+              <td id="pic{{ forloop.counter }}"><img src="{{ user.image.url }}"></td>
               <td id="name{{ forloop.counter }}">{{ user }}</td>
               <td id="wins{{ forloop.counter }}">{{ user.won_games }}</td>
             </tr>
