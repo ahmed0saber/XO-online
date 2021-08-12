@@ -1,6 +1,7 @@
 <html>
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>Online Tic Tac Toe</title>
     <style>
       body{
@@ -16,24 +17,29 @@
         text-align: center;
       }
       .btns{
-        height: 30px;
-        width: 100px;
-        margin: 15px;
+        height: 50px;
+        width: 70px;
+        margin: 10px;
+        background-color: #00B;
+        color: #EEE;
+        border: 2px solid #007;
+        border-radius: 10px;
       }
       #profile_pic{
         width: 100px;
         height: 100px;
         border-radius: 50%;
         margin: 25px;
-        padding: 3px;
-        background-color: #FFF;
+        padding: 0px;
         position: relative;
         top: -78px;
+        background-color:#EEE;
+        border: 3px solid #009;
+        box-shadow: 0px 0px 5px #0009;
       }
       #space{
         width: 100%;
         height: 75px;
-        background-color: #33F;
       }
       #img_div{
         height: 128px;
@@ -43,10 +49,19 @@
         font-size: 18px;
         padding: 0;
         margin: 0;
+        margin-top: 5px;
       }
       #user_stats{
         text-align: left;
         padding-left: 10px;
+      }
+      .fa{
+        font-size: 25px;
+      }
+      #inside{
+        font-size: 11px;
+        padding: 0;
+        margin: 0;
       }
     </style>
   </head>
@@ -57,8 +72,9 @@
         <img id="profile_pic" src="{{ user.image.url }}">
       </div>
       <p id="username">{{ user }}</p>
-      <a href="{% url 'accounts:settings' %}"><button class="btns">Settings</button></a>
-      <a href="{% url 'accounts:logout' %}"><button class="btns">Log out</button></a>
+      <a href="{% url 'accounts:logout' %}"><button class="btns"><i class="fa fa-sign-out"></i></br><p id="inside">Log out</p></button></a>
+      <a href="{% url 'accounts:settings' %}"><button class="btns"><i class="fa fa-cog"></i></br><p id="inside">Edit profile</p></button></a>
+      <button class="btns"><i class="fa fa-share"></i></br><p id="inside">Share</p></button>
       <div id="user_stats">
         <p>Played {{ user.total_games }} games</p>
         <p>win : {{ user.won_games }}</p>

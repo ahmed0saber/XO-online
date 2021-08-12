@@ -25,19 +25,43 @@
         text-align: center;
         word-break: break-all;
         padding: 2px;
+        border-radius: 5px;
+        background-color: #D6E9FF;
       }
       #rank{
         width: 50px;
       }
       #wins{
-        width: 80px;
+        width: 70px;
       }
       #name{
-        width: 160px;
+        width: 110px;
       }
-      #tr1{
-        color: #117;
-        background-color: #ddd;
+      .names{
+        word-break: break-word;
+        padding: 5px;
+      }
+      #pic{
+        width: 40px;
+      }
+      img{
+        height: 38px;
+        width: 38px;
+        border-radius: 50%;
+        border: 1px solid #007;
+      }
+      .tr1{
+        color: #EEE;
+        background-color: #0000BB;
+      }
+      #rank1 , #name1 , #wins1 , #pic1{
+        background-color: #4056F1;
+      }
+      #rank2 , #name2 , #wins2 , #pic2{
+        background-color: #7086F1;
+      }
+      #rank3 , #name3 , #wins3 , #pic3{
+        background-color: #A0B6F1;
       }
     </style>
   </head>
@@ -45,16 +69,18 @@
     <div id="div1">
       <div id="leaderboard">
         <table>
-          <tr id="tr1">
-            <td id="rank">Rank</td>
-            <td id="name">Name</td>
-            <td id="wins">Wins</td>
+          <tr>
+            <td class="tr1" id="rank">Rank</td>
+            <td class="tr1" id="pic">User</td>
+            <td class="tr1" id="name">Name</td>
+            <td class="tr1" id="wins">Wins</td>
           </tr>
           {% for user in users %}
             <tr>
-              <td id="rank">{{ forloop.counter }}</td>
-              <td id="name">{{ user }}</td>
-              <td id="wins">{{ user.won_games }}</td>
+              <td id="rank{{ forloop.counter }}">{{ forloop.counter }}</td>
+              <td id="pic{{ forloop.counter }}"><img src="{{ user.image.url }}"></td>
+              <td class="names" id="name{{ forloop.counter }}">{{ user }}</td>
+              <td id="wins{{ forloop.counter }}">{{ user.won_games }}</td>
             </tr>
           {% endfor %}
         </table>

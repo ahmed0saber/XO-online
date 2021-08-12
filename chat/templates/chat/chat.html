@@ -16,7 +16,7 @@
             }
             #send{
                 float: right;
-                width: 100px;
+                width: 62px;
                 height: 42px;
                 color: #000;
                 border: none;
@@ -24,20 +24,22 @@
                 font-size:22px;
                 font-family: 'Times New Roman', Times, serif;
             }
-            .fa{
+            #down{
               float: right;
               width: 50px;
               height: 50px;
-              color: #000;
               text-shadow: 0 0 2px #FFF;
               border: none;
               transition-duration: 0.7s;
-              font-size:22px;
               background: rgba(0,0,255,0.2);
               border-radius: 50%;
               position: relative;
               left: -20px;
               top: -125px;
+            }
+            .fa{
+              font-size:22px;
+              color: #000;
             }
             #loadmsgs{
               margin: 10px;
@@ -50,7 +52,7 @@
               font-family: Times New Roman;
             }
             input{
-                width: calc(100% - 110px);
+                width: calc(100% - 72px);
                 height: 40px;
                 border: none;
                 padding-left: 5px;
@@ -129,7 +131,7 @@
         </div>
         <div id="input_area">
             <input type="text" id="tx1" placeholder="Enter your message here">
-            <button id="send" onclick="_send()">Send</button>
+            <button id="send" onclick="_send()"><i class="fa fa-paper-plane"></i></button>
         </div>
         <button id="down" class="fa fa-chevron-down" onclick="_start()"></button>
       </div>
