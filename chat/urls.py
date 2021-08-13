@@ -3,5 +3,6 @@ from .views import *
 app_name = 'chat'
 
 urlpatterns = [
-    path('chat/', chat, name='chat')
+    path('', chat, name='chat'),
+    path('older/', older_messages, name='older_messages')
 ]
