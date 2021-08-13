@@ -213,8 +213,8 @@
     });
 
     // websocket handling 
-    let protocol = window.location.protocol == "https" ? "wss" : "ws"
-    let url = protocol + "://" + window.location.host + '/ws/chat/'
+    let protocol = window.location.protocol == "https:" ? "wss" : "ws"
+    let url = protocol + "//" + window.location.host + '/ws/chat/'
     
     const socket = new WebSocket(url)
     socket.onmessage = (data)=>{
