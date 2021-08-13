@@ -188,14 +188,18 @@
 
     function _send() {
         var element = document.getElementById("msg_container");
-        element.innerHTML = element.innerHTML + `
-                    <div id="user_div"><p id="user_msg">Ahmed : Test</p></div>`;
+        let message = document.getElementById("tx1").value
+        socket.send(
+            JSON.stringify({'message':message})
+        )
         document.getElementById("tx1").value = "";
-        if (scrolled) {
-            element.scrollTop = element.scrollHeight;
-        }
     }
 
+    document.getElementById("tx1").onkeypress = e => {
+        if (e.keyCode == 13){
+            _send()
+        }
+    }
 
     var element = document.getElementById("msg_container");
     element.addEventListener('scroll', function (event) {
@@ -207,6 +211,28 @@
             scrolled = false;
         }
     });
+
+    // websocket handling 
+    let protocol = window.location.protocol == "https" ? "wss" : "ws"
+    let url = protocol + "://" + window.location.host + '/ws/chat/'
+    
+    const socket = new WebSocket(url)
+    socket.onmessage = (data)=>{
+        message = JSON.parse(data.data)
+        if (data.user == "{{user.id}}"){
+            element.innerHTML +=`
+            <div id="user_div" data-id="${message.unique_id}">
+                <p id="user_msg"></p>
+            </div>`
+        }else{
+            element.innerHTML +=`
+            <div id="user_div" data-id="${message.unique_id}">
+                <p id="user_msg"></p>
+            </div>`
+        }
+        element.querySelector('div:last-child p').innerText = message.content
+        
+    }
 </script>
 
 </html>
