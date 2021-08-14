@@ -106,8 +106,9 @@
         </div>
         
         {% for user in users %}
-        <div id="row">
-          <div id="rank">
+        <a href="{% url 'accounts:view_user' user.front_id %}">
+          <div id="row">
+            <div id="rank">
             <p>{{ forloop.counter }}</p>
           </div><div id="pic">
             <img src="{{ user.image.url }}">
@@ -117,6 +118,7 @@
             <p>{{ user.won_games }}</p>
           </div>
         </div>
+      </a>
         {% endfor %}
       </div>
     </div>

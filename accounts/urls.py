@@ -10,5 +10,5 @@ urlpatterns = [
     path('profile/', profile, name='profile'),
     path('settings/', settings, name='settings'),
     path('logout/', LogoutView.as_view(next_page=conf.settings.LOGOUT_REDIRECT_URL), name='logout'),
-    path('profile/<str:id>/', view_profile, name='view_profile'),
+    path('user/<str:id>/', view_profile, name='view_user'),
 ]
