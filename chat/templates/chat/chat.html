@@ -133,11 +133,11 @@
             <button onclick="_load()" id="loadmsgs">Load previous messages</button>
             {% for message in messages %}
             {% if message.sender == user %}
-            <div id="user_div" data-id="{{ message.unique_id }}">
+            <div id="user_div" data-id="{{ message.unique_id }}" data-username="{{ message.sender }}" data-user-image="{{ message.sender.image.url }}" data-profile-url="{% url 'accounts:view_user' message.sender.front_id %}">
                 <p id="user_msg">{{ message.content }}</p>
             </div>
             {% else %}
-            <div data-id="{{ message.unique_id }}">
+            <div data-id="{{ message.unique_id }}" data-username="{{ message.sender }}" data-user-image="{{ message.sender.image.url }}" data-profile-url="{% url 'accounts:view_user' message.sender.front_id %}">
                 <p>{{ message.content }}</p>
             </div>
             {% endif %}
