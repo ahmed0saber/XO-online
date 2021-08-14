@@ -1,0 +1,86 @@
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+    <script src="https://kit.fontawesome.com/f541c9703f.js" crossorigin="anonymous"></script>
+    <title>Online Tic Tac Toe</title>
+    <style>
+      body{
+        margin: 0;
+        padding: 0;
+        width: 300px;
+        height: 407px;
+        background-color: #EEE;
+        overflow: hidden;
+      }
+      #div1{
+        margin: auto;
+        text-align: center;
+      }
+      .btns{
+        height: 50px;
+        width: 225px;
+        margin: 10px;
+        background-color: #00B;
+        color: #EEE;
+        border: 2px solid #007;
+        border-radius: 10px;
+      }
+      #profile_pic{
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        margin: 25px;
+        padding: 0px;
+        position: relative;
+        top: -78px;
+        background-color:#EEE;
+        border: 3px solid #009;
+        box-shadow: 0px 0px 5px #0009;
+      }
+      #space{
+        width: 100%;
+        height: 75px;
+      }
+      #img_div{
+        height: 128px;
+      }
+      #username{
+        font-family: Times New Roman;
+        font-size: 18px;
+        padding: 0;
+        margin: 0;
+        margin-top: 5px;
+      }
+      #user_stats{
+        text-align: left;
+        padding-left: 10px;
+      }
+      .fa{
+        font-size: 25px;
+      }
+      #inside{
+        font-size: 25px;
+        padding: 0;
+        margin: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="div1">
+      <div id="img_div">
+        <div id="space"></div>
+        <img id="profile_pic" src="{{ friend.image.url }}">
+      </div>
+      <p id="username">{{ friend }}</p>
+      <button class="btns"><p id="inside"><i class="fas fa-user-friends"></i> Play together</p></button>
+      <div id="user_stats">
+        <p>Played {{ friend.total_games }} games</p>
+        <p>win : {{ friend.won_games }}</p>
+        <p>lose : {{ friend.lost_games }}</p>
+        <p>draw : {{ friend.draw_games }}</p>
+        <p>win rate : {{ win_rate }}</p>
+      </div>
+    </div>
+  </body>
+</html>

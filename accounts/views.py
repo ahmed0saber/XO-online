@@ -1,8 +1,11 @@
 from django.shortcuts import redirect, render
 from django.contrib import messages
 from django.contrib.auth import login, authenticate
+from django.shortcuts import get_object_or_404
 from .forms import CustomUserCreationForm, CustomUserChangeForm
+from .models import CustomUser
 from accounts.decorators import *
+
 
 # Create your views here.
 @restrict_logged
@@ -53,10 +56,10 @@ def log_in(request, next):
 
 @restrict_unlogged(next='profile')
 def profile(request):
-    if request.user.total_games != 0:
-        rate = request.user.won_games / request.user.total_games
-    else:
+    if request.user.total_games == 0:
         rate = 0
+    else:
+        rate = request.user.won_games / request.user.total_games
     return render(request, 'accounts/profile.html', {'win_rate': rate})
 
 @restrict_unlogged(next='settings')
@@ -67,3 +70,11 @@ def settings(request):
             form.save()
             return redirect('accounts:profile')
     return render(request, 'accounts/settings.html')
+
+def view_profile(request, id):
+    user = get_object_or_404(CustomUser, front_id=id)
+    if request.user.total_games == 0:
+        rate = 0
+    else:
+        rate = request.user.won_games / request.user.total_games
+    return render(request, 'accounts/view_profile.html', {'friend':user, 'win_rate':rate})
