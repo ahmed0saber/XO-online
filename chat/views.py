@@ -19,5 +19,4 @@ def older_messages(request):
     latest = global_message.objects.get(unique_id=request.GET.get('id'))
     query = global_message.objects.filter(id__gt=latest.id-30, id__lt=latest.id)
     serializer = messageSerializer(query, many=True)
-    print(serializer.data)
     return Response(serializer.data)
