@@ -4,7 +4,6 @@ import json
 
 class GameConsumer(AsyncWebsocketConsumer):
 
-
     async def connect(self):
         self.room_name = 'global'
         self.room_group_name = 'global'

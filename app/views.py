@@ -14,6 +14,7 @@ def bot(request):
 def ai(request):
     return render(request, 'app/ai_bot.html')
 
+@restrict_unlogged
 def notifications(request):
     return render(request, 'app/notifications.html')
 
