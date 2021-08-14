@@ -7,7 +7,7 @@ from rest_framework import serializers
 class messageSenderSerializer(ModelSerializer):
     class Meta:
         model = CustomUser
-        fields = ['front_id', 'image', 'first_name', 'last_name']
+        fields = ['front_id', 'image', 'name']
 
 class messageSerializer(ModelSerializer):
     sender = messageSenderSerializer()

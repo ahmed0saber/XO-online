@@ -22,6 +22,10 @@ class CustomUser(AbstractUser):
     REQUIRED_FIELDS = []
     objects = Manager()
 
+    @property
+    def name(self):
+        return self.__str__()
+
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
     
