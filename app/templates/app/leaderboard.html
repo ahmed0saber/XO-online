@@ -112,6 +112,7 @@
           <p id="head2">Wins</p>
         </div>
         
+        <div>
         {% for user in users %}
         <a href="{% url 'accounts:view_user' user.front_id %}">
           <div class="row">
@@ -125,8 +126,9 @@
             <p>{{ user.won_games }}</p>
           </div>
         </div>
-      </a>
+        </a>
         {% endfor %}
+        </div>
       </div>
     </div>
   </body>
