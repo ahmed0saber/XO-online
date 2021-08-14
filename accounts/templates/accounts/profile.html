@@ -74,7 +74,7 @@
       <p id="username">{{ user }}</p>
       <a href="{% url 'accounts:logout' %}"><button class="btns"><i class="fa fa-sign-out"></i></br><p id="inside">Log out</p></button></a>
       <a href="{% url 'accounts:settings' %}"><button class="btns"><i class="fa fa-cog"></i></br><p id="inside">Edit profile</p></button></a>
-      <button class="btns"><i class="fa fa-share"></i></br><p id="inside">Share</p></button>
+      <button class="btns" onclick="copylink()"><i class="fa fa-share"></i></br><p id="inside">Share</p></button>
       <div id="user_stats">
         <p>Played {{ user.total_games }} games</p>
         <p>win : {{ user.won_games }}</p>
@@ -84,4 +84,17 @@
       </div>
     </div>
   </body>
+  <script>
+    var user_id = "{{user.front_id}}";
+          function copylink() {
+            var TempText = document.createElement("input");
+            var TextToCopy = "http://xo-online.herokuapp.com?user="+user_id;
+            TempText.value = TextToCopy;
+            document.body.appendChild(TempText);
+            TempText.select();
+            document.execCommand("copy");
+            document.body.removeChild(TempText);
+            alert("Copied the text: " + TempText.value);
+          }
+  </script>
 </html>
