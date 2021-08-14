@@ -18,72 +18,89 @@
       #leaderboard{
         overflow-y: auto;
         height: 398px;
-        padding: 5px;
+        padding: 0px;
       }
-      td{
-        border: 1px solid #117;
-        text-align: center;
-        word-break: break-all;
-        padding: 2px;
-        border-radius: 5px;
-        background-color: #D6E9FF;
+      #head{
+        width: 300px;
+        margin: auto;
+        color: #000;
+      }
+      #head1{
+        float: left;
+        padding-left: 12px;
+      }
+      #head2{
+        float: right;
+        padding-right: 12px;
+      }
+      #row{
+        width: 290px;
+        height: 66px;
+        display: flex;
+        margin: auto;
+        margin-top: 15px;
+        border: 2px solid #000;
+        border-radius: 10px;
       }
       #rank{
-        width: 50px;
-      }
-      #wins{
-        width: 70px;
-      }
-      #name{
-        width: 110px;
-      }
-      .names{
-        word-break: break-word;
-        padding: 5px;
+        width: 25px;
+        height: 50px;
+        margin: 8px;
+        text-align: center;
       }
       #pic{
+        width: 50px;
+        height: 50px;
+        margin: 8px;
+      }
+      #name{
+        width: 111px;
+        height: 50px;
+        margin: 8px;
+      }
+      #score{
         width: 40px;
+        height: 50px;
+        margin: 8px;
+        text-align: center;
       }
       img{
-        height: 38px;
-        width: 38px;
+        height: 48px;
+        width: 48px;
         border-radius: 50%;
-        border: 1px solid #007;
+        border: 1px solid black;
       }
-      .tr1{
-        color: #EEE;
-        background-color: #0000BB;
-      }
-      #rank1 , #name1 , #wins1 , #pic1{
-        background-color: #4056F1;
-      }
-      #rank2 , #name2 , #wins2 , #pic2{
-        background-color: #7086F1;
-      }
-      #rank3 , #name3 , #wins3 , #pic3{
-        background-color: #A0B6F1;
+      p{
+        margin: 0;
+        line-height: 50px;
+        font-size: 15px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
       }
     </style>
   </head>
   <body>
     <div id="div1">
       <div id="leaderboard">
-        <table>
-          <tr>
-            <td class="tr1" id="rank">Rank</td>
-            <td class="tr1" id="pic">User</td>
-            <td class="tr1" id="name">Name</td>
-            <td class="tr1" id="wins">Wins</td>
-          </tr>
-          {% for user in users %}
-            <tr>
-              <td id="rank{{ forloop.counter }}">{{ forloop.counter }}</td>
-              <td id="pic{{ forloop.counter }}"><img src="{{ user.image.url }}"></td>
-              <td class="names" id="name{{ forloop.counter }}">{{ user }}</td>
-              <td id="wins{{ forloop.counter }}">{{ user.won_games }}</td>
-            </tr>
-          {% endfor %}
-        </table>
+        <div id="head">
+          <p id="head1">Rank</p>
+          <p id="head2">Wins</p>
+        </div>
+        
+        {% for user in users %}
+        <div id="row">
+          <div id="rank">
+            <p>{{ forloop.counter }}</p>
+          </div><div id="pic">
+            <img src="{{ user.image.url }}">
+          </div><div id="name">
+            <p>{{ user }}</p>
+          </div><div id="score">
+            <p>{{ user.won_games }}</p>
+          </div>
+        </div>
+        {% endfor %}
       </div>
     </div>
   </body>
