@@ -17,6 +17,7 @@ class GlobalChatConsumer(AsyncWebsocketConsumer):
             )
 
             await self.accept()
+            
         else:
             self.close()
 

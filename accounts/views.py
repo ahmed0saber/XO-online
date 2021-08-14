@@ -24,7 +24,8 @@ def sign_up(request, next):
                     'chat':'chat:chat',
                     'settings':'accounts:settings',
                     'game':'app:game',
-                    'online':'app:online'
+                    'online':'app:online',
+                    'notifications':'app:notifications'
                 }
                 return redirect(pathes.get(next, 'app:home'))
     else:
@@ -46,7 +47,8 @@ def log_in(request, next):
                     'chat':'chat:chat',
                     'settings':'accounts:settings',
                     'game':'app:game',
-                    'online':'app:online'
+                    'online':'app:online',
+                    'notifications':'app:notifications'
                 }
             return redirect(pathes.get(next, 'app:home'))
         else:
