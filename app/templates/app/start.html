@@ -94,7 +94,8 @@
           var myUrl = new URL(url);
           var user_id = myUrl.searchParams.get("user");
           console.log(user_id);
-          $("#iframe1").attr("src","http://xo-online.herokuapp.com/accounts/user/" + user_id);
+          $("#iframe1").attr("src","https://xo-online.herokuapp.com/accounts/user/" + user_id);
+          history.pushState({}, null, "https://xo-online.herokuapp.com/");
           
           } else {
         	console.log("The word Example is not in the string.");
