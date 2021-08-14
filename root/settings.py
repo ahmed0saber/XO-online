@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'accounts',
     'chat',
     'app',
+    'game',
 ]
 
 MIDDLEWARE = [

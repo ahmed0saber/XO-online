@@ -18,7 +18,7 @@ class GlobalChatConsumer(AsyncWebsocketConsumer):
 
             await self.accept()
         else:
-            self.clos()
+            self.close()
 
 
     async def disconnect(self, close_code):

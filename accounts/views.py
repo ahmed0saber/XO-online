@@ -75,8 +75,8 @@ def view_profile(request, id):
     user = get_object_or_404(CustomUser, front_id=id)
     if user == request.user:
         return redirect('accounts:profile')
-    if request.user.total_games == 0:
+    if user.total_games == 0:
         rate = 0
     else:
-        rate = request.user.won_games / request.user.total_games
+        rate = user.won_games / user.total_games
     return render(request, 'accounts/view_profile.html', {'friend':user, 'win_rate':rate})
