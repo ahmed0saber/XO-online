@@ -219,7 +219,7 @@
     const socket = new WebSocket(url)
     socket.onmessage = (data)=>{
         message = JSON.parse(data.data)
-        if (data.sender.front_id == "{{user.front_id}}"){
+        if (message.sender.front_id == "{{user.front_id}}"){
             element.innerHTML +=`
             <div id="user_div" data-id="${message.unique_id}">
                 <p id="user_msg"></p>
