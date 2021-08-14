@@ -74,7 +74,7 @@ def settings(request):
 def view_profile(request, id):
     user = get_object_or_404(CustomUser, front_id=id)
     if user == request.user:
-        return redirect('app:home')
+        return redirect('accounts:profile')
     if request.user.total_games == 0:
         rate = 0
     else:
