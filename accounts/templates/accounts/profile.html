@@ -72,7 +72,7 @@
         <img id="profile_pic" src="{{ user.image.url }}">
       </div>
       <p id="username">{{ user }}</p>
-      <a href="{% url 'accounts:logout' %}"><button class="btns"><i class="fa fa-sign-out"></i></br><p id="inside">Log out</p></button></a>
+      <button class="btns" onclick="logout()"><i class="fa fa-sign-out"></i></br><p id="inside">Log out</p></button>
       <a href="{% url 'accounts:settings' %}"><button class="btns"><i class="fa fa-cog"></i></br><p id="inside">Edit profile</p></button></a>
       <button class="btns" onclick="copylink()"><i class="fa fa-share"></i></br><p id="inside">Share</p></button>
       <div id="user_stats">
@@ -95,6 +95,17 @@
             document.execCommand("copy");
             document.body.removeChild(TempText);
             alert("Copied the text: " + TempText.value);
+          }
+          
+          
+          function logout()
+          {
+            let isExecuted = confirm("Are you sure to log out ?!");
+            
+            if(isExecuted)
+            {
+              window.open("{% url 'accounts:logout' %}" , "_self");
+            }
           }
   </script>
 </html>
