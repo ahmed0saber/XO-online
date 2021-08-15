@@ -264,14 +264,21 @@
     socket.onmessage = (data)=>{
         message = JSON.parse(data.data)
         if (message.sender.front_id == "{{user.front_id}}"){
+          
             element.innerHTML +=`
-            <div id="user_div" data-id="${message.unique_id}">
-                <p id="user_msg">` + message.content + `</p>
+            <div class="msg" data-id="${message.unique_id}">
+                <img src="` + message.sender.image + `">
+                <p><span id="name"></span><br>` + message.content + `<br><span id="date">` + message.date_sent + `</span></p>
             </div>`
         }else{
+          /*<div class="msg">
+              <img src="{{ message.sender.image.url }}">
+              <p><span id="name">{{ message.sender }}</span><br>{{ message.content }}<br><span id="date">{{ message.date_sent }}</span></p>
+            </div>*/
             element.innerHTML +=`
-            <div id="user_div" data-id="${message.unique_id}">
-                <p id="user_msg">` + message.content + `</p>
+            <div class="msg" data-id="${message.unique_id}">
+                <img src="` + message.sender.image + `">
+                <p><span id="name">` + message.sender + `</span><br>` + message.content + `<br><span id="date">` + message.date_sent + `</span></p>
             </div>`
         }
         
