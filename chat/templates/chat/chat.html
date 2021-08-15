@@ -266,9 +266,9 @@
         if (message.sender.front_id == "{{user.front_id}}"){
           
             element.innerHTML +=`
-            <div class="msg" data-id="${message.unique_id}">
+            <div id="user_div" class="msg" data-id="${message.unique_id}">
                 <img src="` + message.sender.image + `">
-                <p><span id="name"></span><br>` + message.content + `<br><span id="date">` + message.date_sent + `</span></p>
+                <p id="user_msg">` + message.content + `<br><span id="date">` + message.date_sent + `</span></p>
             </div>`
         }else{
           /*<div class="msg">
