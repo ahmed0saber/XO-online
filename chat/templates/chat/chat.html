@@ -278,7 +278,7 @@
             element.innerHTML +=`
             <div class="msg" data-id="${message.unique_id}">
                 <img src="` + message.sender.image + `">
-                <p><span id="name">` + message.sender + `</span><br>` + message.content + `<br><span id="date">` + message.date_sent + `</span></p>
+                <p><span id="name">` + message.sender.name + `</span><br>` + message.content + `<br><span id="date">` + message.date_sent + `</span></p>
             </div>`
         }
         
