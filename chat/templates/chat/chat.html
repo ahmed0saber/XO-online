@@ -209,10 +209,10 @@
             myobj.remove();
             if (message.sender == "{{user.id}}"){
                 element.innerHTML = `<button onclick="_load()" id="loadmsgs">Load previous messages</button>` + `
-                    <div id="user_div" data-id="${message.unique_id}"><p id="user_msg">{{ message.content }}</p></div>` + element.innerHTML;
+                    <div id="user_div" data-id="${message.unique_id}"><p id="user_msg">` + message.content + `</p></div>` + element.innerHTML;
             }else{
                 element.innerHTML = `<button onclick="_load()" id="loadmsgs">Load previous messages</button>` + `
-                    <div  data-id="${message.unique_id}"><p>{{ message.content }}</p></div>` + element.innerHTML;
+                    <div  data-id="${message.unique_id}"><p>` + message.content + `</p></div>` + element.innerHTML;
             
             }
             
@@ -266,17 +266,16 @@
         if (message.sender.front_id == "{{user.front_id}}"){
             element.innerHTML +=`
             <div id="user_div" data-id="${message.unique_id}">
-                <p id="user_msg">{{ message.content }}</p>
+                <p id="user_msg">` + message.content + `</p>
             </div>`
         }else{
             element.innerHTML +=`
             <div id="user_div" data-id="${message.unique_id}">
-                <p id="user_msg">{{ message.content }}</p>
+                <p id="user_msg">` + message.content + `</p>
             </div>`
         }
         
         
     }
 </script>
-
 </html>
