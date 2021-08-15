@@ -74,27 +74,59 @@
             overflow-y: auto;
             overflow-x: hidden;
         }
-
+        
+        .msg{
+          display: flex;
+          direction: ltr;
+        }
+        
         p {
             padding: 10px;
             border-radius: 0px 10px 10px 10px;
-            margin: 10px;
+            margin: 5px 0px 5px 0px;
             background-color: #222;
             color: #EEE;
-            word-break: break-all;
-            width: auto;
+            word-break: break-word;
+            max-width: 200px;
             display: inline-block;
+            font-family: Sans-Serif;
+            font-size: 13px;
         }
 
         #user_msg {
             background-color: #33C;
             color: #FFF;
             border-radius: 10px 0px 10px 10px;
-            direction: rtl;
+            direction: ltr;
         }
 
         #user_div {
             direction: rtl;
+        }
+        
+        img{
+          height: 40px;
+          width: 40px;
+          margin: 5px;
+          border: 1px solid #000;
+          border-radius: 50%;
+        }
+        
+        #name{
+          font-size: 12px;
+          font-family: Times New Roman;
+          position: relative;
+          top: -6px;
+          left: -6px;
+          font-weight: bold;
+        }
+        #date{
+          float: right;
+          font-size: 10px;
+          font-family: Times New Roman;
+          position: relative;
+          right: -5px;
+          bottom: -5px;
         }
 
         ::-webkit-scrollbar {
@@ -133,13 +165,25 @@
             <button onclick="_load()" id="loadmsgs">Load previous messages</button>
             {% for message in messages %}
             {% if message.sender == user %}
-            <div id="user_div" data-id="{{ message.unique_id }}" data-username="{{ message.sender }}" data-user-image="{{ message.sender.image.url }}" data-profile-url="{% url 'accounts:view_user' message.sender.front_id %}">
+            <div id="user_div" class="msg">
+              <img src="{{ message.sender.image.url }}">
+              <p id="user_msg">{{ message.content }}<br><span id="date">{{ message.date_sent }}</span></p>
+            </div>
+            
+            <!--<div id="user_div" data-id="{{ message.unique_id }}" data-username="{{ message.sender }}" data-user-image="{{ message.sender.image.url }}" data-profile-url="{% url 'accounts:view_user' message.sender.front_id %}">
                 <p id="user_msg">{{ message.content }}</p>
-            </div>
+            </div>-->
+            
             {% else %}
-            <div data-id="{{ message.unique_id }}" data-username="{{ message.sender }}" data-user-image="{{ message.sender.image.url }}" data-profile-url="{% url 'accounts:view_user' message.sender.front_id %}">
-                <p>{{ message.content }}</p>
+            <div class="msg">
+              <img src="{{ message.sender.image.url }}">
+              <p><span id="name">{{ message.sender }}</span><br>{{ message.content }}<br><span id="date">{{ message.date_sent }}</span></p>
             </div>
+            
+            <!--<div data-id="{{ message.unique_id }}" data-username="{{ message.sender }}" data-user-image="{{ message.sender.image.url }}" data-profile-url="{% url 'accounts:view_user' message.sender.front_id %}">
+                <p>{{ message.content }}</p>
+            </div>-->
+            
             {% endif %}
             {% endfor %}
         </div>
