@@ -210,7 +210,7 @@
     async function _load() {
         var element = document.getElementById("msg_container");
         var dimension1 = element.scrollHeight;
-        var oldest = element.querySelector('div').dataset.id
+        var oldest = element.querySelector('div').data-id
         var messages = await fetch(`{% url 'chat:older_messages' %}?id=${oldest}`)
         messages = await messages.json()
         
