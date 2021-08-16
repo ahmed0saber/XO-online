@@ -175,7 +175,7 @@
             <button onclick="_load()" id="loadmsgs">Load previous messages</button>
             {% for message in messages %}
             {% if message.sender == user %}
-            <div id="user_div" class="msg">
+            <div id="user_div" data-id="{{ message.unique_id }}" class="msg">
               <img src="{{ message.sender.image.url }}">
               <p id="user_msg">{{ message.content }}<br><span id="date">{{ message.date_sent }}</span></p>
             </div>
@@ -185,7 +185,7 @@
             </div>-->
             
             {% else %}
-            <div class="msg">
+            <div class="msg" data-id="{{ message.unique_id }}">
               <img src="{{ message.sender.image.url }}">
               <p><span id="name">{{ message.sender }}</span><br>{{ message.content }}<br><span id="date">{{ message.date_sent }}</span></p>
             </div>
@@ -210,7 +210,7 @@
     async function _load() {
         var element = document.getElementById("msg_container");
         var dimension1 = element.scrollHeight;
-        var oldest = element.querySelector('div').data-id
+        var oldest = element.querySelector('div').dataset.id
         var messages = await fetch(`{% url 'chat:older_messages' %}?id=${oldest}`)
         messages = await messages.json()
         
