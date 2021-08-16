@@ -45,7 +45,6 @@ INSTALLED_APPS = [
     'channels',
     'channels_redis',
     'channels_presence',
-    'django_celery_beat',
     'accounts',
     'chat',
     'app',
@@ -95,25 +94,8 @@ CHANNEL_LAYERS = {
 
 CHANNELS_PRESENCE_MAX_AGE = 15
 
-from datetime import timedelta
 
-CELERY_BROKER_URL = os.environ.get('REDIS_URL', 'redis://127.0.0.1:6379')
 
-CELERY_BEAT_SCHEDULE = {
-    'prune-presence': {
-        'task': 'channels_presence.tasks.prune_presences',
-        'schedule': timedelta(seconds=15)
-    },
-    'prune-rooms': {
-        'task': 'channels_presence.tasks.prune_rooms',
-        'schedule': timedelta(seconds=120)
-    },
-    'shit-task':{
-        'task': 'shit',
-        'schedule': timedelta(seconds=2)
-    
-    }
-}
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 

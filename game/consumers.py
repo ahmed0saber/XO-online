@@ -1,81 +1,108 @@
-from channels.generic.websocket import AsyncWebsocketConsumer
-from channels.db import database_sync_to_async
-from channels_presence.models import Room
-from channels_presence.decorators import remove_presence, touch_presence
+from asgiref.sync import async_to_sync
+from channels.generic.websocket import WebsocketConsumer
+
+from channels_presence.models import Room, Presence
+from channels_presence.signals import presence_changed
 import json
 import string 
 import random
 
 
-class GameConsumer(AsyncWebsocketConsumer):
+class GameConsumer(WebsocketConsumer):
 
-    @database_sync_to_async
-    def get_presences_count(self):
-        try:
-            return Room.objects.get(channel_name=self.room_group_name).presence_set.count()
-        except:
-            return 0
-
-
-    @database_sync_to_async
-    def add_to_group(self):
-        Room.objects.add(self.room_group_name, self.channel_name, self.scope['user'])
-
-
-    async def connect(self):
+    def connect(self):
         self.room_name = self.scope['url_route']['kwargs']['room']
+        self.room_group_name = 'game_' + self.room_name
+        self.accept()
+
         if self.room_name == 'create':
             all = string.digits + string.ascii_letters
             name = random.choices(all, k=6)
             self.room_name = "".join(name)
+            self.room_group_name = 'game_' + self.room_name
+            self.send(json.dumps({
+                'type':'created',
+                'room':self.room_name
+            }))
 
-
-        self.room_group_name = 'game_' + self.room_name
-        connected_count =  await self.get_presences_count()
-        if connected_count > 1:
-            await self.accept()
-            await self.send(text_data=json.dumps({
-                'type':'error',
-                'error': 'this room is already full try to connect to different room'
-                }))
-            await self.close()
-            return
+            connected_count = 0
+        else:
+            try:
+                connected_count = Room.objects.get(channel_name=self.room_group_name).presence_set.count()
+            except:
+                self.send(json.dumps({
+                    'type':'error',
+                    'code':'404',
+                    'error': 'this room doesn\'t exist please make sure you typed the code right'
+                    }))
+                self.close()
+                return
+            else:
+                if connected_count > 1:
+                    self.send(text_data=json.dumps({
+                    'type':'error',
+                    'code':'420',
+                    'error': 'this room is already full try to connect to different room'
+                    }))
+                    self.close()
+                    return
+        
         if self.scope['user'].is_authenticated:
-            await self.channel_layer.group_add(
-                self.room_group_name,
-                self.channel_name
+            async_to_sync(self.channel_layer.group_add)(
+            self.room_group_name,
+            self.channel_name
             )
-            await self.accept()
-            print(connected_count)
-            await self.add_to_group()
+            Room.objects.add(self.room_group_name, self.channel_name, self.scope['user'])
+
             if connected_count == 1:
-                await self.channel_layer.group_send(
+                async_to_sync(self.channel_layer.group_send)(
                     self.room_group_name,
                     {
-                        'type':'user_joined'
+                        'type':'room_completed',
                     }
                 )
         else:
-            await self.close()
+            self.close()
 
-    @remove_presence
-    async def disconnect(self, close_code):
-        # Leave room group
-        await self.channel_layer.group_send(
-            self.room_group_name,
-            {
-                'type':'user_left'
-            }
-        )
-        await self.channel_layer.group_discard(
-            self.room_group_name,
-            self.channel_name
-        )
     
-    @touch_presence
-    async def receive(self, text_data):
+    def disconnect(self, close_code):
+        # Leave room group
+        try:
+            player = Room.objects.get(channel_name=self.room_group_name).presence_set.filter(channel_name=self.channel_name)
+            if player.exists():
+                async_to_sync(self.channel_layer.group_send)(
+                    self.room_group_name,
+                    {
+                        'type':'error',
+                        'code':'430',
+                        'error':'user left the room. waiting for another user to join'
+                    }
+                )
+                async_to_sync(self.channel_layer.group_discard)(
+                    self.room_group_name,
+                    self.channel_name
+                )
+                print('this is disconnecting')
+                Room.objects.remove(self.room_group_name, self.channel_name)
+        except:
+            pass
+        Room.objects.prune_presences()
+        Room.objects.prune_rooms()
+    
+    
+    def receive(self, text_data):
+        player = Room.objects.get(channel_name=self.room_group_name).presence_set.filter(channel_name=self.channel_name)
+        if not player.exists():
+            self.send(json.dumps({
+                'type':'error',
+                'code':'408',
+                'error':'Time out! You have to play in 15 seconds'
+                }))
+            self.close()
+            return
+
         text_data = json.loads(text_data)
-        await self.channel_layer.group_send(
+        async_to_sync(self.channel_layer.group_send)(
             self.room_group_name,
             {
                 'type':'game_play',
@@ -83,14 +110,15 @@ class GameConsumer(AsyncWebsocketConsumer):
                 'move':text_data['move']
             }
         )
-    
+        Presence.objects.touch(self.channel_name)
 
     
-    async def game_play(self, event):
-        await self.send(text_data=json.dumps(event))
+    def game_play(self, event):
+        self.send(text_data=json.dumps(event))
     
-    async def user_left(self, event):
-        await self.send(json.dumps(event))
-    
-    async def user_joined(self, event):
-        await self.send(json.dumps(event))
+
+    def error(self, event):
+        self.send(json.dumps(event))
+
+    def room_completed(self, event):
+        self.send(json.dumps(event))
