@@ -117,7 +117,9 @@
           border: 1px solid #000;
           border-radius: 50%;
         }
-        
+        #user_img{
+          border: 1px solid #33C;
+        }
         #name{
           font-size: 12px;
           font-family: Times New Roman;
@@ -129,6 +131,11 @@
           background-color: #7779;
           border-radius: 5px;
           color: #FFF;
+        }
+        a{
+          text-decoration: none;
+          color: #FFF;
+          -webkit-tap-highlight-color: rgba(0,0,0,0);
         }
         #date{
           float: right;
@@ -166,6 +173,13 @@
         #input_area {
             border-top: 2px solid #33F;
         }
+        #nomore{
+          color: #000;
+          font-size: 14px;
+          font-family: Times New Roman;
+          background: transparent;
+          text-align: center;
+        }
     </style>
 </head>
 
@@ -176,7 +190,7 @@
             {% for message in messages %}
             {% if message.sender == user %}
             <div id="user_div" data-id="{{ message.unique_id }}" class="msg">
-              <img src="{{ message.sender.image.url }}">
+              <a href="{% url 'accounts:view_user' message.sender.front_id %}"><img id="user_img" src="{{ message.sender.image.url }}"></a>
               <p id="user_msg">{{ message.content }}<br><span id="date">{{ message.date_sent }}</span></p>
             </div>
             
@@ -186,8 +200,8 @@
             
             {% else %}
             <div class="msg" data-id="{{ message.unique_id }}">
-              <img src="{{ message.sender.image.url }}">
-              <p><span id="name">{{ message.sender }}</span><br>{{ message.content }}<br><span id="date">{{ message.date_sent }}</span></p>
+              <a href="{% url 'accounts:view_user' message.sender.front_id %}"><img src="{{ message.sender.image.url }}"></a>
+              <p><a href="{% url 'accounts:view_user' message.sender.front_id %}"><span id="name">{{ message.sender }}</span></a><br>{{ message.content }}<br><span id="date">{{ message.date_sent }}</span></p>
             </div>
             
             <!--<div data-id="{{ message.unique_id }}" data-username="{{ message.sender }}" data-user-image="{{ message.sender.image.url }}" data-profile-url="{% url 'accounts:view_user' message.sender.front_id %}">
@@ -213,25 +227,30 @@
         var oldest = element.querySelector('div').dataset.id
         var messages = await fetch(`{% url 'chat:older_messages' %}?id=${oldest}`)
         messages = await messages.json()
-        
+        var inner1 = element.innerHTML;
         for (message of messages) {
             var myobj = document.getElementById("loadmsgs");
             myobj.remove();
             if (message.sender.front_id == "{{user.front_id}}"){
                 element.innerHTML = `<button onclick="_load()" id="loadmsgs">Load previous messages</button>` + `
                     <div id="user_div" class="msg" data-id="${message.unique_id}">
-                <img src="` + message.sender.image + `">
+                <a href="https://xo-online.herokuapp.com/accounts/user/` + message.sender.front_id + `"><img id="user_img" src="` + message.sender.image + `"></a>
                 <p id="user_msg">` + message.content + `<br><span id="date">` + message.date_sent + `</span></p>
             </div>` + element.innerHTML;
             }else{
                 element.innerHTML = `<button onclick="_load()" id="loadmsgs">Load previous messages</button>` + `
                     <div class="msg" data-id="${message.unique_id}">
-                <img src="` + message.sender.image + `">
-                <p><span id="name">` + message.sender.name + `</span><br>` + message.content + `<br><span id="date">` + message.date_sent + `</span></p>
+                <a href="https://xo-online.herokuapp.com/accounts/user/` + message.sender.front_id + `"><img src="` + message.sender.image + `"></a>
+                <p><a href="https://xo-online.herokuapp.com/accounts/user/` + message.sender.front_id + `"><span id="name">` + message.sender.name + `</span></a><br>` + message.content + `<br><span id="date">` + message.date_sent + `</span></p>
             </div>` + element.innerHTML;
-            
             }
             
+        }
+        if(element.innerHTML == inner1)
+        {
+          var myobj = document.getElementById("loadmsgs");
+          myobj.remove();
+          element.innerHTML = `<p id="nomore">No more previous messages</p>` + element.innerHTML ;
         }
         var dimension2 = element.scrollHeight;
         element.scrollTop = dimension2 - dimension1;
@@ -283,7 +302,7 @@
           
             element.innerHTML +=`
             <div id="user_div" class="msg" data-id="${message.unique_id}">
-                <img src="` + message.sender.image + `">
+                <a href="https://xo-online.herokuapp.com/accounts/user/` + message.sender.front_id + `"><img id="user_img" src="` + message.sender.image + `"></a>
                 <p id="user_msg">` + message.content + `<br><span id="date">` + message.date_sent + `</span></p>
             </div>`
         }else{
@@ -293,12 +312,10 @@
             </div>*/
             element.innerHTML +=`
             <div class="msg" data-id="${message.unique_id}">
-                <img src="` + message.sender.image + `">
-                <p><span id="name">` + message.sender.name + `</span><br>` + message.content + `<br><span id="date">` + message.date_sent + `</span></p>
+                <a href="https://xo-online.herokuapp.com/accounts/user/` + message.sender.front_id + `"><img src="` + message.sender.image + `"></a>
+                <p><a href="https://xo-online.herokuapp.com/accounts/user/` + message.sender.front_id + `"><span id="name">` + message.sender.name + `</span></a><br>` + message.content + `<br><span id="date">` + message.date_sent + `</span></p>
             </div>`
         }
-        
-        
     }
 </script>
 </html>
