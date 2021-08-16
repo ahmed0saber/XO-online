@@ -13,4 +13,5 @@ urlpatterns = [
     path('notifications/', notifications, name='notifications'),
     path('game/', game, name='game'),
     path('about/', about, name='about'),
+    path('new_game/', new_game, name='new_game'),
 ]

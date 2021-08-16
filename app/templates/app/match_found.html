@@ -90,7 +90,7 @@
 <body>
   <div id="div1">
     <div id="header">
-      <a href="{% url 'app:home' %}"><button id="back"><i class="fa fa-arrow-left"></i></button></a>
+      <a href="{% url 'app:new_game' %}"><button id="back"><i class="fa fa-arrow-left"></i></button></a>
     </div>
     <p id="des">Player X's turn</p>
     <table align="center">
@@ -115,20 +115,27 @@
   </div>
   <script>
     let protocol = window.location.protocol == 'https:' ? 'wss:' : 'ws:'
-    let url = protocol + '//' + window.location.host + '/ws/game/ahmedy/'
+    let search = window.location.search
+    let room = search.slice(search.indexOf('=')+1)
+    let url = protocol + '//' + window.location.host + `/ws/game/${room}/`
     function start_socket(time){
       let socket = new WebSocket(url)
-
       socket.onopen = e => {
         console.log(e);
       }
 
 
       socket.onmessage = e => {
-        let game_play = e.data
-        game_play = JSON.parse(game_play)
-        buttons[game_play.move].disabled = true
-        buttons[game_play.move].value = game_play.player
+        let data =  JSON.parse(e.data)
+        if (data.type == "game_play"){
+
+          buttons[data.move].disabled = true
+          buttons[data.move].value = data.player
+        }else if (data.type == "user_left"){
+          console.log('the other user left the room waiting for new connections')
+        }else if (data.type == "user_joined"){
+          console.log('the user joined the room you can play now');
+        }
       }
       
       socket.onerror = e => {
@@ -146,7 +153,6 @@
       let buttons =  document.querySelectorAll('.button')
       buttons.forEach( button => {
         button.onclick = e => {
-          console.log(e.target.dataset.index);
           socket.send(
             JSON.stringify({
               'player':'x',

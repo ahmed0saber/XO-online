@@ -25,7 +25,8 @@ def sign_up(request, next):
                     'settings':'accounts:settings',
                     'game':'app:game',
                     'online':'app:online',
-                    'notifications':'app:notifications'
+                    'notifications':'app:notifications',
+                    'new_game':'app:new_game',
                 }
                 return redirect(pathes.get(next, 'app:home'))
     else:
@@ -48,7 +49,8 @@ def log_in(request, next):
                     'settings':'accounts:settings',
                     'game':'app:game',
                     'online':'app:online',
-                    'notifications':'app:notifications'
+                    'notifications':'app:notifications',
+                    'new_game':'app:new_game',
                 }
             return redirect(pathes.get(next, 'app:home'))
         else:

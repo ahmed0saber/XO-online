@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>online Tic Tac Toe</title>
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+            width: 300px;
+            height: 407px;
+            background-color: #EEE;
+            overflow: hidden;
+        }
+        #div1{
+            margin: auto;
+            text-align: center;
+        }
+        .ps{
+          font-size: 15px;
+          font-family: Times New Roman;
+        }
+        .btns{
+          height: 30px;
+          width: 200px;
+          margin: 5px;
+          font-size: 16px;
+        }
+        .inputs{
+          height: 30px;
+          width: 190px;
+          margin: 5px;
+          padding-left: 5px;
+          font-size: 16px;
+        }
+    </style>
+  </head>
+  <body>
+    <div id="div1">
+      <p class="ps">Play an auto matching random game</p>
+      <a href=""><button class="btns">Search for a match</button></a>
+      
+      <hr><p class="ps">Play a custom game</p>
+      <a href="{% url 'app:game' %}?room=create"><button class="btns">Create room</button></a>
+      <p class="ps">-or-</p>
+      <input type="text" placeholder="Room code" class="inputs">
+      <a id='join' href=""><button class="btns">Join room</button></a>
+    </div>
+    <script>
+        document.querySelector('input').onkeyup= (e)=>{
+          if (e.keyCode == 13){
+            document.getElementById('join').click()
+        }
+            document.getElementById('join').href = `{% url 'app:game' %}?room=${e.target.value}`
+        }
+    </script>
+</body>
+</html>
