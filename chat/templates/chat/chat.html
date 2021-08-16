@@ -173,6 +173,11 @@
         #input_area {
             border-top: 2px solid #33F;
         }
+        #nomore{
+          color: #000;
+          font-size: 14px;
+          font-family: Times New Roman;
+        }
     </style>
 </head>
 
@@ -243,6 +248,7 @@
         {
           var myobj = document.getElementById("loadmsgs");
           myobj.remove();
+          element.innerHTML = `<p id="nomore">No more previous messages</p>` + element.innerHTML ;
         }
         var dimension2 = element.scrollHeight;
         element.scrollTop = dimension2 - dimension1;
