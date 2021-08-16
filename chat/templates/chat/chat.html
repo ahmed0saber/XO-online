@@ -230,12 +230,12 @@
                 <img src="` + message.sender.image + `">
                 <p><span id="name">` + message.sender.name + `</span><br>` + message.content + `<br><span id="date">` + message.date_sent + `</span></p>
             </div>` + element.innerHTML;
+            }
             
-            }
-            if(element.innerHTML == inner1)
-            {
-              myobj.remove();
-            }
+        }
+        if(element.innerHTML == inner1)
+        {
+          myobj.remove();
         }
         var dimension2 = element.scrollHeight;
         element.scrollTop = dimension2 - dimension1;
