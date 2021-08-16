@@ -31,6 +31,10 @@
 			text-align: left;
 		}
 
+		#header span{
+			color:#000
+		}
+
 		.fa {
 			font-size: 25px;
 			color: #117;
@@ -91,7 +95,7 @@
 	<div id="div1">
 		<div id="header">
 			<a href="{% url 'app:new_game' %}"><button id="back"><i class="fa fa-arrow-left"></i></button></a>
-			<p></p>
+			<span></span>
 		</div>
 		<p id="des">Player X's turn</p>
 		<table align="center">
@@ -135,7 +139,7 @@
 				} else if (data.type == 'created') {
 					char = 'x'
 					console.log('room created successfully');
-					document.querySelector('#header p').innerText = `Room: ${data.room}`
+					document.querySelector('#header span').innerText = `Room: ${data.room}`
 					console.log(data.room);
 				} else if (data.type == "error") {
 					console.log('error occured')
