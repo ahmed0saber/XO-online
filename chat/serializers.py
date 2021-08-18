@@ -11,6 +11,7 @@ class messageSenderSerializer(ModelSerializer):
 
 class messageSerializer(ModelSerializer):
     sender = messageSenderSerializer()
+    date_sent = serializers.DateTimeField(format="%b. %d, %Y, %H:%M %p")
     
     class Meta:
         model = global_message
