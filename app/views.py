@@ -29,7 +29,7 @@ def local(request):
 def online(request):
     return render(request, 'app/online.html')
 
-@restrict_unlogged(next='new_game')
+
 def new_game(request):
     return render(request, 'app/new_game.html')
 
