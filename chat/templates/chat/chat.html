@@ -200,7 +200,7 @@
             {% else %}
             <div class="msg" data-id="{{ message.unique_id }}">
               <a href="{% url 'accounts:view_user' message.sender.front_id %}"><img src="{{ message.sender.image.url }}"></a>
-              <p><a href="{% url 'accounts:view_user' message.sender.front_id %}"><span id="name">{{ message.sender }}</span></a><br>{{ message.content }}<br><span id="date">{{ message.date_sent }}</span></p>
+              <p><a href="{% url 'accounts:view_user' message.sender.front_id %}"><span id="name">{{ message.sender }}</span></a><br>{{ message.content }}<br><span id="date">{{ message.date_sent|date:'M. j, Y, g:i A' }}</span></p>
             </div>
             
             <!--<div data-id="{{ message.unique_id }}" data-username="{{ message.sender }}" data-user-image="{{ message.sender.image.url }}" data-profile-url="{% url 'accounts:view_user' message.sender.front_id %}">
