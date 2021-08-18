@@ -191,9 +191,8 @@
             {% if message.sender == user %}
             <div id="user_div" data-id="{{ message.unique_id }}" class="msg">
               <a href="{% url 'accounts:view_user' message.sender.front_id %}"><img id="user_img" src="{{ message.sender.image.url }}"></a>
-              <p id="user_msg">{{ message.content }}<br><span id="date">{{ message.date_sent }}</span></p>
+              <p id="user_msg">{{ message.content }}<br><span id="date">{{ message.date_sent|date:'M. j, Y, g:i A' }}</span></p>
             </div>
-            
             <!--<div id="user_div" data-id="{{ message.unique_id }}" data-username="{{ message.sender }}" data-user-image="{{ message.sender.image.url }}" data-profile-url="{% url 'accounts:view_user' message.sender.front_id %}">
                 <p id="user_msg">{{ message.content }}</p>
             </div>-->
