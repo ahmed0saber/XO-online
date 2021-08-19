@@ -47,22 +47,20 @@ class GameConsumer(WebsocketConsumer):
                     self.close()
                     return
         
-        if self.scope['user'].is_authenticated:
-            async_to_sync(self.channel_layer.group_add)(
-            self.room_group_name,
-            self.channel_name
-            )
-            Room.objects.add(self.room_group_name, self.channel_name, self.scope['user'])
+        async_to_sync(self.channel_layer.group_add)(
+        self.room_group_name,
+        self.channel_name
+        )
+        Room.objects.add(self.room_group_name, self.channel_name, self.scope['user'])
 
-            if connected_count == 1:
-                async_to_sync(self.channel_layer.group_send)(
-                    self.room_group_name,
-                    {
-                        'type':'room_completed',
-                    }
-                )
-        else:
-            self.close()
+        if connected_count == 1:
+            async_to_sync(self.channel_layer.group_send)(
+                self.room_group_name,
+                {
+                    'type':'room_completed',
+                }
+            )
+        
 
     
     def disconnect(self, close_code):

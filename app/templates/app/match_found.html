@@ -97,22 +97,22 @@
 			<a href="{% url 'app:new_game' %}"><button id="back"><i class="fa fa-arrow-left"></i></button></a>
 			<span></span>
 		</div>
-		<p id="des">Player X's turn</p>
+		<p id="des"></p>
 		<table align="center">
 			<tr>
-				<td><input type="button" value="" data-index='0' class='button' /></td>
-				<td><input type="button" value="" data-index='1' class='button' /></td>
-				<td><input type="button" value="" data-index='2' class='button' /></td>
+				<td><input type="button" disabled value="" data-index='0' class='button' /></td>
+				<td><input type="button" disabled value="" data-index='1' class='button' /></td>
+				<td><input type="button" disabled value="" data-index='2' class='button' /></td>
 			</tr>
 			<tr>
-				<td><input type="button" value="" data-index='3' class='button' /></td>
-				<td><input type="button" value="" data-index='4' class='button' /></td>
-				<td><input type="button" value="" data-index='5' class='button' /></td>
+				<td><input type="button" disabled value="" data-index='3' class='button' /></td>
+				<td><input type="button" disabled value="" data-index='4' class='button' /></td>
+				<td><input type="button" disabled value="" data-index='5' class='button' /></td>
 			</tr>
 			<tr>
-				<td><input type="button" value="" data-index='6' class='button' /></td>
-				<td><input type="button" value="" data-index='7' class='button' /></td>
-				<td><input type="button" value="" data-index='8' class='button' /></td>
+				<td><input type="button" disabled value="" data-index='6' class='button' /></td>
+				<td><input type="button" disabled value="" data-index='7' class='button' /></td>
+				<td><input type="button" disabled value="" data-index='8' class='button' /></td>
 			</tr>
 		</table>
 		<button onclick="restart()" class="btns">Restart</button>
@@ -124,6 +124,7 @@
 		let room = search.slice(search.indexOf('=') + 1)
 		let url = protocol + '//' + window.location.host + `/ws/game/${room}/`
 		let char = 'o'
+		let turn = 'x'
 		function start_socket(time) {
 			let socket = new WebSocket(url)
 			socket.onopen = e => {
@@ -136,11 +137,26 @@
 				if (data.type == "game_play") {
 					buttons[data.move].disabled = true
 					buttons[data.move].value = data.player
+					turn = data.player == 'x' ? 'o' : 'x'
+					document.getElementById('des').innerText = `Player ${turn}'s turn`
+					if (turn == char){
+						buttons.forEach( element => {
+							if (element.value == ""){
+								element.disabled = false
+							}
+						})
+					}else{
+						buttons.forEach( element => { element.disabled = true })
+					}
 				} else if (data.type == 'created') {
 					char = 'x'
 					console.log('room created successfully');
 					document.querySelector('#header span').innerText = `Room: ${data.room}`
-					console.log(data.room);
+					document.getElementById('des').innerText = 'Waiting for other player to join'
+				}else if (data.type == "room_completed"){
+					document.getElementById('des').innerText = 'Player X\'s turn'
+					buttons.forEach(element => element.disabled = false)
+				
 				} else if (data.type == "error") {
 					console.log('error occured')
 					console.log(data.error)

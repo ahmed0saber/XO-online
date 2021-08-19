@@ -34,7 +34,6 @@ def new_game(request):
     return render(request, 'app/new_game.html')
 
 
-@restrict_unlogged(next='game')
 def game(request):
     return render(request, 'app/match_found.html')
 
