@@ -233,14 +233,14 @@
             if (message.sender.front_id == "{{user.front_id}}"){
                 element.innerHTML = `<button onclick="_load()" id="loadmsgs">Load previous messages</button>` + `
                     <div id="user_div" class="msg" data-id="${message.unique_id}">
-                <a href="https://xo-online.herokuapp.com/accounts/user/` + message.sender.front_id + `"><img id="user_img" src="` + message.sender.image + `"></a>
+                <a href="${message.sender.profile_url}"><img id="user_img" src="` + message.sender.image + `"></a>
                 <p id="user_msg">` + message.content + `<br><span id="date">` + message.date_sent + `</span></p>
             </div>` + element.innerHTML;
             }else{
                 element.innerHTML = `<button onclick="_load()" id="loadmsgs">Load previous messages</button>` + `
                     <div class="msg" data-id="${message.unique_id}">
-                <a href="https://xo-online.herokuapp.com/accounts/user/` + message.sender.front_id + `"><img src="` + message.sender.image + `"></a>
-                <p><a href="https://xo-online.herokuapp.com/accounts/user/` + message.sender.front_id + `"><span id="name">` + message.sender.name + `</span></a><br>` + message.content + `<br><span id="date">` + message.date_sent + `</span></p>
+                <a href="${message.sender.profile_url}"><img src="` + message.sender.image + `"></a>
+                <p><a href="${message.sender.profile_url}"><span id="name">` + message.sender.name + `</span></a><br>` + message.content + `<br><span id="date">` + message.date_sent + `</span></p>
             </div>` + element.innerHTML;
             }
             
@@ -301,7 +301,7 @@
           
             element.innerHTML +=`
             <div id="user_div" class="msg" data-id="${message.unique_id}">
-                <a href="https://xo-online.herokuapp.com/accounts/user/` + message.sender.front_id + `"><img id="user_img" src="` + message.sender.image + `"></a>
+                <a href="${message.sender.profile_url}"><img id="user_img" src="` + message.sender.image + `"></a>
                 <p id="user_msg">` + message.content + `<br><span id="date">` + message.date_sent + `</span></p>
             </div>`
         }else{
@@ -311,8 +311,8 @@
             </div>*/
             element.innerHTML +=`
             <div class="msg" data-id="${message.unique_id}">
-                <a href="https://xo-online.herokuapp.com/accounts/user/` + message.sender.front_id + `"><img src="` + message.sender.image + `"></a>
-                <p><a href="https://xo-online.herokuapp.com/accounts/user/` + message.sender.front_id + `"><span id="name">` + message.sender.name + `</span></a><br>` + message.content + `<br><span id="date">` + message.date_sent + `</span></p>
+                <a href="${message.sender.profile_url}"><img src="` + message.sender.image + `"></a>
+                <p><a href="${message.sender.profile_url}"><span id="name">` + message.sender.name + `</span></a><br>` + message.content + `<br><span id="date">` + message.date_sent + `</span></p>
             </div>`
         }
     }

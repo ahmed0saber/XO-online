@@ -1,4 +1,7 @@
+from typing import List
+from django.db import models
 from django.shortcuts import render
+from django.views.generic import ListView
 from rest_framework import serializers
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -10,9 +13,15 @@ from .models import global_message
 @restrict_unlogged(next='chat')
 def chat(request):
     count = global_message.objects.count()
-    messages = global_message.objects.filter(id__gt=count-30).order_by('date_sent')
-    context =  {'messages':messages, 'self':request.user}
+    messages = global_message.objects.filter(id__gt=count-30)
+    context =  {'messages':messages}
     return render(request, 'chat/chat.html', context)
+
+class ChatView(ListView):
+    model = global_message
+    template_name = 'chat/chat.html'
+    context_object_name = 'messages'
+
 
 @api_view(['GET'])
 def older_messages(request):

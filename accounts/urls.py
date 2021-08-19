@@ -1,3 +1,4 @@
+from django.urls.conf import include
 from accounts.views import *
 from django.urls import path
 from django.contrib.auth.views import LogoutView
@@ -11,4 +12,5 @@ urlpatterns = [
     path('settings/', settings, name='settings'),
     path('logout/', LogoutView.as_view(next_page=conf.settings.LOGOUT_REDIRECT_URL), name='logout'),
     path('user/<str:id>/', view_profile, name='view_user'),
+    path('api/', include('accounts.api_urls', namespace='api'))
 ]
