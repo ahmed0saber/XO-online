@@ -221,6 +221,13 @@
 <script>
     var element = document.getElementById("msg_container");
     element.scrollTop = element.scrollHeight;
+
+    function _start()
+    {
+      var element = document.getElementById("msg_container");
+      element.scrollTop = element.scrollHeight;
+    }
+
     var scrolled = true;
     async function _load() {
         var element = document.getElementById("msg_container");
