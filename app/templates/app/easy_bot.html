@@ -36,21 +36,28 @@
         width: 100px;
         margin: 23px;
         font-size:75px;
-        color: #007;
-        border: 2px solid #0077;
+        color: #EEE;
+        border: 2px solid #007;
+        background-color: #00B;
         font-family: sans-serif;
         transition-duration: 0.3s;
       }
       .pickbtns:hover{
         background-color: #88E;
       }
+      p{
+        margin-top: 15px;
+        padding: 0px;
+        font-size:22px;
+        font-family: 'Times New Roman', Times, serif;
+      }
       #info , #info2{
         font-size: 18px;
         font-family: sans-serif;
-        color: #007;
+        color: #000;
       }
       #info2{
-        color: #005B;
+        color: #333;
         font-size: 16px;
       }
       #pickox{
@@ -70,6 +77,25 @@
         border: 1px solid #000;
         border-radius:10px;
       }
+      table{
+        margin-top: -10px;
+      }
+      input{
+        width: 75px;
+        height: 75px;
+        font-size:55px;
+        color: #007;
+        border: 2px solid #0077;
+        font-family: sans-serif;
+        transition-duration: 0.3s;
+      }
+      input:hover{
+        background-color: #88E;
+      }
+      input:disabled,
+      input[disabled]{
+        background-color: #BBF;
+      }
     </style>
   </head>
   <body>
@@ -84,6 +110,23 @@
       </div>
       <div id="play">
         <p id="picked">000</p>
+        <table align="center">
+          <tr>
+            <td><input type="button" value="" onclick="done('0')" id="b0"/></td>
+            <td><input type="button" value="" onclick="done('1')" id="b1"/></td>
+            <td><input type="button" value="" onclick="done('2')" id="b2"/></td>
+          </tr>
+          <tr>
+            <td><input type="button" value="" onclick="done('3')" id="b3"/></td>
+            <td><input type="button" value="" onclick="done('4')" id="b4"/></td>
+            <td><input type="button" value="" onclick="done('5')" id="b5"/></td>
+          </tr>
+          <tr>
+            <td><input type="button" value="" onclick="done('6')" id="b6"/></td>
+            <td><input type="button" value="" onclick="done('7')" id="b7"/></td>
+            <td><input type="button" value="" onclick="done('8')" id="b8"/></td>
+          </tr>
+        </table>
         <button onclick="restart()" class="btns">Restart</button>
       </div>
     </div>
