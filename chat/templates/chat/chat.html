@@ -183,7 +183,7 @@
     </style>
 </head>
 
-<body onload="_start()">
+<body>
     <div id="div1">
         <div id="msg_container">
             <button onclick="_load()" id="loadmsgs">Load previous messages</button>
@@ -219,6 +219,8 @@
 </body>
 
 <script>
+    var element = document.getElementById("msg_container");
+    element.scrollTop = element.scrollHeight;
     var scrolled = true;
     async function _load() {
         var element = document.getElementById("msg_container");
@@ -253,15 +255,7 @@
         }
         var dimension2 = element.scrollHeight;
         element.scrollTop = dimension2 - dimension1;
-    }
-
-
-
-    function _start() {
-        var element = document.getElementById("msg_container");
-        element.scrollTop = element.scrollHeight;
-    }
-
+      }
 
 
     function _send() {
