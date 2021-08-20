@@ -33,7 +33,6 @@
       }
       table{
         margin-top: -10px;
-        
       }
       input{
         width: 75px;
@@ -102,7 +101,10 @@
   </body>
   <script>
     var turn=0 , board=[];
-    
+    for(var i=0;i<9;i++)
+    {
+      board[i]='';
+    }
 
     function done(x){
       var my_element = document.getElementById('b'+x) ;
@@ -121,6 +123,7 @@
             text.innerHTML="Player X's turn";
             board[x]='O';
         }
+        
         if(check_win(board[x]))
         {
             
@@ -129,6 +132,10 @@
             {
                 document.getElementById('b'+i).disabled=true;
             }
+        }
+        else if(check_draw())
+        {
+          document.getElementById('des').innerHTML='draw';
         }
     }
 
@@ -159,6 +166,17 @@
         }
     }
 
+    function check_draw()
+    {
+      for(var i=0;i<9;i++)
+      {
+        if(board[i]=='')
+        {
+          return false;
+        }
+      }
+      return true;
+    }
 
     function restart()
     {
