@@ -96,6 +96,9 @@
       input[disabled]{
         background-color: #BBF;
       }
+      .btns:hover , .pickbtns:hover{
+        background-color: #00B;
+      }
     </style>
   </head>
   <body>
@@ -132,18 +135,157 @@
     </div>
   </body>
   <script>
+  /*Math.floor(Math.random() * 9)*/
+  
     var picked;
+    var b;
+    var turn=0 , board=[];
+    for(var i=0;i<9;i++)
+    {
+      board[i]='';
+    }
+    
     function pickit(a)
     {
       picked = a;
+      if(picked=='X')
+      {
+        b='O';
+      }
+      else{
+        b='X';
+        turn=1;
+        done(auto());
+      }
       document.getElementById("pickxo").style.display = 'none';
       document.getElementById("play").style.display = 'block';
       document.getElementById("picked").innerHTML = 'You picked ' + picked ;
     }
+    
+    
+    
+    
+    
+    
+    
+    
+
+    function done(x){
+      console.log(x);
+      var my_element = document.getElementById('b'+x) ;
+      var text = document.getElementById('picked') ;
+        if(turn==0){
+          var my_element = document.getElementById('b'+x) ;
+            my_element.disabled=true;
+            console.log("you played");
+            turn=1;
+            my_element.value=picked;
+            board[x]=picked;
+            for(var i=0;i<=8;i++)
+            {
+                document.getElementById('b'+i).disabled=true;
+            }
+        }
+        else if(turn==1)
+        {
+          var my_element = document.getElementById('b'+x) ;
+            my_element.disabled=true;
+            console.log("bot played");
+            turn=0;
+            my_element.value=b;
+            board[x]=b;
+            for(var i=0;i<=8;i++)
+            {
+              if(board[i]=='')
+              {
+                document.getElementById('b'+i).disabled=false;
+              }
+            }
+        }
+        
+        if(check_win(board[x]))
+        {
+            
+            document.getElementById('picked').innerHTML=board[x]+' wins';
+            for(var i=0;i<=8;i++)
+            {
+                document.getElementById('b'+i).disabled=true;
+            }
+        }
+        else if(check_draw())
+        {
+          document.getElementById('picked').innerHTML='draw';
+        }
+        if(turn==1 && !check_draw() && !check_win('X') && !check_win('O'))
+        {
+          var variab1=auto();
+          done(variab1);
+        }
+    }
+    
+    function auto()
+    {
+      var bot = Math.floor(Math.random() * 9);
+      console.log("random : "+bot);
+      if(board[bot]=='')
+      {
+        return ''+bot+'';
+      }
+      else
+      {
+        return auto();
+      }
+    }
+
+    function check_win(player)
+    {
+        for(var i=0;i<=2;i++)
+        {
+            if(board[i]==board[i+3]&&board[i]==board[i+6]&&board[i]==player)
+            {
+                return true;
+            }
+        }
+        for(var i=0;i<=6;i+=3)
+        {
+            if(board[i]==board[i+1]&&board[i]==board[i+2]&&board[i]==player)
+            {
+                return true;
+            }
+        }
+        if(board[0]==board[4]&&board[0]==board[8]&&board[0]==player)
+        {
+            return true;
+        }
+        if(board[2]==board[4]&&board[2]==board[6]&&board[2]==player)
+        {
+            return true;
+        }
+    }
+
+    function check_draw()
+    {
+      for(var i=0;i<9;i++)
+      {
+        if(board[i]=='')
+        {
+          return false;
+        }
+      }
+      return true;
+    }
+
     function restart()
     {
-      document.getElementById("play").style.display = 'none';
-      document.getElementById("pickxo").style.display = 'block';
+        document.getElementById("play").style.display = 'none';
+        document.getElementById("pickxo").style.display = 'block';
+        for(var i=0;i<=8;i++)
+        {
+            document.getElementById('b'+i).disabled=false;
+            document.getElementById('b'+i).value='';
+            board[i]='';
+        }
+        turn=0;
     }
   </script>
 </html>
