@@ -12,17 +12,18 @@ class CustomUserAdmin(UserAdmin):
     list_display = ('email', 'is_staff', 'is_active', 'front_id')
     list_filter = ('is_staff', 'is_active',)
     fieldsets = (
-        (None, {'fields': ('email', 'password', 'first_name', 'last_name', 'total_games', 'won_games', 'lost_games', 'draw_games', 'image')}),
+        ('Info', {'fields': ('first_name', 'last_name', 'email', 'password', 'image')}),
+        ('History', {'fields':('won_games', 'lost_games', 'draw_games')}),
         ('Permissions', {'fields': ('is_staff', 'is_active', 'is_superuser')}),
     )
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('email', 'password1', 'password2', 'is_staff', 'is_active', 'first_name', 'last_name', 'total_games', 'won_games', 'lost_games', 'draw_games', 'image')}
+            'fields': ('email', 'password1', 'password2', 'is_staff', 'is_active', 'first_name', 'last_name', 'won_games', 'lost_games', 'draw_games', 'image')}
         ),
     )
-    search_fields = ('email',)
-    ordering = ('email',)
+    search_fields = ('email', 'first_name', 'last_name')
+    ordering = ('first_name', 'won_games', 'lost_games', 'draw_games')
 
 
 admin.site.register(CustomUser, CustomUserAdmin)
