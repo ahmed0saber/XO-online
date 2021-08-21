@@ -31,8 +31,8 @@
 			text-align: left;
 		}
 
-		#header span{
-			color:#000
+		#header span {
+			color: #000
 		}
 
 		.fa {
@@ -88,6 +88,10 @@
 			color: #00A;
 			font-family: sans-serif;
 		}
+
+		#restart {
+			display: none;
+		}
 	</style>
 </head>
 
@@ -99,23 +103,23 @@
 		</div>
 		<p id="des"></p>
 		<table align="center">
-			<tr>
-				<td><input type="button" disabled value="" data-index='0' class='button' /></td>
-				<td><input type="button" disabled value="" data-index='1' class='button' /></td>
-				<td><input type="button" disabled value="" data-index='2' class='button' /></td>
+			<tbody><tr>
+				<td><input type="button" disabled value="" data-index="0" class="button"></td>
+				<td><input type="button" disabled value="" data-index="1" class="button"></td>
+				<td><input type="button" disabled value="" data-index="2" class="button"></td>
 			</tr>
 			<tr>
-				<td><input type="button" disabled value="" data-index='3' class='button' /></td>
-				<td><input type="button" disabled value="" data-index='4' class='button' /></td>
-				<td><input type="button" disabled value="" data-index='5' class='button' /></td>
+				<td><input type="button" disabled value="" data-index="3" class="button"></td>
+				<td><input type="button" disabled value="" data-index="4" class="button"></td>
+				<td><input type="button" disabled value="" data-index="5" class="button"></td>
 			</tr>
 			<tr>
-				<td><input type="button" disabled value="" data-index='6' class='button' /></td>
-				<td><input type="button" disabled value="" data-index='7' class='button' /></td>
-				<td><input type="button" disabled value="" data-index='8' class='button' /></td>
+				<td><input type="button" disabled value="" data-index="6" class="button"></td>
+				<td><input type="button" disabled value="" data-index="7" class="button"></td>
+				<td><input type="button" disabled value="" data-index="8" class="button"></td>
 			</tr>
-		</table>
-		<button onclick="restart()" class="btns">Restart</button>
+		</tbody></table>
+		<button id="restart" class="btns">Restart</button>
 
 	</div>
 	<script>
@@ -123,63 +127,152 @@
 		let search = window.location.search
 		let room = search.slice(search.indexOf('=') + 1)
 		let url = protocol + '//' + window.location.host + `/ws/game/${room}/`
-		let char = 'o'
-		let turn = 'x'
+		let char = 'O'
+		let turn = 'X'
+		let buttons = document.querySelectorAll('.button')
 		function start_socket(time) {
 			let socket = new WebSocket(url)
 			socket.onopen = e => {
-				time = 0
+				// time = 1000
+				console.log('connected')
+				
 			}
 
 
 			socket.onmessage = e => {
+				time = 1000
 				let data = JSON.parse(e.data)
 				if (data.type == "game_play") {
 					buttons[data.move].disabled = true
 					buttons[data.move].value = data.player
-					turn = data.player == 'x' ? 'o' : 'x'
+					let result = check_end()
+					if(result == "X"){
+
+						document.getElementById('des').innerText = 'Player X won'
+						buttons.forEach(but => but.disabled = true)
+						document.getElementById('restart').style.display = 'inline-block'
+						return
+					}else if(result == 'O'){
+						document.getElementById('des').innerText = 'Player O won'
+						buttons.forEach(but => but.disabled = true)
+						document.getElementById('restart').style.display = 'inline-block'
+						return
+					}else if (result == 'draw'){
+						document.getElementById('des').innerText = 'Draw'
+						document.getElementById('restart').style.display = 'inline-block'
+						return
+					}
+
+					turn = data.player == 'X' ? 'O' : 'X'
 					document.getElementById('des').innerText = `Player ${turn}'s turn`
-					if (turn == char){
-						buttons.forEach( element => {
-							if (element.value == ""){
+					if (turn == char) {
+						buttons.forEach(element => {
+							if (element.value == "") {
 								element.disabled = false
 							}
 						})
-					}else{
-						buttons.forEach( element => { element.disabled = true })
+					} else {
+						buttons.forEach(element => { element.disabled = true })
 					}
 				} else if (data.type == 'created') {
-					char = 'x'
-					console.log('room created successfully');
+					char = 'X'
 					document.querySelector('#header span').innerText = `Room: ${data.room}`
 					document.getElementById('des').innerText = 'Waiting for other player to join'
-				}else if (data.type == "room_completed"){
-					document.getElementById('des').innerText = 'Player X\'s turn'
-					buttons.forEach(element => element.disabled = false)
+				} else if (data.type == "room_completed") {
+					turn = 'X'
 				
+					if (char == 'X'){
+						buttons.forEach(element => {
+							if (element.value == "") {
+								element.disabled = false
+							}
+						})
+						document.getElementById('des').innerText = 'player X Your turn first'
+					}else{
+						buttons.forEach(element => { element.disabled = true })
+						document.getElementById('des').innerText = 'Waiting Player X to start the game'
+						buttons.forEach(el => el.disabled = true)
+					}
+
 				} else if (data.type == "error") {
-					console.log('error occured')
-					console.log(data.error)
+					document.getElementById('des').innerText = data.error
+				}else if (data.type == 'restart'){
+					restart()
 				}
 			}
 
+			let check_end = () => {
+				if (check_draw()) {
+					return 'draw'
+				} 
+				return check_win()
+				
+			}
+
+			let check_win = () => {
+				for (var i = 0; i <= 2; i++) {
+					if (buttons[i].value == buttons[i + 3].value && buttons[i].value == buttons[i + 6].value && (buttons[i].value == "X" || buttons[i].value == "O")) {
+						return buttons[i].value;
+					}
+				}
+				for (var i = 0; i <= 6; i += 3) {
+					if (buttons[i].value == buttons[i + 1].value && buttons[i].value == buttons[i + 2].value &&  (buttons[i].value == "X" || buttons[i].value == "O")) {
+						return buttons[i].value;
+
+					}
+				}
+				if (buttons[0].value == buttons[4].value && buttons[0].value == buttons[8].value &&  (buttons[0].value == "X" || buttons[0].value == "O")) {
+					return buttons[0].value;
+
+				}
+				if (buttons[2].value == buttons[4].value && buttons[2].value == buttons[6].value &&  (buttons[2].value == "X" || buttons[2].value == "O")) {
+					return buttons[2].value;
+
+				}
+				return false
+			}
+
+			let check_draw = () => {
+				for (button of buttons){
+					if (button.value == ''){ return false}
+				}
+				return true;
+			}
+
+			let restart = ()=>{
+				buttons.forEach((button)=>{
+					button.value = ''
+					button.disabled = false
+				})
+				document.getElementById('des').innerText = 'New Game'
+				document.getElementById('restart').style.display = 'none'
+				
+
+			}
+
+			document.getElementById('restart').onclick = ()=>{
+				socket.send(JSON.stringify({
+					'type':'restart'
+				}))
+			}
+
+
+
 			socket.onerror = e => {
-				console.log(e);
+				document.getElementById('des').innerText = e.error
 			}
 
 			socket.onclose = (e) => {
-				console.log(`connection lost and trying to connect again after ${time / 1000} seconds`);
 				setTimeout(() => {
-					console.log('trying to reconnect');
 					start_socket(time * 2)
 				}, time)
 			}
 
-			let buttons = document.querySelectorAll('.button')
 			buttons.forEach(button => {
 				button.onclick = e => {
 					socket.send(
 						JSON.stringify({
+							'type': 'game_play',
 							'player': char,
 							'move': `${e.target.dataset.index}`
 						})
@@ -189,7 +282,6 @@
 		}
 		start_socket(1000)
 
-		let board = []
 	</script>
 </body>
 

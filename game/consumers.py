@@ -102,11 +102,7 @@ class GameConsumer(WebsocketConsumer):
         text_data = json.loads(text_data)
         async_to_sync(self.channel_layer.group_send)(
             self.room_group_name,
-            {
-                'type':'game_play',
-                'player':text_data['player'],
-                'move':text_data['move']
-            }
+            text_data
         )
         Presence.objects.touch(self.channel_name)
 
@@ -119,4 +115,7 @@ class GameConsumer(WebsocketConsumer):
         self.send(json.dumps(event))
 
     def room_completed(self, event):
+        self.send(json.dumps(event))
+    
+    def restart(self, event):
         self.send(json.dumps(event))
