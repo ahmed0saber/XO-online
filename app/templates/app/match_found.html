@@ -213,10 +213,12 @@
 			}
 
 			let check_end = () => {
-				if (check_draw()) {
+				let is_win = check_win()
+				if (is_win){
+					return win
+				}else if (check_draw()) {
 					return 'draw'
-				} 
-				return check_win()
+				} else { return false}
 				
 			}
 

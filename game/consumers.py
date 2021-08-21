@@ -162,12 +162,12 @@ class GameConsumer(WebsocketConsumer):
         self_channel = Presence.objects.get(channel_name=self.channel_name)
         competitor = Room.objects.get(channel_name=self.room_group_name).presence_set.filter(~Q(channel_name=self_channel)).first().user
         if competitor.is_authenticated:
-            competitor.won_games += 1
+            competitor.won_games = competitor.won_games + 1
+            competitor.save()
         user = self.scope['user']
         if user.is_authenticated:
-            user.lost_games += 1
-        user.save()
-        competitor.save()
+            user.lost_games = user.lost_games + 1
+            user.save()
     
     def draw(self, event):
         self_channel = Presence.objects.get(channel_name=self.channel_name)
