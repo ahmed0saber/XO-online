@@ -63,7 +63,7 @@ def profile(request):
     if request.user.total_games == 0:
         rate = 0
     else:
-        rate = request.user.won_games / request.user.total_games
+        rate = round(request.user.won_games / request.user.total_games, 3)
     return render(request, 'accounts/profile.html', {'win_rate': rate})
 
 @restrict_unlogged(next='settings')

@@ -14,7 +14,6 @@ class CustomUser(AbstractUser):
     first_name = models.CharField(max_length=200)
     last_name = models.CharField(max_length=200)
     front_id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
-    total_games = models.IntegerField(default=0)
     won_games = models.IntegerField(default=0)
     lost_games = models.IntegerField(default=0)
     draw_games = models.IntegerField(default=0)
@@ -22,6 +21,10 @@ class CustomUser(AbstractUser):
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
     objects = Manager()
+
+    @property
+    def total_games(self):
+        return self.won_games + self.lost_games + self.draw_games
 
     @property
     def name(self):

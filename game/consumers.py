@@ -1,8 +1,11 @@
 from asgiref.sync import async_to_sync
 from channels.generic.websocket import WebsocketConsumer
-
 from channels_presence.models import Room, Presence
 from channels_presence.signals import presence_changed
+
+from django.db.models import Q
+from accounts.models import CustomUser
+from chat.serializers import messageSenderSerializer
 import json
 import string 
 import random
@@ -115,7 +118,68 @@ class GameConsumer(WebsocketConsumer):
         self.send(json.dumps(event))
 
     def room_completed(self, event):
+        user = self.scope['user']
+        self_channel = Presence.objects.get(channel_name=self.channel_name)
+
+        competitor = Room.objects.get(channel_name=self.room_group_name).presence_set.filter(~Q(channel_name=self_channel)).first().user
+      
+        if user.is_authenticated:
+            serializer = messageSenderSerializer(instance=user)
+            event.update({
+                'self': serializer.data
+            })
+        else:
+            event.update({
+                'self': {
+                    'front_id':None,
+                    'image':CustomUser._meta.get_field("image").get_default(),
+                    'name':'Unknown User',
+                    'profile_url':"#"
+                }
+            })
+
+        if competitor:
+            serializer = messageSenderSerializer(instance=competitor)
+            event.update({
+                'competitor': serializer.data
+            })
+        else:
+            event.update({
+                'competitor': {
+                    'front_id':None,
+                    'image':CustomUser._meta.get_field("image").get_default(),
+                    'name':'Unknown User',
+                    'profile_url':"#"
+                }
+            })
+
         self.send(json.dumps(event))
     
     def restart(self, event):
         self.send(json.dumps(event))
+
+    def completed(self, event):
+        self_channel = Presence.objects.get(channel_name=self.channel_name)
+        competitor = Room.objects.get(channel_name=self.room_group_name).presence_set.filter(~Q(channel_name=self_channel)).first().user
+        if competitor.is_authenticated:
+            competitor.won_games += 1
+        user = self.scope['user']
+        if user.is_authenticated:
+            user.lost_games += 1
+        user.save()
+        competitor.save()
+    
+    def draw(self, event):
+        self_channel = Presence.objects.get(channel_name=self.channel_name)
+        competitor = Room.objects.get(channel_name=self.room_group_name).presence_set.filter(~Q(channel_name=self_channel)).first().user
+        if competitor.is_authenticated:
+            competitor.draw_games += 1
+            competitor.save()
+        user = self.scope['user']
+        if user.is_authenticated:
+            user.draw_games += 1
+            user.save() 
+
+        
+
+      

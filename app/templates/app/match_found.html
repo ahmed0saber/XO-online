@@ -147,17 +147,27 @@
 					buttons[data.move].value = data.player
 					let result = check_end()
 					if(result == "X"){
-
+						if (result != char){
+							console.log('sending lose message');
+							socket.send(JSON.stringify({"type":"completed"}))
+						}
 						document.getElementById('des').innerText = 'Player X won'
 						buttons.forEach(but => but.disabled = true)
 						document.getElementById('restart').style.display = 'inline-block'
 						return
 					}else if(result == 'O'){
+						if (result == char){
+							console.log('sending lose message');
+							socket.send(JSON.stringify({"type":"completed"}))
+						}
 						document.getElementById('des').innerText = 'Player O won'
 						buttons.forEach(but => but.disabled = true)
 						document.getElementById('restart').style.display = 'inline-block'
 						return
 					}else if (result == 'draw'){
+						if (char=='O'){
+						socket.send(JSON.stringify({"type":"draw"}))
+						}
 						document.getElementById('des').innerText = 'Draw'
 						document.getElementById('restart').style.display = 'inline-block'
 						return
@@ -179,6 +189,7 @@
 					document.querySelector('#header span').innerText = `Room: ${data.room}`
 					document.getElementById('des').innerText = 'Waiting for other player to join'
 				} else if (data.type == "room_completed") {
+					console.log(data);
 					turn = 'X'
 				
 					if (char == 'X'){
