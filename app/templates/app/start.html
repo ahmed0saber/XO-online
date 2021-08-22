@@ -59,21 +59,16 @@
                 padding: 0;
                 border: block;
                 display: block;
+                background-color: #FFF;
             }
             #status {
-  width: 200px;
-  height: 200px;
-  position: absolute;
-  left: 50%;
-  /* centers the loading animation horizontally one the screen */
-  top: 50%;
-  /* centers the loading animation vertically one the screen */
-  background-image: url(https://raw.githubusercontent.com/niklausgerber/PreLoadMe/master/img/status.gif);
-  /* path to your loading animation */
-  background-repeat: no-repeat;
-  background-position: center;
-  margin: -100px 0 0 -100px;
-}
+              height: 200px;
+              width: 200px;
+              margin: 104px 50px;
+              background-image: url(https://raw.githubusercontent.com/niklausgerber/PreLoadMe/master/img/status.gif);
+              background-repeat: no-repeat;
+              background-position: center;
+            }
         </style>
     </head>
     <body onload="checkurl()">
@@ -87,11 +82,6 @@
         </div>
     </body>
     <script>
-    function framechanged()
-    {
-      $("#iframe1").css("display","none");
-      $("#loading").css("display","block");
-    }
     function frameloaded()
     {
       $("#loading").css("display","none");
@@ -99,6 +89,9 @@
     }
         function move(i)
         {
+          $("#iframe1").css("display","none");
+          $("#loading").css("display","block");
+          
             if(i==1)
             {$("#selected").css("margin-left", "0px");
             $("#iframe1").attr("src","{% url 'app:home' %}");}
