@@ -1,7 +1,6 @@
 from asgiref.sync import async_to_sync
 from channels.generic.websocket import WebsocketConsumer
 from channels_presence.models import Room, Presence
-from channels_presence.signals import presence_changed
 
 from django.db.models import Q
 from accounts.models import CustomUser
@@ -83,10 +82,10 @@ class GameConsumer(WebsocketConsumer):
                     self.room_group_name,
                     self.channel_name
                 )
-                print('this is disconnecting')
                 Room.objects.remove(self.room_group_name, self.channel_name)
-        except:
-            pass
+        except Exception as e:
+            print('error occured')
+            print(e)
         Room.objects.prune_presences()
         Room.objects.prune_rooms()
     
@@ -103,6 +102,35 @@ class GameConsumer(WebsocketConsumer):
             return
 
         text_data = json.loads(text_data)
+        if text_data['type'] ==  'completed':
+            self_channel = Presence.objects.get(channel_name=self.channel_name)
+            competitor = Room.objects.get(channel_name=self.room_group_name).presence_set.filter(~Q(channel_name=self_channel)).first().user
+            if competitor.is_authenticated:
+                print('competitor win score was:', competitor.won_games)
+                competitor.won_games += 1
+                print('competitor win score before save:', competitor.won_games)
+                competitor.save()
+                print('competitor win score after save:', competitor.won_games)
+            user = self.scope['user']
+            if user.is_authenticated:
+                print('user lost score was:', user.lost_games)
+                user.lost_games += 1
+                print('user lost score before save:',user.lost_games)
+                user.save()
+                print('user lost score after save:',user.lost_games)
+            return 
+        elif text_data['type'] == 'draw':
+            self_channel = Presence.objects.get(channel_name=self.channel_name)
+            competitor = Room.objects.get(channel_name=self.room_group_name).presence_set.filter(~Q(channel_name=self_channel)).first().user
+            if competitor.is_authenticated:
+                competitor.draw_games += 1
+                competitor.save()
+            user = self.scope['user']
+            if user.is_authenticated:
+                user.draw_games += 1
+                user.save() 
+
+
         async_to_sync(self.channel_layer.group_send)(
             self.room_group_name,
             text_data
@@ -158,27 +186,8 @@ class GameConsumer(WebsocketConsumer):
     def restart(self, event):
         self.send(json.dumps(event))
 
-    def completed(self, event):
-        self_channel = Presence.objects.get(channel_name=self.channel_name)
-        competitor = Room.objects.get(channel_name=self.room_group_name).presence_set.filter(~Q(channel_name=self_channel)).first().user
-        if competitor.is_authenticated:
-            competitor.won_games = competitor.won_games + 1
-            competitor.save()
-        user = self.scope['user']
-        if user.is_authenticated:
-            user.lost_games = user.lost_games + 1
-            user.save()
-    
-    def draw(self, event):
-        self_channel = Presence.objects.get(channel_name=self.channel_name)
-        competitor = Room.objects.get(channel_name=self.room_group_name).presence_set.filter(~Q(channel_name=self_channel)).first().user
-        if competitor.is_authenticated:
-            competitor.draw_games += 1
-            competitor.save()
-        user = self.scope['user']
-        if user.is_authenticated:
-            user.draw_games += 1
-            user.save() 
+
+ 
 
         
 
