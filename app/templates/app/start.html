@@ -45,11 +45,29 @@
                 margin: 0;
                 padding: 0;
                 border: none;
+                display: none;
             }
             .fa{
                 font-size: 25px;
                 color: #117;
                 background:transparent
+            }
+            #loading{
+                height: 407px;
+                overflow-x: hidden;
+                margin: 0;
+                padding: 0;
+                border: none;
+                display: block;
+                background-color: #FFF;
+            }
+            #status {
+              height: 200px;
+              width: 200px;
+              margin: 104px 50px;
+              background-image: url(https://raw.githubusercontent.com/niklausgerber/PreLoadMe/master/img/status.gif);
+              background-repeat: no-repeat;
+              background-position: center;
             }
         </style>
     </head>
@@ -57,12 +75,23 @@
         <div id="header">
             <button class="h_btns" onclick="move(1)"><i class="fa fa-home"></i></button><button class="h_btns" onclick="move(2)"><i class="fa fa-trophy"></i></button><button class="h_btns" onclick="move(3)"><i class="fa fa-envelope"></i></button><button class="h_btns" onclick="move(4)"><i class="fa fa-bell"></i></button><button class="h_btns" onclick="move(5)"><i class="fa fa-user"></i></button>
             <div id="selected"></div>
-            <iframe src="{% url 'app:home' %}" id="iframe1"></iframe>
+            <iframe src="{% url 'app:home' %}" id="iframe1" onload="frameloaded()"></iframe>
+            <div id="loading">
+              <div id="status">&nbsp;</div>
+            </div>
         </div>
     </body>
     <script>
+    function frameloaded()
+    {
+      $("#loading").css("display","none");
+      $("#iframe1").css("display","block");
+    }
         function move(i)
         {
+          $("#iframe1").css("display","none");
+          $("#loading").css("display","block");
+          
             if(i==1)
             {$("#selected").css("margin-left", "0px");
             $("#iframe1").attr("src","{% url 'app:home' %}");}
