@@ -156,7 +156,7 @@
 						document.getElementById('restart').style.display = 'inline-block'
 						return
 					}else if(result == 'O'){
-						if (result == char){
+						if (result != char){
 							console.log('sending lose message');
 							socket.send(JSON.stringify({"type":"completed"}))
 						}
@@ -215,7 +215,7 @@
 			let check_end = () => {
 				let is_win = check_win()
 				if (is_win){
-					return win
+					return is_win
 				}else if (check_draw()) {
 					return 'draw'
 				} else { return false}
