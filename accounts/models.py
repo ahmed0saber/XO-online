@@ -8,7 +8,7 @@ from .managers import Manager
 from PIL import Image
 import uuid
 from io import BytesIO
-from PIL import ExifTags
+from PIL.ImageOps import exif_transpose
 
 # Create your models here.
 
@@ -57,16 +57,7 @@ class CustomUser(AbstractUser):
         # create a BytesIO object
         im_io = BytesIO() 
         # save image to BytesIO object
-        for orientation in ExifTags.TAGS.keys() : 
-            if ExifTags.TAGS[orientation]=='Orientation' : break 
-        exif=dict(im._getexif().items())
-
-        if exif[orientation] == 3 : 
-            im=im.rotate(180, expand=True)
-        elif exif[orientation] == 6 : 
-            im=im.rotate(270, expand=True)
-        elif exif[orientation] == 8 : 
-            im=im.rotate(90, expand=True)
+        im = exif_transpose(im)
 
         im.thumbnail([height,width], Image.ANTIALIAS)
         im = im.convert("RGB")
