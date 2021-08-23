@@ -222,10 +222,10 @@
     var element = document.getElementById("msg_container");
     element.scrollTop = element.scrollHeight;
 
-    function _start()
-    {
-      var element = document.getElementById("msg_container");
-      element.scrollTop = element.scrollHeight;
+    function _start(){
+        
+        element.scrollTop = element.scrollHeight;
+        
     }
 
     var scrolled = true;
@@ -316,6 +316,19 @@
                 <p><a href="${message.sender.profile_url}"><span id="name"> ` + message.sender.name + ` </span></a><br>` + message.content + `<br><span id="date">` + message.date_sent + `</span></p>
             </div>`
         }
+        if (element.scrollTop > element.scrollHeight - 900){
+            smoothScroll()
+            element.scrollTop = element.scrollHeight;
+            fastScroll()
+        } 
+    }
+
+    let smoothScroll = ()=>{
+        element.style.scrollBehavior = 'smooth'
+    }
+    let fastScroll = ()=>{
+        element.style.scrollBehavior = 'auto'
+
     }
 </script>
 </html>
