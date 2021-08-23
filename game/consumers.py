@@ -105,8 +105,8 @@ class GameConsumer(WebsocketConsumer):
         if text_data['type'] ==  'completed':
             self_channel = Presence.objects.get(channel_name=self.channel_name)
             competitor:CustomUser = Room.objects.get(channel_name=self.room_group_name).presence_set.filter(~Q(channel_name=self_channel)).first().user
-            print(competitor)
-            if competitor.is_authenticated:
+            if competitor:
+                print(competitor.email)
                 print('competitor win score was:', competitor.won_games)
                 print('competitor lose score was:', competitor.lost_games)
                 competitor.won_games += 1
@@ -117,7 +117,7 @@ class GameConsumer(WebsocketConsumer):
                 print('competitor lose score after save:', competitor.lost_games)
             user:CustomUser = self.scope['user']
             if user.is_authenticated:
-                print(user)
+                print(user.email)
                 print('user lost score was:', user.lost_games)
                 print('user win score was:', user.won_games)
                 user.lost_games += 1
@@ -130,13 +130,14 @@ class GameConsumer(WebsocketConsumer):
         elif text_data['type'] == 'draw':
             self_channel = Presence.objects.get(channel_name=self.channel_name)
             competitor = Room.objects.get(channel_name=self.room_group_name).presence_set.filter(~Q(channel_name=self_channel)).first().user
-            if competitor.is_authenticated:
+            if competitor:
                 competitor.draw_games += 1
                 competitor.save()
             user = self.scope['user']
             if user.is_authenticated:
                 user.draw_games += 1
                 user.save() 
+            return
 
 
         async_to_sync(self.channel_layer.group_send)(
@@ -158,7 +159,6 @@ class GameConsumer(WebsocketConsumer):
         self_channel = Presence.objects.get(channel_name=self.channel_name)
 
         competitor = Room.objects.get(channel_name=self.room_group_name).presence_set.filter(~Q(channel_name=self_channel)).first().user
-      
         if user.is_authenticated:
             serializer = messageSenderSerializer(instance=user)
             event.update({

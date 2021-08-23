@@ -148,7 +148,6 @@
 					let result = check_end()
 					if(result == "X"){
 						if (result != char){
-							console.log('sending lose message');
 							socket.send(JSON.stringify({"type":"completed"}))
 						}
 						document.getElementById('des').innerText = 'Player X won'
@@ -157,7 +156,6 @@
 						return
 					}else if(result == 'O'){
 						if (result != char){
-							console.log('sending lose message');
 							socket.send(JSON.stringify({"type":"completed"}))
 						}
 						document.getElementById('des').innerText = 'Player O won'
@@ -187,6 +185,7 @@
 				} else if (data.type == 'created') {
 					char = 'X'
 					room = data.room
+					url = protocol + '//' + window.location.host + `/ws/game/${room}/`
 					document.querySelector('#header span').innerText = `Room: ${data.room}`
 					document.getElementById('des').innerText = 'Waiting for other player to join'
 				} else if (data.type == "room_completed") {
