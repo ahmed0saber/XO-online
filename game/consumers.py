@@ -104,20 +104,28 @@ class GameConsumer(WebsocketConsumer):
         text_data = json.loads(text_data)
         if text_data['type'] ==  'completed':
             self_channel = Presence.objects.get(channel_name=self.channel_name)
-            competitor = Room.objects.get(channel_name=self.room_group_name).presence_set.filter(~Q(channel_name=self_channel)).first().user
+            competitor:CustomUser = Room.objects.get(channel_name=self.room_group_name).presence_set.filter(~Q(channel_name=self_channel)).first().user
+            print(competitor)
             if competitor.is_authenticated:
                 print('competitor win score was:', competitor.won_games)
+                print('competitor lose score was:', competitor.lost_games)
                 competitor.won_games += 1
                 print('competitor win score before save:', competitor.won_games)
+                print('competitor lose score before save:', competitor.lost_games)
                 competitor.save()
                 print('competitor win score after save:', competitor.won_games)
-            user = self.scope['user']
+                print('competitor lose score after save:', competitor.lost_games)
+            user:CustomUser = self.scope['user']
             if user.is_authenticated:
+                print(user)
                 print('user lost score was:', user.lost_games)
+                print('user win score was:', user.won_games)
                 user.lost_games += 1
                 print('user lost score before save:',user.lost_games)
+                print('user win score before save:',user.won_games)
                 user.save()
                 print('user lost score after save:',user.lost_games)
+                print('user win score after save:',user.won_games)
             return 
         elif text_data['type'] == 'draw':
             self_channel = Presence.objects.get(channel_name=self.channel_name)

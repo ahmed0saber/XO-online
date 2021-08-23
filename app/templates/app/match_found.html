@@ -186,6 +186,7 @@
 					}
 				} else if (data.type == 'created') {
 					char = 'X'
+					room = data.room
 					document.querySelector('#header span').innerText = `Room: ${data.room}`
 					document.getElementById('des').innerText = 'Waiting for other player to join'
 				} else if (data.type == "room_completed") {
