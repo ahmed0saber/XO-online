@@ -3,12 +3,15 @@ from channels.generic.websocket import WebsocketConsumer
 from channels_presence.models import Room, Presence
 
 from django.db.models import Q
+
 from accounts.models import CustomUser
 from chat.serializers import messageSenderSerializer
 import json
 import string 
 import random
+import logging
 
+db_logger = logging.getLogger('db')
 
 class GameConsumer(WebsocketConsumer):
 
@@ -83,6 +86,7 @@ class GameConsumer(WebsocketConsumer):
                     self.channel_name
                 )
                 Room.objects.remove(self.room_group_name, self.channel_name)
+                db_logger.warning(f'I\'ve left the room , {player.user}')
         except Exception as e:
             print('error occured')
             print(e)
@@ -103,40 +107,24 @@ class GameConsumer(WebsocketConsumer):
 
         text_data = json.loads(text_data)
         if text_data['type'] ==  'completed':
-            self_channel = Presence.objects.get(channel_name=self.channel_name)
-            competitor:CustomUser = Room.objects.get(channel_name=self.room_group_name).presence_set.filter(~Q(channel_name=self_channel)).first().user
-            if competitor:
-                print(competitor.email)
-                print('competitor win score was:', competitor.won_games)
-                print('competitor lose score was:', competitor.lost_games)
-                competitor.won_games += 1
-                print('competitor win score before save:', competitor.won_games)
-                print('competitor lose score before save:', competitor.lost_games)
-                competitor.save()
-                print('competitor win score after save:', competitor.won_games)
-                print('competitor lose score after save:', competitor.lost_games)
+            competitor:CustomUser = Room.objects.get(channel_name=self.room_group_name).presence_set.filter(~Q(channel_name=self.channel_name)).first().user
             user:CustomUser = self.scope['user']
+            db_logger.info(f'Game ended between me {user} and {competitor}\nuser scores: {user.won_games}, {user.lost_games}, {user.draw_games}\ncompetitor scores: {competitor.won_games}, {competitor.lost_games}, {competitor.draw_games}')
+            if competitor:
+                competitor.win()
             if user.is_authenticated:
-                print(user.email)
-                print('user lost score was:', user.lost_games)
-                print('user win score was:', user.won_games)
-                user.lost_games += 1
-                print('user lost score before save:',user.lost_games)
-                print('user win score before save:',user.won_games)
-                user.save()
-                print('user lost score after save:',user.lost_games)
-                print('user win score after save:',user.won_games)
+                user.lose()
+            db_logger.info(f'Game saved between me {user} and {competitor}\nuser scores: {user.won_games}, {user.lost_games}, {user.draw_games}\ncompetitor scores: {competitor.won_games}, {competitor.lost_games}, {competitor.draw_games}')
             return 
         elif text_data['type'] == 'draw':
-            self_channel = Presence.objects.get(channel_name=self.channel_name)
-            competitor = Room.objects.get(channel_name=self.room_group_name).presence_set.filter(~Q(channel_name=self_channel)).first().user
+            competitor:CustomUser = Room.objects.get(channel_name=self.room_group_name).presence_set.filter(~Q(channel_name=self.channel_name)).first().user
             if competitor:
                 competitor.draw_games += 1
                 competitor.save()
             user = self.scope['user']
             if user.is_authenticated:
                 user.draw_games += 1
-                user.save() 
+                user.save()           
             return
 
 
@@ -194,9 +182,3 @@ class GameConsumer(WebsocketConsumer):
     def restart(self, event):
         self.send(json.dumps(event))
 
-
- 
-
-        
-
-      

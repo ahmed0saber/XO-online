@@ -5,6 +5,7 @@ from django.urls import reverse
 
 from .managers import Manager
 
+from PIL import Image
 import uuid
 # Create your models here.
 
@@ -45,6 +46,19 @@ class CustomUser(AbstractUser):
     def draw(self):
         self.draw_games += 1
         self.save() 
+
+    # def save(self, *args, **kwargs):
+    #     super().save()
+
+    #     image = Image.open(self.image)
+    #     if image.height > 300:
+    #         ratio = image.height / image.width
+    #         height = 256
+    #         width = height / ratio
+    #         image.thumbnail((height, width), Image.ANTIALIAS)
+    #         self.image = image
+    #         self.save()
+
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
