@@ -52,7 +52,7 @@ class CustomUser(AbstractUser):
 
     def compress(self, im:Image):
         ratio = im.height / im.width
-        height = 512
+        height = 256
         width = round(height / ratio)
         # create a BytesIO object
         im_io = BytesIO() 
@@ -79,7 +79,7 @@ class CustomUser(AbstractUser):
 
         image = Image.open(self.image)
         print(type(image))
-        if image.height > 512:
+        if image.height > 256:
             image = self.compress(image)
             self.image = image
 
