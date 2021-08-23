@@ -33,12 +33,14 @@
       }
       .btns{
         height: 30px;
-        width: 110px;
-        margin: 10px;
+        width: 100px;
+        margin: 5px;
         background-color: #00A;
         border: 1px solid #007;
         color: #EEE;
         border-radius: 5px;
+        font-size: 12px;
+        font-family: Times New Roman;
       }
       #profile_pic{
         width: 100px;
@@ -68,7 +70,7 @@
       }
       fieldset{
         margin: 20px;
-        height: 285px;
+        height: 305px;
         border-color: #33F;
         box-shadow: 0 0 5px #117;
       }
@@ -85,11 +87,13 @@
         color: #000;
         border: 2px solid #007;
         border-radius: 5px;
-        font-size: 18px;
+        font-size: 17px;
+        font-family: Times New Roman;
       }
       #save{
         width: 75px;
         margin-top: 30px;
+        font-size: 20px;
       }
       #back{
         position: relative;
@@ -104,6 +108,11 @@
       .fa{
         font-size: 32px;
         color: #EEE;
+      }
+      #cpp{
+        margin: 0;
+        padding: 5px;
+        font-size: 14px;
       }
     </style>
   </head>
@@ -124,7 +133,9 @@
           <input id="tx" type="text" placeholder="Last Name" value="{{ user.last_name }}" name="last_name">
           <input id="tx" type="text" placeholder="Email" value="{{ user.email }}" name="email">
           <input type="file" id="selectedFile" style="display: none;"  name="image"/>
-          <input class="btns" type="button" value="Change picture" onclick="document.getElementById('selectedFile').click();"/><br>
+          <p id="cpp">Change profile picture</p>
+          <input class="btns" type="button" value="From device" onclick="document.getElementById('selectedFile').click();"/>
+          <a href=""><button class="btns">From avatars</button></a><br>
           <input id="save" class="btns" type="submit" value="Save">
         </form>
       </fieldset>
