@@ -68,7 +68,7 @@ class CustomUser(AbstractUser):
 
         image = Image.open(self.image)
         print(type(image))
-        if image.height > 300:
+        if image.height > 512:
             image = self.compress(image)
             self.image = image
 
