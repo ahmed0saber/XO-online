@@ -87,6 +87,8 @@
     {
       $("#loading").css("display","none");
       $("#iframe1").css("display","block");
+      var element = document.getElementById("iframe1").contentWindow.document.getElementById("msg_container");
+      element.scrollTop = element.scrollHeight
     }
         function move(i)
         {
