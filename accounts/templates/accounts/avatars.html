@@ -118,22 +118,22 @@
         </div>
         <div id="pics">
             <div id="space">
-                <img id="pic1" src="https://drive.google.com/uc?id=1Kqx9kaXrrOoBeqUhrBpFjD0FlHETkk4b&export=download">
+                <img id="pic1" src="https://xoonlinebucket.s3.amazonaws.com/images/1.png">
             </div>
             <div id="space">
-                <img id="pic2" src="https://drive.google.com/uc?id=1KsXzJgBIPiQcxrlgHMx_aee-TLJtvl4I&export=download">
+                <img id="pic2" src="https://xoonlinebucket.s3.amazonaws.com/images/2.png">
             </div>
             <div id="space">
-                <img id="pic3" src="https://drive.google.com/uc?id=1L-L60SH6aS8BYuLYEJup37A65leGYbS3&export=download">
+                <img id="pic3" src="https://xoonlinebucket.s3.amazonaws.com/images/3.png">
             </div>
             <div id="space">
-                <img id="pic4" src="https://drive.google.com/uc?id=1L0bY1-4TInyjf4hNyLdnOTUeQWBr5eYl&export=download">
+                <img id="pic4" src="https://xoonlinebucket.s3.amazonaws.com/images/4.png">
             </div>
         </div>
         <div id="hidden_form">
             <form method="POST" action="" enctype="multipart/form-data">
                 {% csrf_token %}
-                <input type="hidden" value="0" id="pic_id">
+                <input type="hidden" value="0" id="pic_id" name="choice" action="">
                 <input type="submit" value="Save">
             </form>
         </div>

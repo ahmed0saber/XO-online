@@ -63,10 +63,10 @@ def log_in(request, next):
 
 @restrict_unlogged(next='profile')
 def profile(request):
-    if request.user.total_games == 0:
+    try:
+        rate = round(request.user.won_games/ request.user.total_games, 3) * 100 
+    except ZeroDivisionError:
         rate = 0
-    else:
-        rate = round(request.user.won_games * 100 / request.user.total_games, 3)
     return render(request, 'accounts/profile.html', {'win_rate': rate})
 
 @restrict_unlogged(next='settings')
@@ -80,6 +80,15 @@ def settings(request):
 
 @restrict_unlogged(next='avatars')
 def avatars(request):
+    if request.method == 'POST':
+        choice = int(request.POST.get('choice'))
+        if choice in range(1, 5):
+            user = request.user
+            user.image = f'images/{choice}.png'
+            user.save()
+            return redirect('accounts:profile')
+        else:
+            return redirect('accounts:profile')
     return render(request, 'accounts/avatars.html')
 
 
