@@ -118,6 +118,10 @@
         padding: 5px;
         font-size: 14px;
       }
+      a{
+        padding: 7px;
+        text-decoration: none;
+      }
     </style>
   </head>
   <body>
@@ -139,7 +143,7 @@
           <input type="file" id="selectedFile" style="display: none;"  name="image"/>
           <p id="cpp">Change profile picture</p>
           <input class="btns" type="button" value="From device" onclick="document.getElementById('selectedFile').click();"/>
-          <button onclick="goavatars()" class="btns">From avatars</button><br>
+          <a class="btns" href="{% url 'accounts:avatars' %}">From avatars</a><br>
           <input id="save" class="btns" type="submit" value="Save">
         </form>
       </fieldset>
