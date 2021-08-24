@@ -16,6 +16,10 @@
       }
   });
 });
+     function goavatars()
+     {
+       window.open("{% url 'accounts:avatars' %}","_self");
+     }
         </script>
     <style>
       body{
@@ -135,7 +139,7 @@
           <input type="file" id="selectedFile" style="display: none;"  name="image"/>
           <p id="cpp">Change profile picture</p>
           <input class="btns" type="button" value="From device" onclick="document.getElementById('selectedFile').click();"/>
-          <a href="{% url 'accounts:avatars' %}"><button class="btns">From avatars</button></a><br>
+          <button onclick="goavatars()" class="btns">From avatars</button><br>
           <input id="save" class="btns" type="submit" value="Save">
         </form>
       </fieldset>
