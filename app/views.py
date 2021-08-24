@@ -39,3 +39,5 @@ def game(request):
 
 def about(request):
     return render(request, 'app/newabout.html')
+
+    

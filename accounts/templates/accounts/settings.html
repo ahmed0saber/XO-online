@@ -135,7 +135,7 @@
           <input type="file" id="selectedFile" style="display: none;"  name="image"/>
           <p id="cpp">Change profile picture</p>
           <input class="btns" type="button" value="From device" onclick="document.getElementById('selectedFile').click();"/>
-          <a href=""><button class="btns">From avatars</button></a><br>
+          <a href="{% url 'accounts:avatars' %}"><button class="btns">From avatars</button></a><br>
           <input id="save" class="btns" type="submit" value="Save">
         </form>
       </fieldset>

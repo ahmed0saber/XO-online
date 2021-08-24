@@ -1,0 +1,142 @@
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Online Tic Tac Toe</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            $("img").click(function () {
+                $("img").css("background-color", "#EEE");
+                $(this).css("background-color", "#00B");
+            });
+
+            $("#pic1").click(function () {
+                $("#pic_id").val("1");
+            });
+            $("#pic2").click(function () {
+                $("#pic_id").val("2");
+            });
+            $("#pic3").click(function () {
+                $("#pic_id").val("3");
+            });
+            $("#pic4").click(function () {
+                $("#pic_id").val("4");
+            });
+        });
+    </script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            width: 300px;
+            height: 407px;
+            background-color: #EEE;
+            overflow: hidden;
+            overflow-y: auto;
+        }
+
+        #div1 {
+            margin: auto;
+            text-align: center;
+        }
+
+        img {
+            height: 100px;
+            width: 100px;
+            padding: 5px;
+            border-radius: 50%;
+        }
+
+        #space {
+            height: 120px;
+            width: 120px;
+            padding: 5px;
+            margin: auto;
+            border-radius: 50%;
+            opacity: 0.6;
+            transition-duration: 0.8s;
+        }
+
+        #space:hover {
+            opacity: 1;
+        }
+
+        #pics {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        #title {
+            padding: 5px;
+        }
+
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #BBB;
+        }
+
+        ::-webkit-scrollbar-track:hover {
+            background: #CCC;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #008;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #00B;
+        }
+
+        input {
+            height: 30px;
+            width: 100px;
+            color: #FFF;
+            background-color: #00B;
+            border: 1px solid #007;
+            border-radius: 5px;
+            font-size: 18px;
+            font-family: Times New Roman;
+        }
+
+        p {
+            font-size: 18px;
+            font-family: Times New Roman;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="div1">
+        <div id="title">
+            <p>‹Choose a picture›</p>
+        </div>
+        <div id="pics">
+            <div id="space">
+                <img id="pic1" src="https://drive.google.com/uc?id=1Kqx9kaXrrOoBeqUhrBpFjD0FlHETkk4b&export=download">
+            </div>
+            <div id="space">
+                <img id="pic2" src="https://drive.google.com/uc?id=1KsXzJgBIPiQcxrlgHMx_aee-TLJtvl4I&export=download">
+            </div>
+            <div id="space">
+                <img id="pic3" src="https://drive.google.com/uc?id=1L-L60SH6aS8BYuLYEJup37A65leGYbS3&export=download">
+            </div>
+            <div id="space">
+                <img id="pic4" src="https://drive.google.com/uc?id=1L0bY1-4TInyjf4hNyLdnOTUeQWBr5eYl&export=download">
+            </div>
+        </div>
+        <div id="hidden_form">
+            <form method="POST" action="" enctype="multipart/form-data">
+                <input type="hidden" value="0" id="pic_id">
+                <input type="submit" value="Save">
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>

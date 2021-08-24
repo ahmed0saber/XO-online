@@ -52,29 +52,29 @@ class CustomUser(AbstractUser):
 
     def compress(self, im:Image):
         ratio = im.height / im.width
-        height = 256
+        height = 200
         width = round(height / ratio)
         # create a BytesIO object
         im_io = BytesIO() 
         # save image to BytesIO object
         im = exif_transpose(im)
 
-        im.thumbnail([height,width], Image.ANTIALIAS)
+        im = im.resize([height,width], Image.ANTIALIAS)
+        
         im = im.convert("RGB")
         im = im.save(im_io,'JPEG', quality=70) 
         # create a django-friendly Files object
-        new_image = ContentFile(im_io.getvalue(), name=self.name+"ProfilePic.jpeg")
-        return new_image
+        im = ContentFile(im_io.getvalue(), name=self.name+"ProfilePic.jpeg")
+        return  im
 
     def save(self, *args, **kwargs):
 
         image = Image.open(self.image)
-        print(type(image))
         if image.height > 256:
+            print(type(image))
             image = self.compress(image)
             self.image = image
-
-        super().save(*args, **kwargs)
+        super(AbstractUser, self).save(*args, **kwargs)
 
 
     def __str__(self):

@@ -27,6 +27,7 @@ def sign_up(request, next):
                     'online':'app:online',
                     'notifications':'app:notifications',
                     'new_game':'app:new_game',
+                    'avatars':'accounts:avatars'
                 }
                 return redirect(pathes.get(next, 'app:home'))
     else:
@@ -51,6 +52,7 @@ def log_in(request, next):
                     'online':'app:online',
                     'notifications':'app:notifications',
                     'new_game':'app:new_game',
+                    'avatars':'accounts:avatars'
                 }
             return redirect(pathes.get(next, 'app:home'))
         else:
@@ -74,6 +76,13 @@ def settings(request):
             form.save()
             return redirect('accounts:profile')
     return render(request, 'accounts/settings.html')
+
+@restrict_unlogged(next='avatars')
+def avatars(reqeust):
+    
+    return render('accounts/avatars.html')
+
+
 
 def view_profile(request, id):
     user = get_object_or_404(CustomUser, front_id=id)
