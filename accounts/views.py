@@ -66,7 +66,7 @@ def profile(request):
     if request.user.total_games == 0:
         rate = 0
     else:
-        rate = round(request.user.won_games / request.user.total_games, 3)
+        rate = round(request.user.won_games * 100 / request.user.total_games, 3)
     return render(request, 'accounts/profile.html', {'win_rate': rate})
 
 @restrict_unlogged(next='settings')
@@ -80,8 +80,6 @@ def settings(request):
 
 @restrict_unlogged(next='avatars')
 def avatars(request):
-    print('avatars function is working')
-
     return render(request, 'accounts/avatars.html')
 
 
@@ -93,5 +91,5 @@ def view_profile(request, id):
     if user.total_games == 0:
         rate = 0
     else:
-        rate = user.won_games / user.total_games
+        rate = user.won_games * 100 / user.total_games
     return render(request, 'accounts/view_profile.html', {'friend':user, 'win_rate':rate})
