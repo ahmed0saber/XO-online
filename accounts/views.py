@@ -1,3 +1,4 @@
+from django.http import request
 from django.shortcuts import redirect, render
 from django.contrib import messages
 from django.contrib.auth import login, authenticate
@@ -78,9 +79,10 @@ def settings(request):
     return render(request, 'accounts/settings.html')
 
 @restrict_unlogged(next='avatars')
-def avatars(reqeust):
-    
-    return render('accounts/avatars.html')
+def avatars(request):
+    print('avatars function is working')
+
+    return render(request, 'accounts/avatars.html')
 
 
 
