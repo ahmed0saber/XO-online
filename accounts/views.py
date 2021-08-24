@@ -78,7 +78,7 @@ def settings(request):
     return render(request, 'accounts/settings.html')
 
 @restrict_unlogged(next='avatars')
-def avatars(reqeust):
+def avatars(request):
     
     return render(request, 'accounts/avatars.html')
 
