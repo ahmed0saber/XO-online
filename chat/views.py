@@ -10,7 +10,7 @@ from .models import global_message
 @restrict_unlogged(next='chat')
 def chat(request):
     count = global_message.objects.count()
-    messages = global_message.objects.filter(id__gt=count-30)
+    messages = global_message.objects.filter(id__gt=count-15)
     context =  {'messages':messages}
     return render(request, 'chat/chat.html', context)
 
@@ -23,6 +23,6 @@ class ChatView(ListView):
 @api_view(['GET'])
 def older_messages(request):
     latest = global_message.objects.get(unique_id=request.GET.get('id'))
-    query = global_message.objects.filter(id__gt=latest.id-30, id__lt=latest.id).order_by('-date_sent')
+    query = global_message.objects.filter(id__gt=latest.id-15, id__lt=latest.id).order_by('-date_sent')
     serializer = messageSerializer(query, many=True)
     return Response(serializer.data)
