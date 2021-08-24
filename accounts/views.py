@@ -80,7 +80,7 @@ def settings(request):
 @restrict_unlogged(next='avatars')
 def avatars(reqeust):
     
-    return render('accounts/avatars.html')
+    return render(request, 'accounts/avatars.html')
 
 
 
