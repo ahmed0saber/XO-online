@@ -159,14 +159,18 @@ class GameConsumer(WebsocketConsumer):
                 'self': serializer.data
             })
         else:
-            event.update({
-                'self': {
-                    'front_id':None,
-                    'image':CustomUser._meta.get_field("image").get_default(),
-                    'name':'Unknown User',
-                    'profile_url':"#"
-                }
-            })
+            try:
+                event.update({
+                    'self': {
+                        'front_id':None,
+                        'image':CustomUser().image.url,
+                        'name':'Unknown User',
+                        'profile_url':"#"
+                    }
+                })
+            except Exception as e:
+                print('cannot complete room')
+                print(e)
 
         if competitor:
             serializer = messageSenderSerializer(instance=competitor)
@@ -174,14 +178,18 @@ class GameConsumer(WebsocketConsumer):
                 'competitor': serializer.data
             })
         else:
-            event.update({
-                'competitor': {
-                    'front_id':None,
-                    'image':CustomUser._meta.get_field("image").get_default(),
-                    'name':'Unknown User',
-                    'profile_url':"#"
-                }
-            })
+            try:
+                event.update({
+                    'competitor': {
+                        'front_id':None,
+                        'image':CustomUser().image.url,
+                        'name':'Unknown User',
+                        'profile_url':"#"
+                    }
+                })
+            except Exception as e:
+                print('cannot complete room')
+                print(e)
 
         self.send(json.dumps(event))
     
