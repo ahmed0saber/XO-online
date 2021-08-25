@@ -92,6 +92,36 @@
 		#restart {
 			display: none;
 		}
+		img{
+		  width: 50px;
+		  height: 50px;
+		}
+		#img1{
+		  float: right;
+		}
+		#img2{
+		  float: left;
+		}
+		#header2{
+		  display: flex;
+		}
+		#player1 , #player2{
+		  width: 140px;
+		  border: 1px solid #007;
+		  font-size: 12px;
+		}
+		#player1{
+		  float: left;
+		}
+		#player2{
+		  float: right;
+		}
+		p{
+		  line-height: 5px;
+		}
+		#vs{
+		  line-height: 20px;
+		}
 	</style>
 </head>
 
@@ -100,6 +130,19 @@
 		<div id="header">
 			<a href="{% url 'app:new_game' %}"><button id="back"><i class="fa fa-arrow-left"></i></button></a>
 			<span class="span"></span>
+		</div>
+		<div id="header2">
+		  <div id="player1">
+		    <img id="img1">
+		    <p id="name1">Player 1</p>
+		    <p id="turn1">X</p>
+		  </div>
+		  <div><p id="vs">VS</p></div>
+		  <div id="player2">
+		    <img id="img2">
+		    <p id="name2">Player 2</p>
+		    <p id="turn2">O</p>
+		  </div>
 		</div>
 		<p id="des"></p>
 		<table align="center" id='table'>
