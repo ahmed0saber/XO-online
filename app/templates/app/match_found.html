@@ -93,8 +93,10 @@
 			display: none;
 		}
 		img{
-		  width: 40px;
-		  height: 40px;
+		  width: 38px;
+		  height: 38px;
+		  border: 1px solid #007;
+		  border-radius: 50%;
 		}
 		#img1{
 		  float: right;
@@ -138,13 +140,13 @@
 		  <div id="player1">
 		    <img id="img1">
 		    <p id="name1">Player 1</p>
-		    <p id="turn1">X</p>
+		    <p id="turn1">X/O</p>
 		  </div>
 		  <div><p id="vs">VS</p></div>
 		  <div id="player2">
 		    <img id="img2">
 		    <p id="name2">Player 2</p>
-		    <p id="turn2">O</p>
+		    <p id="turn2">X/O</p>
 		  </div>
 		</div>
 		<p id="des"></p>
@@ -307,9 +309,13 @@
 					button.value = ''
 					button.disabled = false
 				})
-				document.getElementById('des').innerText = 'New Game'
-				document.getElementById('restart').style.display = 'none'
+				document.getElementById('des').innerText = 'New Game';
+				document.getElementById('restart').style.display = 'none';
 				
+				document.getElementById("name1").textContent="Player 1";
+					document.getElementById("name2").textContent="Player 2";
+					document.getElementById("img1").src="";
+					document.getElementById("img2").src="";
 
 			}
 
