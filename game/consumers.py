@@ -27,7 +27,8 @@ class GameConsumer(WebsocketConsumer):
             self.room_group_name = 'game_' + self.room_name
             self.send(json.dumps({
                 'type':'created',
-                'room':self.room_name
+                'room':self.room_name,
+                
             }))
 
             connected_count = 0
@@ -73,6 +74,7 @@ class GameConsumer(WebsocketConsumer):
         try:
             player = Room.objects.get(channel_name=self.room_group_name).presence_set.filter(channel_name=self.channel_name)
             if player.exists():
+                user = player.first().user  
                 async_to_sync(self.channel_layer.group_send)(
                     self.room_group_name,
                     {
@@ -86,7 +88,7 @@ class GameConsumer(WebsocketConsumer):
                     self.channel_name
                 )
                 Room.objects.remove(self.room_group_name, self.channel_name)
-                db_logger.warning(f'I\'ve left the room , {player.user}')
+                db_logger.warning(f'I\'ve left the room , {user}')
         except Exception as e:
             print('error occured')
             print(e)
@@ -107,14 +109,17 @@ class GameConsumer(WebsocketConsumer):
 
         text_data = json.loads(text_data)
         if text_data['type'] ==  'completed':
-            competitor:CustomUser = Room.objects.get(channel_name=self.room_group_name).presence_set.filter(~Q(channel_name=self.channel_name)).first().user
+            
             user:CustomUser = self.scope['user']
-            db_logger.info(f'Game ended between me {user} and {competitor}\nuser scores: {user.won_games}, {user.lost_games}, {user.draw_games}\ncompetitor scores: {competitor.won_games}, {competitor.lost_games}, {competitor.draw_games}')
-            if competitor:
-                competitor.win()
             if user.is_authenticated:
-                user.lose()
-            db_logger.info(f'Game saved between me {user} and {competitor}\nuser scores: {user.won_games}, {user.lost_games}, {user.draw_games}\ncompetitor scores: {competitor.won_games}, {competitor.lost_games}, {competitor.draw_games}')
+                user = CustomUser.objects.get(id=user.id)
+                user.lost_games += 1
+                user.save()
+
+            competitor:CustomUser = Room.objects.get(channel_name=self.room_group_name).presence_set.filter(~Q(channel_name=self.channel_name)).first().user
+            if competitor:
+                competitor.won_games += 1
+                competitor.save()
             return 
         elif text_data['type'] == 'draw':
             competitor:CustomUser = Room.objects.get(channel_name=self.room_group_name).presence_set.filter(~Q(channel_name=self.channel_name)).first().user
@@ -123,6 +128,7 @@ class GameConsumer(WebsocketConsumer):
                 competitor.save()
             user = self.scope['user']
             if user.is_authenticated:
+                user = CustomUser.objects.get(id=user.id)
                 user.draw_games += 1
                 user.save()           
             return
