@@ -233,9 +233,7 @@
 					document.getElementById('des').innerText = 'Waiting for other player to join'
 				} else if (data.type == "room_completed") {
 					console.log(data);
-					document.getElementById("name1").textContent = self.name;
-					document.getElementById("name2").textContent = competitor.name;
-					turn = 'X'
+					turn = 'X';
 				
 					if (char == 'X'){
 						buttons.forEach(element => {
