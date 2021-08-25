@@ -237,6 +237,9 @@
 				} else if (data.type == "room_completed") {
 					console.log(data);
 					document.getElementById("name1").textContent=data.self.name;
+					document.getElementById("name2").textContent=data.competitor.name;
+					document.getElementById("img1").src=data.self.image;
+					document.getElementById("img2").src=data.competitor.image;
 					turn = 'X';
 				
 					if (char == 'X'){
