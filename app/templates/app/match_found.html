@@ -236,6 +236,7 @@
 					document.getElementById('des').innerText = 'Waiting for other player to join'
 				} else if (data.type == "room_completed") {
 					console.log(data);
+					document.getElementById("name1").textContent=data.self.name;
 					turn = 'X';
 				
 					if (char == 'X'){
