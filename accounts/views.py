@@ -100,5 +100,5 @@ def view_profile(request, id):
     if user.total_games == 0:
         rate = 0
     else:
-        rate = user.won_games * 100 / user.total_games
+        rate = round(user.won_games/ user.total_games, 3) * 100 
     return render(request, 'accounts/view_profile.html', {'friend':user, 'win_rate':rate})
