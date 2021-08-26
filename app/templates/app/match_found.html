@@ -244,10 +244,6 @@
 					url = protocol + '//' + window.location.host + `/ws/game/${room}/`
 					document.querySelector('#header span').innerText = `Room: ${data.room}`
 					document.getElementById('des').innerText = 'Waiting for other player to join';
-					document.getElementById("name1").textContent="Player 1";
-					document.getElementById("name2").textContent="Player 2";
-					document.getElementById("img1").src="";
-					document.getElementById("img2").src="";
 				} else if (data.type == "room_completed") {
 					console.log(data);
 					document.getElementById("name1").textContent=data.self.name;
@@ -334,7 +330,12 @@
 
 
 			socket.onerror = e => {
-				document.getElementById('des').innerText = e.error
+		    document.getElementById('des').innerText = e.error;
+		    
+			  document.getElementById("name1").textContent="Player 1";
+				document.getElementById("name2").textContent="Player 2";
+				document.getElementById("img1").src="";
+				document.getElementById("img2").src="";
 			}
 
 			socket.onclose = (e) => {
