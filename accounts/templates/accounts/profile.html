@@ -11,6 +11,7 @@
         height: 407px;
         background-color: #EEE;
         overflow: hidden;
+        overflow-y: auto;
       }
       #div1{
         margin: auto;
@@ -63,6 +64,57 @@
         padding: 0;
         margin: 0;
       }
+      #mh{
+        font-size: 20px;
+        margin: 5px;
+        background-color: #00A;
+        color: #EEE;
+        border: 2px solid #007;
+      }
+      #hr1{
+        margin: 0px auto;
+        padding: 0;
+        width: 90%;
+        border: 1px solid #0077;
+      }
+      fieldset{
+        width: 85%;
+        border: 2px solid #000;
+        margin: 0px auto;
+        margin-bottom: 10px;
+        border-radius: 20%;
+        padding: 0;
+      }
+      .matchinfo{
+        text-align: left;
+        font-size: 14px;
+        padding: 0;
+        padding-left: 5px;
+        margin: 3px;
+      }
+      .date{
+        text-align: right;
+        font-size: 12px;
+        padding: 0;
+        padding-right: 5px;
+        margin: 3px;
+      }
+      .matchspan{
+        color: #000;
+        font-weight: bold;
+      }
+      .Win{
+        color: #070;
+      }
+      .Lose{
+        color: #700;
+      }
+      .Draw{
+        color: #007;
+      }
+      legend{
+        font-weight: bold;
+      }
     </style>
   </head>
   <body>
@@ -81,6 +133,25 @@
         <p>lose : {{ user.lost_games }}</p>
         <p>draw : {{ user.draw_games }}</p>
         <p>win rate : {{ win_rate }} %</p>
+      </div>
+      <div id="match_history"><hr id="hr1">
+        <p id="mh">‹Recent Games›</p>
+        <fieldset>
+          <legend class="Win">Win</legend>
+          <p class="matchinfo">You VS <span class="matchspan">Ahmed Yasser</span></p>
+          <p class="date">5/7/2001</p>
+        </fieldset>
+        <fieldset>
+          <legend class="Lose">Lose</legend>
+          <p class="matchinfo">You VS <span class="matchspan">Ahmed Yasser</span></p>
+          <p class="date">5/7/2001</p>
+        </fieldset>
+        <fieldset>
+          <legend class="Draw">Draw</legend>
+          <p class="matchinfo">You VS <span class="matchspan">Ahmed Yasser</span></p>
+          <p class="date">5/7/2001</p>
+        </fieldset>
+        </div>
       </div>
     </div>
   </body>
