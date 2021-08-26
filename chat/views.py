@@ -10,7 +10,7 @@ from .models import global_message
 @restrict_unlogged(next='chat')
 def chat(request):
     count = global_message.objects.count()
-    messages = global_message.objects.filter(id__gt=count-15)
+    messages = global_message.objects.all()[count-15:count]
     context =  {'messages':messages}
     return render(request, 'chat/chat.html', context)
 
