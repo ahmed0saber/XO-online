@@ -5,4 +5,5 @@ from game.consumers import GameConsumer
 websocket_urlpatterns = [
     path('ws/chat/', GlobalChatConsumer.as_asgi()),
     path('ws/game/<str:room>/', GameConsumer.as_asgi()),
+    path('ws/game/<str:room>/<str:invited>/', GameConsumer.as_asgi()),
 ]

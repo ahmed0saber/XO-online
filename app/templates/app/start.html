@@ -145,8 +145,8 @@
             var myUrl = new URL(url);
             var user_id = myUrl.searchParams.get("user");
             console.log(user_id);
-            $("#iframe1").attr("src", "https://xo-online.herokuapp.com/accounts/user/" + user_id);
-            history.pushState({}, null, "https://xo-online.herokuapp.com/");
+            $("#iframe1").attr("src", url.slice(0, url.indexOf('?')) + "accounts/user/" + user_id);
+            history.pushState({}, null, url.slice(0, url.indexOf('?')));
 
         } else {
             console.log("The word Example is not in the string.");

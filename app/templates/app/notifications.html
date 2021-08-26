@@ -46,6 +46,17 @@
   </head>
   <body>
     <div id="div1">
+      {% for notification in notifications %}
+      <a href="{{ notification.url }}">
+
+        <div id="notification">
+          <p>
+            {{ notification.content }}
+          </p>
+          <p id="info">{{ notification.time }}</p>
+        </div>
+      </a>
+      {% endfor %}
         <div id="notification">
           <p>Hello {{ user }} !!<br>Welcome to xo-online , where you can play vs bots , friends or even strangers.<br>For more info about the game or the developers , press home icon then the button named "About".<br>Have fun and enjoy your time !</p>
           <p id="info">Best wishes<br>The developers</p>

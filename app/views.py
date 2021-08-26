@@ -16,7 +16,8 @@ def ai(request):
 
 @restrict_unlogged(next='notifications')
 def notifications(request):
-    return render(request, 'app/notifications.html')
+    qs = request.user.notification.all().order_by('-id')
+    return render(request, 'app/notifications.html', {'notifications': qs})
 
 def board(request):
     winners = CustomUser.objects.all().order_by('-won_games')

@@ -5,8 +5,8 @@ from django.urls import reverse
 from django.core.files.base import ContentFile
 from .managers import Manager
 
-from PIL import Image
 import uuid
+from PIL import Image
 from io import BytesIO
 from PIL.ImageOps import exif_transpose
 
@@ -79,3 +79,17 @@ class CustomUser(AbstractUser):
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
     
+
+class Notification(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='notification')
+    invitor = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='invitation')
+    room = models.CharField(max_length=16)
+    time = models.DateTimeField(auto_now_add=True)
+
+    @property
+    def content(self):
+        return f'Your friend {self.invitor.name} challenged you to play together click to play now !\nThis invitation is valid for 1 minute'
+    
+    @property
+    def url(self):
+        return reverse('app:game') + f'?room={self.room}'

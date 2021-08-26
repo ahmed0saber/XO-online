@@ -4,7 +4,7 @@ from channels_presence.models import Room, Presence
 
 from django.db.models import Q
 
-from accounts.models import CustomUser
+from accounts.models import CustomUser, Notification
 from chat.serializers import messageSenderSerializer
 import json
 import string 
@@ -16,6 +16,7 @@ db_logger = logging.getLogger('db')
 class GameConsumer(WebsocketConsumer):
 
     def connect(self):
+        print('trying to connect')
         self.room_name = self.scope['url_route']['kwargs']['room']
         self.room_group_name = 'game_' + self.room_name
         self.accept()
@@ -32,6 +33,33 @@ class GameConsumer(WebsocketConsumer):
             }))
 
             connected_count = 0
+        elif self.room_name == 'invite':
+            try:
+                invited = self.scope['url_route']['kwargs']['invited']
+                invited = CustomUser.objects.get(front_id=invited)
+            except Exception as e:
+                print(e)
+                self.send(json.dumps({
+                    'type':'error',
+                    'code':'404',
+                    'error':'Can\'t find the user'
+                }))
+                self.close()
+            else:
+                all = string.digits + string.ascii_letters
+                name = random.choices(all, k=16)
+                self.room_name = "".join(name)
+                self.room_group_name = 'game_' + self.room_name
+                notifi = Notification.objects.create(user=invited, invitor=self.scope['user'], room=self.room_name)
+                print(notifi)
+                notifi.save()
+                self.send(json.dumps({
+                    'type':'invited',
+                    'friend':invited.name,
+                }))
+                
+
+                connected_count = 0
         else:
             try:
                 connected_count = Room.objects.get(channel_name=self.room_group_name).presence_set.count()

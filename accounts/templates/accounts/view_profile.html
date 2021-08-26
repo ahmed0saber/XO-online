@@ -73,7 +73,7 @@
         <img id="profile_pic" src="{{ friend.image.url }}">
       </div>
       <p id="username">{{ friend }}</p>
-      <button class="btns"><p id="inside"><i class="fas fa-user-friends"></i> Play together</p></button>
+      <a href="{% url 'app:game' %}?room=invite&user={{friend.front_id}}"><button class="btns"><p id="inside"><i class="fas fa-user-friends"></i> Play together</p></button></a>
       <div id="user_stats">
         <p>Played {{ friend.total_games }} games</p>
         <p>win : {{ friend.won_games }}</p>
