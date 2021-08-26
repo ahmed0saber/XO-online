@@ -243,7 +243,11 @@
 					room = data.room
 					url = protocol + '//' + window.location.host + `/ws/game/${room}/`
 					document.querySelector('#header span').innerText = `Room: ${data.room}`
-					document.getElementById('des').innerText = 'Waiting for other player to join'
+					document.getElementById('des').innerText = 'Waiting for other player to join';
+					document.getElementById("name1").textContent="Player 1";
+					document.getElementById("name2").textContent="Player 2";
+					document.getElementById("img1").src="";
+					document.getElementById("img2").src="";
 				} else if (data.type == "room_completed") {
 					console.log(data);
 					document.getElementById("name1").textContent=data.self.name;
@@ -319,12 +323,6 @@
 				})
 				document.getElementById('des').innerText = 'New Game';
 				document.getElementById('restart').style.display = 'none';
-				
-				document.getElementById("name1").textContent="Player 1";
-					document.getElementById("name2").textContent="Player 2";
-					document.getElementById("img1").src="";
-					document.getElementById("img2").src="";
-
 			}
 
 			document.getElementById('restart').onclick = ()=>{
