@@ -14,7 +14,6 @@
 
         #header {
             margin: 0px auto;
-            margin-top: 50px;
             padding: 0;
             width: 300px;
             height: 450px;
@@ -22,7 +21,6 @@
             background-color: #CCF;
             border: 2px solid #33F;
             box-shadow: 0 0 5px #117;
-            transform: scale(1.1,1.1);
         }
 
         .h_btns {
@@ -98,6 +96,19 @@
     </div>
 </body>
 <script>
+    var ratio = screen.width/300 - 0.03;
+    console.log(ratio);
+    if(ratio>1.3)
+    {
+      ratio=1.3;
+    }
+    document.getElementById("header").style.transform = "scale("+ratio+")";
+    var topmargin = (ratio-1)*450/2;
+    document.getElementById("header").style.marginTop = topmargin+"px";
+    
+    
+    
+
     function frameloaded() {
         $("#loading").css("display", "none");
         $("#iframe1").css("display", "block");
