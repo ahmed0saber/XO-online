@@ -1,9 +1,10 @@
 from asgiref.sync import async_to_sync
+import channels
 from channels.generic.websocket import WebsocketConsumer
 from channels_presence.models import Room, Presence
 
 from django.db.models import Q
-
+from django.core.exceptions import ObjectDoesNotExist
 from accounts.models import CustomUser, Notification
 from chat.serializers import messageSenderSerializer
 import json
@@ -16,7 +17,6 @@ db_logger = logging.getLogger('db')
 class GameConsumer(WebsocketConsumer):
 
     def connect(self):
-        print('trying to connect')
         self.room_name = self.scope['url_route']['kwargs']['room']
         self.room_group_name = 'game_' + self.room_name
         self.accept()
@@ -29,10 +29,27 @@ class GameConsumer(WebsocketConsumer):
             self.send(json.dumps({
                 'type':'created',
                 'room':self.room_name,
-                
             }))
 
             connected_count = 0
+        elif self.room_name == 'random':
+            counter = 1
+            while self.room_name == 'random':
+                try:
+                    room:Room = Room.objects.get(channel_name=f'random_{counter}')
+                except ObjectDoesNotExist as e:
+                    room = Room.objects.create(channel_name=f'random_{counter}')
+                connected_count = room.presence_set.count()
+                if connected_count < 2:
+                    self.room_name = f'random_{counter}'
+                    self.room_group_name = f'random_{counter}'
+                    if connected_count == 0:
+                        self.send(json.dumps({
+                            'type':'created',
+                            'room':self.room_name,
+                        }))
+                counter += 1
+                
         elif self.room_name == 'invite':
             try:
                 invited = self.scope['url_route']['kwargs']['invited']
@@ -51,7 +68,6 @@ class GameConsumer(WebsocketConsumer):
                 self.room_name = "".join(name)
                 self.room_group_name = 'game_' + self.room_name
                 notifi = Notification.objects.create(user=invited, invitor=self.scope['user'], room=self.room_name)
-                print(notifi)
                 notifi.save()
                 self.send(json.dumps({
                     'type':'invited',
@@ -116,7 +132,6 @@ class GameConsumer(WebsocketConsumer):
                     self.channel_name
                 )
                 Room.objects.remove(self.room_group_name, self.channel_name)
-                db_logger.warning(f'I\'ve left the room , {user}')
         except Exception as e:
             print('error occured')
             print(e)

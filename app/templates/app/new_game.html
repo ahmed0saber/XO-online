@@ -55,7 +55,7 @@
 <body>
 	<div id="div1">
 		<p class="ps">Play an auto matching random game</p>
-		<a href=""><button class="btns">Search for a match</button></a>
+		<a href="{% url 'app:game' %}?room=random"><button class="btns">Search for a match</button></a>
 
 		<hr>
 		<p class="ps">Play a custom game</p>

@@ -53,7 +53,7 @@
 			color: #007;
 			border: 2px solid #0077;
 			font-family: sans-serif;
-			transition-duration: 0.3s;
+			transition-duration: 0.2s;
 			border-radius: 0;
 			-webkit-border-radius: 0;
         	-webkit-appearance: none;
@@ -284,6 +284,7 @@
 		  		document.getElementById("img1").src="";
 	  			document.getElementById("img2").src="";
 	  			alert("The other player left the game , the game will be restarted preparing for another player to join !!");
+				char = 'X'
 	  			restart();
 				}else if (data.type == 'restart'){
 					restart()
