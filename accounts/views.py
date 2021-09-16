@@ -69,7 +69,7 @@ def profile(request):
         rate = 0
 
     history = Match.objects.filter(Q(winner=request.user)|Q(loser=request.user)) | request.user.matches.all()
-    history = history.order_by('-time')
+    history = history.order_by('-time')[:20]
     context =  {
         'win_rate': rate,
         'history': history
