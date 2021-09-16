@@ -1,11 +1,11 @@
 from asgiref.sync import async_to_sync
-import channels
 from channels.generic.websocket import WebsocketConsumer
 from channels_presence.models import Room, Presence
 
 from django.db.models import Q
 from django.core.exceptions import ObjectDoesNotExist
 from accounts.models import CustomUser, Notification
+from game.models import Match
 from chat.serializers import messageSenderSerializer
 import json
 import string 
@@ -154,26 +154,37 @@ class GameConsumer(WebsocketConsumer):
         if text_data['type'] ==  'completed':
             
             user:CustomUser = self.scope['user']
+            match = Match()
             if user.is_authenticated:
                 user = CustomUser.objects.get(id=user.id)
                 user.lost_games += 1
+                match.loser = user
                 user.save()
 
             competitor:CustomUser = Room.objects.get(channel_name=self.room_group_name).presence_set.filter(~Q(channel_name=self.channel_name)).first().user
             if competitor:
                 competitor.won_games += 1
+                match.winner = competitor
                 competitor.save()
+            if match.loser or match.winner:
+                match.save()
             return 
         elif text_data['type'] == 'draw':
             competitor:CustomUser = Room.objects.get(channel_name=self.room_group_name).presence_set.filter(~Q(channel_name=self.channel_name)).first().user
+            match = Match.objects.create()
+            
             if competitor:
                 competitor.draw_games += 1
+                competitor.matches.add(match)
                 competitor.save()
             user = self.scope['user']
             if user.is_authenticated:
                 user = CustomUser.objects.get(id=user.id)
                 user.draw_games += 1
+                user.matches.add(match)
                 user.save()           
+            if not match.draw.all():
+                match.delete()
             return
 
 

@@ -135,22 +135,29 @@
         <p>win rate : {{ win_rate }} %</p>
       </div>
       <div id="match_history"><hr id="hr1">
-        <p id="mh">‹Recent 20 Games›</p>
-        <fieldset>
-          <legend class="Win">Win</legend>
-          <p class="matchinfo">You VS <span class="matchspan">Ahmed Yasser</span></p>
-          <p class="date">5/7/2001</p>
-        </fieldset>
-        <fieldset>
-          <legend class="Lose">Lose</legend>
-          <p class="matchinfo">You VS <span class="matchspan">Ahmed Yasser</span></p>
-          <p class="date">5/7/2001</p>
-        </fieldset>
-        <fieldset>
-          <legend class="Draw">Draw</legend>
-          <p class="matchinfo">You VS <span class="matchspan">Ahmed Yasser</span></p>
-          <p class="date">5/7/2001</p>
-        </fieldset>
+        <p id="mh">‹Recent {{ history.count }} Games›</p>
+        {% for match in history %}
+          <fieldset>
+
+            {% if match.winner == user %}
+              <legend class="Win">Win</legend>
+              <p class="matchinfo">You VS <span class="matchspan">{{ match.loser }}</span></p>
+            {% elif match.loser == user %}
+              <legend class="Lose">Lose</legend>
+              <p class="matchinfo">You VS <span class="matchspan">{{ match.winner }}</span></p>
+            {% else %}
+              <legend class="Draw">Draw</legend>
+              <p class="matchinfo">You VS <span class="matchspan">
+                {% for player in match.draw.all %}
+                {% if player != user %}
+                {{player}}
+                {%  endif %}
+                {% endfor %}
+              </span></p>
+            {% endif %}
+              <p class="date">{{match.time|date:'M. j, g:i A'}}</p>
+          </fieldset>
+        {% endfor %}
         <br></div>
       </div>
     </div>

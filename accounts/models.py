@@ -38,17 +38,6 @@ class CustomUser(AbstractUser):
     def profile_url(self):
         return reverse('accounts:view_user', kwargs={"id":self.front_id})
 
-    def win(self):
-        self.won_games += 1
-        self.save() 
-
-    def lose(self):
-        self.lost_games += 1
-        self.save() 
-
-    def draw(self):
-        self.draw_games += 1
-        self.save() 
 
     def compress(self, im:Image):
         ratio = im.height / im.width

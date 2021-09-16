@@ -1,4 +1,4 @@
-from django.http import request
+from django.db.models.query_utils import Q
 from django.shortcuts import redirect, render
 from django.contrib import messages
 from django.contrib.auth import login, authenticate
@@ -6,7 +6,7 @@ from django.shortcuts import get_object_or_404
 from .forms import CustomUserCreationForm, CustomUserChangeForm
 from .models import CustomUser
 from accounts.decorators import *
-
+from game.models import Match
 
 # Create your views here.
 @restrict_logged
@@ -67,7 +67,14 @@ def profile(request):
         rate = round(request.user.won_games/ request.user.total_games, 3) * 100 
     except ZeroDivisionError:
         rate = 0
-    return render(request, 'accounts/profile.html', {'win_rate': rate})
+
+    history = Match.objects.filter(Q(winner=request.user)|Q(loser=request.user)) | request.user.matches.all()
+    history = history.order_by('-time')
+    context =  {
+        'win_rate': rate,
+        'history': history
+    }
+    return render(request, 'accounts/profile.html', context)
 
 @restrict_unlogged(next='settings')
 def settings(request):

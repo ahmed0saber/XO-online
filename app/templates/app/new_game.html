@@ -83,18 +83,20 @@
 				return false
 			}
 		}
-		document.querySelector('input').oninput =  async (e) => {
+		document.querySelector('input').onkeypress =  (e) => {
 			if (e.keyCode == 13) {
 				document.getElementById('join').click()
 			}
-			else {
-				let is_valid = await check_room(e.target.value)
-				if (is_valid){
-					document.getElementById('join').href = `{% url 'app:game' %}?room=${e.target.value}`
-				}else{
-					document.getElementById('join').href = '#'
-				}
+		}
+		document.querySelector('input').oninput =  async (e) => {
+			
+			let is_valid = await check_room(e.target.value)
+			if (is_valid){
+				document.getElementById('join').href = `{% url 'app:game' %}?room=${e.target.value}`
+			}else{
+				document.getElementById('join').href = '#'
 			}
+			
 		}
 	</script>
 </body>
