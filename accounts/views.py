@@ -64,7 +64,7 @@ def log_in(request, next):
 @restrict_unlogged(next='profile')
 def profile(request):
     try:
-        rate = round(request.user.won_games/ request.user.total_games, 3) * 100 
+        rate = round((request.user.won_games/ request.user.total_games) *100, 1) 
     except ZeroDivisionError:
         rate = 0
 
