@@ -83,13 +83,12 @@
 				return false
 			}
 		}
-		document.querySelector('input').onkeyup = async (e) => {
+		document.querySelector('input').oninput =  async (e) => {
 			if (e.keyCode == 13) {
 				document.getElementById('join').click()
 			}
 			else {
 				let is_valid = await check_room(e.target.value)
-				console.log(is_valid);
 				if (is_valid){
 					document.getElementById('join').href = `{% url 'app:game' %}?room=${e.target.value}`
 				}else{
