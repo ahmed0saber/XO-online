@@ -241,8 +241,6 @@
 								element.disabled = false
 							}
 						})
-					} else {
-						buttons.forEach(element => { element.disabled = true })
 					}
 				} else if (data.type == 'created') {
 					char = 'X'
@@ -278,14 +276,14 @@
 					document.getElementById('des').innerText = data.error;
 					
 					document.getElementById("name1").textContent="Player 1";
-			  	document.getElementById("name2").textContent="Player 2";
-			  	document.getElementById("turn1").textContent="X/O";
-          document.getElementById("turn2").textContent="X/O";
-		  		document.getElementById("img1").src="";
-	  			document.getElementById("img2").src="";
-	  			alert("The other player left the game , the game will be restarted preparing for another player to join !!");
-				char = 'X'
-	  			restart();
+					document.getElementById("name2").textContent="Player 2";
+					document.getElementById("turn1").textContent="X/O";
+					document.getElementById("turn2").textContent="X/O";
+					document.getElementById("img1").src="";
+					document.getElementById("img2").src="";
+					alert("The other player left the game , the game will be restarted preparing for another player to join !!");
+					char = 'X'
+					restart();
 				}else if (data.type == 'restart'){
 					restart()
 				}
@@ -360,6 +358,7 @@
 
 			buttons.forEach(button => {
 				button.onclick = e => {
+					buttons.forEach(el=>el.disabled=true)
 					socket.send(
 						JSON.stringify({
 							'type': 'game_play',
