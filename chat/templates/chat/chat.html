@@ -265,20 +265,9 @@
       }
 
 
-    function _send() {
-        var element = document.getElementById("msg_container");
-        let message = document.getElementById("tx1").value
-        socket.send(
-            JSON.stringify({'message':message})
-        )
-        document.getElementById("tx1").value = "";
-    }
+    
 
-    document.getElementById("tx1").onkeypress = e => {
-        if (e.keyCode == 13){
-            _send()
-        }
-    }
+
 
     var element = document.getElementById("msg_container");
     element.addEventListener('scroll', function (event) {
@@ -294,34 +283,56 @@
     // websocket handling 
     let protocol = window.location.protocol == "https:" ? "wss:" : "ws:"
     let url = protocol + "//" + window.location.host + '/ws/chat/'
-    
-    const socket = new WebSocket(url)
-    socket.onmessage = (data)=>{
-        message = JSON.parse(data.data)
-        if (message.sender.front_id == "{{user.front_id}}"){
-          
-            element.innerHTML +=`
-            <div id="user_div" class="msg" data-id="${message.unique_id}">
-                <a href="${message.sender.profile_url}"><img id="user_img" src="` + message.sender.image + `"></a>
-                <p id="user_msg">` + message.content + `<br><span id="date">` + message.date_sent + `</span></p>
-            </div>`
-        }else{
-          /*<div class="msg">
-              <img src="{{ message.sender.image.url }}">
-              <p><span id="name">{{ message.sender }}</span><br>{{ message.content }}<br><span id="date">{{ message.date_sent }}</span></p>
-            </div>*/
-            element.innerHTML +=`
-            <div class="msg" data-id="${message.unique_id}">
-                <a href="${message.sender.profile_url}"><img src="` + message.sender.image + `"></a>
-                <p><a href="${message.sender.profile_url}"><span id="name"> ` + message.sender.name + ` </span></a><br>` + message.content + `<br><span id="date">` + message.date_sent + `</span></p>
-            </div>`
+    let start_socket = ()=>{
+
+        const socket = new WebSocket(url)
+        socket.onmessage = (data)=>{
+            message = JSON.parse(data.data)
+            if (message.sender.front_id == "{{user.front_id}}"){
+              
+                element.innerHTML +=`
+                <div id="user_div" class="msg" data-id="${message.unique_id}">
+                    <a href="${message.sender.profile_url}"><img id="user_img" src="` + message.sender.image + `"></a>
+                    <p id="user_msg">` + message.content + `<br><span id="date">` + message.date_sent + `</span></p>
+                </div>`
+            }else{
+                
+                element.innerHTML +=`
+                <div class="msg" data-id="${message.unique_id}">
+                    <a href="${message.sender.profile_url}"><img src="` + message.sender.image + `"></a>
+                    <p><a href="${message.sender.profile_url}"><span id="name"> ` + message.sender.name + ` </span></a><br>` + message.content + `<br><span id="date">` + message.date_sent + `</span></p>
+                </div>`
+            }
+            if (element.scrollTop > element.scrollHeight - 900){
+                smoothScroll()
+                element.scrollTop = element.scrollHeight;
+                fastScroll()
+            } 
         }
-        if (element.scrollTop > element.scrollHeight - 900){
-            smoothScroll()
-            element.scrollTop = element.scrollHeight;
-            fastScroll()
-        } 
+
+        socket.onclose = ()=>{
+            setTimeout(()=>{
+                start_socket()
+            }, 1000)
+        }
+
+        function _send() {
+            var element = document.getElementById("msg_container");
+            let message = document.getElementById("tx1").value
+            socket.send(
+                JSON.stringify({'message':message})
+            )
+            document.getElementById("tx1").value = "";
+        }
+
+        document.getElementById("tx1").onkeypress = e => {
+        if (e.keyCode == 13){
+            _send()
+        }
     }
+    }
+    start_socket()
+
 
     let smoothScroll = ()=>{
         element.style.scrollBehavior = 'smooth'

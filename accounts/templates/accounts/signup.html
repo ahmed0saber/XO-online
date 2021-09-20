@@ -37,7 +37,7 @@
         font-family: Times New Roman;
         outline: none;
       }
-      #name{
+      .name{
         width: 110px;
         margin: 10px 0 10px 0;
       }
@@ -51,6 +51,22 @@
         padding: 0;
         margin: 15px;
       }
+      .errors{
+        color: red;
+        margin: 0;
+        width: 225px;
+        margin: auto;
+        text-align: left;
+        font-size: 14px;
+      }
+      .wrong{
+        border-color: red;
+        outline-color: red;
+      }
+      .right{
+        border-color: green;
+        outline-color: green;
+      }
     </style>
   </head>
   <body>
@@ -63,18 +79,78 @@
       <p id="p1">Create new account</p>
       <form action="" method="POST">
         {% csrf_token %}
-        <input id="name" type="text" placeholder="First name" name="first_name">
-        <input id="name" type="text" placeholder="Last name" name="last_name">
-        <input type="text" placeholder="Email" name="email">
+        <input class="name" type="text" placeholder="First name" name="first_name">
+        <input class="name" type="text" placeholder="Last name" name="last_name">
+        <input id='email' type="email" placeholder="Email" name="email">
+        <div class='errors' id='email_errors'></div>
         {{form.email.errors}}
-        <input type="password" placeholder="Password" name="password1">
+        <input id='password1' type="password" placeholder="Password" name="password1">
+        <div class='errors' id='pass_errors'></div>
         {{form.password1.errors}}
-        <input type="password" placeholder="Confirm password" name="password2">
+        <input id='password2' type="password" placeholder="Confirm password" name="password2">
+        <div class='errors' id='pass2_errors'></div>
         {{form.password2.errors}}
         <input type="submit" id="btn" value="sign up">
 
       </form>
       <p>Already have account ?! <a href="{% url 'accounts:login' next%}">Log in</a></p>
     </div>
+    <script>
+      let email = document.getElementById('email')
+      email.oninput = async ()=>{
+        if (email.value == ''){
+          email.classList = ''
+          document.getElementById('email_errors').innerHTML = ''
+          return
+        }
+        
+        let res = await fetch(`/accounts/api/check_email/?email=${email.value}`)
+        if (res.ok){
+          email.classList = 'right'
+          document.getElementById('email_errors').innerHTML = ''
+        }else{
+          console.clear()
+          email.classList = 'wrong'
+          res = await res.json()
+          document.getElementById('email_errors').innerHTML ='' 
+          for (err of res.details){
+            document.getElementById('email_errors').innerHTML += `<p class='errors'>${err}</p>` 
+          }
+        }
+      }
+
+      let password = document.getElementById('password1')
+      password.oninput = async ()=>{
+        if (password.value == ''){
+          password.classList = ''
+          document.getElementById('pass_errors').innerHTML = ''
+          return
+        }
+        let res = await fetch(`/accounts/api/check_password/?password=${password.value}`)
+        if (res.ok){
+          password.classList = 'right'
+          document.getElementById('pass_errors').innerHTML = ''
+        }else{
+          console.clear()
+          password.classList = 'wrong'
+          res = await res.json()
+          document.getElementById('pass_errors').innerHTML = '' 
+          for (err of res.details){
+            document.getElementById('pass_errors').innerHTML += `<p class='errors'>${err}</p>` 
+          }
+        }
+      }
+
+      let password2 = document.getElementById('password2')
+      password2.oninput = ()=>{
+        if (password2.value == password.value){
+          password2.classList = 'right'
+          document.getElementById('pass2_errors').innerHTML = ''
+        }else{
+          password2.classList = 'wrong'
+          document.getElementById('pass2_errors').innerHTML = 'Two passwords must be the same' 
+        }
+      }
+    </script>
   </body>
 </html>
