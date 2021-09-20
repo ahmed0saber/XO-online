@@ -25,10 +25,9 @@ SECRET_KEY = os.environ.get("SECRET_KEY", config("SECRET_KEY"))
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = bool(os.environ.get("DEBUG", config("DEBUG"))) == 'True'
+DEBUG = os.environ.get("DEBUG", config("DEBUG")) == 'True'
 
-if not DEBUG:
-    SECURE_SSL_REDIRECT = True
+SECURE_SSL_REDIRECT = not DEBUG
 
 ALLOWED_HOSTS = ['xo-online.herokuapp.com', '127.0.0.1']
 
