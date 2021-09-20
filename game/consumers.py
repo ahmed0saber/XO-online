@@ -67,8 +67,7 @@ class GameConsumer(WebsocketConsumer):
                 name = random.choices(all, k=16)
                 self.room_name = "".join(name)
                 self.room_group_name = 'game_' + self.room_name
-                notifi = Notification.objects.create(user=invited, invitor=self.scope['user'], room=self.room_name)
-                notifi.save()
+                Notification.objects.create(user=invited, room=self.room_name)
                 self.send(json.dumps({
                     'type':'invited',
                     'friend':invited.name,

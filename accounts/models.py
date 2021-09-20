@@ -71,13 +71,16 @@ class CustomUser(AbstractUser):
 
 class Notification(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='notification')
-    invitor = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='invitation')
+    invitor = models.ForeignKey(CustomUser, null=True, blank=True, on_delete=models.CASCADE, related_name='invitation')
     room = models.CharField(max_length=16)
     time = models.DateTimeField(auto_now_add=True)
 
     @property
     def content(self):
-        return f'Your friend {self.invitor.name} challenged you to play together click to play now !\nThis invitation is valid for 1 minute'
+        if self.invitor:
+            return f'Your friend {self.invitor.name} challenged you to play together click to play now !\nThis invitation is valid for 1 minute'
+        else:
+            return f'A friend challenged you to play together click to play now !\nThis invitation is valid for 1 minute'
     
     @property
     def url(self):
