@@ -44,7 +44,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'debug_toolbar',
     'rest_framework',
     'channels',
     'channels_redis',
@@ -53,7 +52,6 @@ INSTALLED_APPS = [
     'chat',
     'app',
     'game',
-    'django_db_logger',
 ]
 
 MIDDLEWARE = [
