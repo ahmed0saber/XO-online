@@ -158,6 +158,10 @@
         b='O';
       }
       else{
+        for(var k=0;k<=8;k++)
+        {
+            document.getElementById('b'+k).disabled=true;
+        }
         b='X';
         turn=1;
         var board_string="---------";
