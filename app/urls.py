@@ -1,4 +1,6 @@
+from os import name
 from django.urls import path
+from django.views.generic.base import TemplateView
 from .views import *
 from game.views import check_room
 app_name = 'app'
@@ -15,4 +17,5 @@ urlpatterns = [
     path('game/check_room/', check_room, name='check_room'),
     path('about/', about, name='about'),
     path('new_game/', new_game, name='new_game'),
+    path('manifest.js', TemplateView.as_view(template_name='app/manifest.webmanifest', content_type='application/x-javascript'), name='manifest')
 ]
