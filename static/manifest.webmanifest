@@ -4,19 +4,14 @@
     "icons": [
       {
         "src": "/media/logo/tic-tac-toe.svg",
-        "type": "image/png",
+        "type": "image/svg+xml",
         "sizes": "192x192"
       }
     ],
     "start_url": "/",
-    "background_color": "#3367D6",
+    "background_color": "white",
     "display": "standalone",
     "scope": "/",
     "theme_color": "#3367D6",
-    "shortcuts": [
-    ],
-    "description": "Weather forecast information",
-    "screenshots": [
-
-    ]
-  }
+    "description": "Weather forecast information"
+}
