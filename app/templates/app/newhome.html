@@ -42,4 +42,10 @@
       <a href="{% url 'app:about' %}"><button class="btns" id="about">About</button></a>
     </div>
   </body>
+  <script>
+    api_url="https://tttapi.herokuapp.com/api/v1/---------/X";
+        fetch(api_url)
+            .then(response => response.json())
+            .then(data => done(data));
+  </script>
 </html>
