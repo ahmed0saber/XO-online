@@ -139,7 +139,10 @@
     </div>
   </body>
   <script>
-  /*Math.floor(Math.random() * 9)*/
+    api_url="https://tttapi.herokuapp.com/api/v1/---------/X";
+        fetch(api_url)
+            .then(response => response.json())
+            .then(data => done(data));
   
     var picked;
     var b;
