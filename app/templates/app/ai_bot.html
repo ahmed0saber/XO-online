@@ -240,7 +240,7 @@
             }
         }
         console.log(board_string);
-        api_url="http://tttapi.herokuapp.com/api/v1/"+board_string+"/"+b;
+        api_url="https://tttapi.herokuapp.com/api/v1/"+board_string+"/"+b;
         board_string="";
         fetch(api_url)
             .then(response => response.json())
