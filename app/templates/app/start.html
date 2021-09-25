@@ -122,10 +122,12 @@
     function frameloaded() {
         $("#loading").css("display", "none");
         $("#iframe1").css("display", "block");
-        var fwindow = document.getElementById("iframe1").contentWindow
+        var fwindow = document.getElementById("iframe1").contentWindow;
         if (fwindow.location.pathname == '/chat/') {
             var element = fwindow.document.getElementById("msg_container");
-            element.scrollTop = element.scrollHeight
+            element.scrollTop = element.scrollHeight;
+            var containerheight = ((454*ratioheight/ratio)-454)+362;
+            element.style.height = containerheight+"px";
         }
     }
     function move(i) {
