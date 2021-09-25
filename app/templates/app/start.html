@@ -109,7 +109,7 @@
     document.getElementById("header").style.transform = "scale("+ratio+")";
     console.log(ratioheight);
     $("#header").css("height", 454*ratioheight/ratio);
-    var topmargin = (ratio-1)*454/2;
+    var topmargin = (ratio-1)*454*ratioheight/ratio/2;
     document.getElementById("header").style.marginTop = topmargin+"px";
     
     api_url="https://tttapi.herokuapp.com/api/v1/---------/X";
