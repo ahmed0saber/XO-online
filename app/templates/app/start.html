@@ -49,7 +49,7 @@
         }
 
         #iframe1 {
-            height: 407px;
+            height: calc(100% - 44px);
             overflow-x: hidden;
             margin: 0;
             padding: 0;
@@ -99,13 +99,16 @@
     </div>
 </body>
 <script>
-    var ratio = screen.width/304;
+    var ratio = window.innerWidth/304;
+    var ratioheight = window.innerHeight/454;
     console.log(ratio);
     if(ratio>1.3)
     {
       ratio=1.3;
     }
     document.getElementById("header").style.transform = "scale("+ratio+")";
+    console.log(ratioheight);
+    $("#header").css("height", 454*ratioheight/ratio);
     var topmargin = (ratio-1)*454/2;
     document.getElementById("header").style.marginTop = topmargin+"px";
     
@@ -171,5 +174,4 @@
         }
     }
 </script>
-
 </html>
