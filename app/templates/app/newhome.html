@@ -53,6 +53,7 @@
     if(localStorage.getItem("page")=="div2" || localStorage.getItem("page")=="div3")
     {
       nav(localStorage.getItem("page"));
+      localStorage.setItem("page", "div1");
     }
     else{
       nav("div1");
