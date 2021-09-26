@@ -1,6 +1,7 @@
 {
     "short_name": "X&O",
     "name": "X&O",
+    "theme-color": "#00B",
     "icons": [
       {
         "src": "https://xoonlinebucket.s3.amazonaws.com/logo/tic-tac-toe.svg",

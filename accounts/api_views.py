@@ -1,12 +1,15 @@
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
+from rest_framework.viewsets import GenericViewSet
+from rest_framework.mixins import ListModelMixin
+from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
 from django.core.validators import validate_email
 from django.contrib.auth.password_validation import validate_password
 
 from django.core.exceptions import ValidationError
-from .models import CustomUser
-
+from .models import CustomUser, Notification
+from .serializers import ArabicNotificationsSerializer, EnglishNotificationsSerializer
 
 @api_view(['GET'])
 def check_email(request):
@@ -31,4 +34,15 @@ def check_password(request):
         return Response({"error":"This password is invalid please enter a valid password","details":e}, status=status.HTTP_406_NOT_ACCEPTABLE)
 
 
-    
+class EnglishNotificationsViewset(GenericViewSet, ListModelMixin):
+    serializer_class = EnglishNotificationsSerializer
+    permission_classes = [IsAuthenticated]
+    def get_queryset(self):
+        return self.request.user.notification
+
+
+class ArabicNotificationsViewset(GenericViewSet, ListModelMixin):
+    serializer_class = ArabicNotificationsSerializer
+    permission_classes = [IsAuthenticated]
+    def get_queryset(self):
+        return self.request.user.notification

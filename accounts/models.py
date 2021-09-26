@@ -83,5 +83,11 @@ class Notification(models.Model):
             return f'A friend challenged you to play together click to play now !\nThis invitation is valid for 1 minute'
     
     @property
+    def arabic(self):
+        if self.invitor:
+            return f'صديقك {self.invitor.name} يتحداك لتلعب معه اضغط الآن لقبول التحدي...هذه الدعوة صالحة لمدة دقيقة واحدة'
+        return 'صديق لك يتحداك للعب مباراة ... اضغط هنا لقبول التحدي'
+
+    @property
     def url(self):
         return reverse('app:game') + f'?room={self.room}'
