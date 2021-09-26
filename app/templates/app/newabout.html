@@ -25,7 +25,7 @@
         font-size: 18px;
         font-family: Times New Roman;
       }
-      #header_p{
+      .header_p{
         font-size: 22px;
         font-family: Times New Roman;
         border: 1px solid #aaa9;
@@ -46,10 +46,10 @@
       #info{
         padding: 8px;
       }
-      #p2{
+      .p2{
         padding-left: 10px;
       }
-      #p3{
+      .p3{
         padding-left: 20px;
       }
       p{
@@ -90,19 +90,53 @@
       </div>
       <div id="info">
         <div id="section1">
-            <p id="header_p">About the game</p>
-            <p id="p2">Online Tic Tac Toe is a web game where you can play 4 different modes</p>
-            <p id="p3">•play vs easy bot or a random-move bot</p>
-            <p id="p3">•play vs AI bot or unbeatable bot</p>
-            <p id="p3">•play vs a person locally , from one device</p>
-            <p id="p3">•play vs a person online , from 2 different devices</p>
+            <p class="header_p" id="pp0">About the game</p>
+            <p class="p2" id="pp1">Online Tic Tac Toe is a web game where you can play 4 different modes</p>
+            <p class="p3" id="pp2">•play vs easy bot or a random-move bot</p>
+            <p class="p3" id="pp3">•play vs AI bot or unbeatable bot</p>
+            <p class="p3" id="pp4">•play vs a person locally , from one device</p>
+            <p class="p3" id="pp5">•play vs a person online , from 2 different devices</p>
         </div>
         <div id="section1">
-            <p id="header_p">About the developers</p>
-      <p id="p2"><a href="">Ahmed Saber</a> , A frontend web developer</p>
-      <p id="p2"><a href="">Ahmed Yasser</a> , A backend web developer</p>
+            <p class="header_p" id="pp6">About the developers</p>
+      <p class="p2"><a href="">Ahmed Saber</a> , A frontend web developer</p>
+      <p class="p2"><a href="">Ahmed Yasser</a> , A backend web developer</p>
         </div>
       </div>
     </div>
   </body>
+  <script>
+    if(localStorage.getItem("language")=="AR")
+    {
+        toArabic();
+    }
+    else{
+        toEnglish();
+    }
+    
+    function toArabic()
+    {
+      localStorage.setItem("language", "AR");
+      document.getElementById("back").textContent="رجوع";
+      document.getElementById("pp0").textContent="عن اللعبة";
+      document.getElementById("pp1").textContent="لعبة اكس اوو الاونلاين تمكنك من لعب 4 انماط مختلفة";
+      document.getElementById("pp2").textContent="•اللعب ضد روبوت سهل يلعب عشوائيا";
+      document.getElementById("pp3").textContent="•اللعب ضد بوت صعب لا يمكن هزيمته";
+      document.getElementById("pp4").textContent="•اللعب مع شخص بجوارك باستخدام نفس الجهاز";
+      document.getElementById("pp5").textContent="•اللعب ضد شخص متصل بالانترنت من جهاز اخر";
+      document.getElementById("pp6").textContent="عن المطورين";
+    }
+    function toEnglish()
+    {
+      localStorage.setItem("language", "EN");
+      document.getElementById("back").textContent="Back";
+      document.getElementById("pp0").textContent="About the game";
+      document.getElementById("pp1").textContent="Online Tic Tac Toe is a web game where you can play 4 different modes";
+      document.getElementById("pp2").textContent="•play vs easy bot or a random-move bot";
+      document.getElementById("pp3").textContent="•play vs AI bot or unbeatable bot";
+      document.getElementById("pp4").textContent="•play vs a person locally , from one device";
+      document.getElementById("pp5").textContent="•play vs a person online , from 2 different devices";
+      document.getElementById("pp6").textContent="About the developers";
+    }
+  </script>
 </html>
