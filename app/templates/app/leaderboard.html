@@ -134,4 +134,26 @@
       </div>
     </div>
   </body>
+  <script>
+    if(localStorage.getItem("language")=="AR")
+    {
+        toArabic();
+    }
+    else{
+        toEnglish();
+    }
+    
+    function toArabic()
+    {
+      localStorage.setItem("language", "AR");
+      document.getElementById("head1").textContent="الرتبة";
+      document.getElementById("head2").textContent="مرات الفوز";
+    }
+    function toEnglish()
+    {
+      localStorage.setItem("language", "EN");
+      document.getElementById("head1").textContent="Rank";
+      document.getElementById("head2").textContent="Wins";
+    }
+  </script>
 </html>
