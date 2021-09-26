@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -219,6 +218,28 @@
 </body>
 
 <script>
+
+    if(localStorage.getItem("language")=="AR")
+    {
+        toArabic();
+    }
+    else{
+        toEnglish();
+    }
+    
+    function toArabic()
+    {
+      localStorage.setItem("language", "AR");
+      document.getElementById("loadmsgs").textContent="تحميل رسائل سابقة";
+      document.getElementById("tx1").placeholder="اكتب رسالتك هنا";
+    }
+    function toEnglish()
+    {
+      localStorage.setItem("language", "EN");
+      document.getElementById("loadmsgs").textContent="Load previous messages";
+      document.getElementById("tx1").textContent="Enter your message here";
+    }
+
     var element = document.getElementById("msg_container");
     element.scrollTop = element.scrollHeight;
 
