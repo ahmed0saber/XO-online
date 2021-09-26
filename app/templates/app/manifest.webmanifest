@@ -3,15 +3,15 @@
     "name": "X&O",
     "icons": [
       {
-        "src": "/media/logo/tic-tac-toe.svg",
+        "src": "https://xoonlinebucket.s3.amazonaws.com/logo/tic-tac-toe.svg",
         "type": "image/svg+xml",
-        "sizes": "192x192"
+        "sizes": "512x512"
       }
     ],
     "start_url": "/",
     "background_color": "white",
     "display": "standalone",
     "scope": "/",
-    "theme_color": "#3367D6",
-    "description": "Weather forecast information"
+    "theme_color": "#00B",
+    "description": "Online game to play with friends"
 }

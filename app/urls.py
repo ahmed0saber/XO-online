@@ -17,5 +17,6 @@ urlpatterns = [
     path('game/check_room/', check_room, name='check_room'),
     path('about/', about, name='about'),
     path('new_game/', new_game, name='new_game'),
-    path('manifest.js', TemplateView.as_view(template_name='app/manifest.webmanifest', content_type='application/x-javascript'), name='manifest')
+    path('manifest.js', TemplateView.as_view(template_name='app/manifest.webmanifest', content_type='application/x-javascript'), name='manifest'),
+    path('sw.js', TemplateView.as_view(template_name='app/sw.js', content_type='application/x-javascript'), name='worker'),
 ]
