@@ -276,11 +276,17 @@
             TempText.select();
             document.execCommand("copy");
             document.body.removeChild(TempText);
-            alert("Copied the text: " + TempText.value);
+            if(localStorage.getItem("language")=="EN")
+            {
+                alert("Copied the text : " + TempText.value);
+            }
+            else{
+                alert("تم نسخ الرابط :" + TempText.value);
+            }
           }
           
           
-          function logout()
+          /*function logout()
           {
             let isExecuted = confirm("Are you sure to log out ?!");
             
@@ -288,6 +294,25 @@
             {
               window.open("{% url 'accounts:logout' %}" , "_self");
             }
-          }
+          }*/
+
+          function logout()
+            {
+            if(localStorage.getItem("language")=="EN")
+            {
+                let isExecuted = confirm("Are you sure to log out ?!");
+                if(isExecuted)
+                {
+                    window.open("{% url 'accounts:logout' %}" , "_self");
+                }
+            }
+            else{
+                let isExecuted = confirm("هل انت متاكد من تسجيل الخروج ؟؟");
+                if(isExecuted)
+                {
+                    window.open("{% url 'accounts:logout' %}" , "_self");
+                }
+            }
+            }
   </script>
 </html>
