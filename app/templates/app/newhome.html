@@ -16,9 +16,6 @@
         text-align: center;
         margin-top:20px;
       }
-      #div2 , #div3{
-        display: none;
-      }
       .btns{
         height: 60px;
         width: 225px;
@@ -30,8 +27,8 @@
         background-color: #00B;
         color: #EEE;
       }
-      #about {
-        margin: 35px;
+      .alone{
+        margin: 50px 0px;
       }
     </style>
   </head>
@@ -39,27 +36,36 @@
     <div id="div1" class="layouts">
       <button class="btns" onclick="nav('div2')">Single Player</button>
       <button class="btns" onclick="nav('div3')">Two Players</button>
-      <a href="{% url 'app:about' %}"><button class="btns" id="about">About</button></a>
+      <a href="{% url 'app:about' %}"><button class="btns alone">About</button></a>
     </div>
     <div id="div2" class="layouts">
-      <button class="btns" onclick="nav('div1')">Back</button>
       <a href="{% url 'app:bot' %}"><button class="btns">Easy</button></a>
       <a href="{% url 'app:ai' %}"><button class="btns">Hard</button></a>
+      <button class="btns alone" onclick="nav('div1')">Back</button>
     </div>
     <div id="div3" class="layouts">
-      <button class="btns" onclick="nav('div1')">Back</button>
       <a href="{% url 'app:local' %}"><button class="btns">Local</button></a>
       <a href="{% url 'app:new_game' %}"><button class="btns">Online</button></a>
+      <button class="btns alone" onclick="nav('div1')">Back</button>
     </div>
   </body>
   <script>
+    if(localStorage.getItem("page")=="div2" || localStorage.getItem("page")=="div3")
+    {
+      nav(localStorage.getItem("page"));
+    }
+    else{
+      nav("div1");
+    }
+
     api_url="https://tttapi.herokuapp.com/api/v1/---------/X";
         fetch(api_url)
             .then(response => response.json())
             .then(data => console.log(data));
-
+    
     function nav(x)
     {
+      localStorage.setItem("page", x);
       document.getElementById("div1").style.display="none";
       document.getElementById("div2").style.display="none";
       document.getElementById("div3").style.display="none";
