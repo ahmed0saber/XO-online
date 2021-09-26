@@ -19,7 +19,7 @@
       .btns{
         height: 60px;
         width: 225px;
-        margin: 12px;
+        margin: 12px 0px;
         border: 2px solid #117;
         border-radius: 10px;
         font-size: 25px;
@@ -28,25 +28,26 @@
         color: #EEE;
       }
       .alone{
-        margin: 50px 0px;
+        margin: 50px 0px 12px 0px;
       }
     </style>
   </head>
   <body>
     <div id="div1" class="layouts">
-      <button class="btns" onclick="nav('div2')">Single Player</button>
-      <button class="btns" onclick="nav('div3')">Two Players</button>
-      <a href="{% url 'app:about' %}"><button class="btns alone">About</button></a>
+      <button class="btns" id="single" onclick="nav('div2')">Single Player</button>
+      <button class="btns" id="two" onclick="nav('div3')">Two Players</button>
+      <a href="{% url 'app:about' %}"><button class="btns alone" id="about">About us</button></a>
+      <button class="btns" onclick="changelang()" id="lang">Change Language</button>
     </div>
     <div id="div2" class="layouts">
-      <a href="{% url 'app:bot' %}"><button class="btns">Easy</button></a>
-      <a href="{% url 'app:ai' %}"><button class="btns">Hard</button></a>
-      <button class="btns alone" onclick="nav('div1')">Back</button>
+      <a href="{% url 'app:bot' %}"><button class="btns" id="easy">Easy</button></a>
+      <a href="{% url 'app:ai' %}"><button class="btns" id="hard">Hard</button></a>
+      <button class="btns alone" id="back1" onclick="nav('div1')">Back</button>
     </div>
     <div id="div3" class="layouts">
-      <a href="{% url 'app:local' %}"><button class="btns">Local</button></a>
-      <a href="{% url 'app:new_game' %}"><button class="btns">Online</button></a>
-      <button class="btns alone" onclick="nav('div1')">Back</button>
+      <a href="{% url 'app:local' %}"><button class="btns" id="local">Local</button></a>
+      <a href="{% url 'app:new_game' %}"><button class="btns" id="online">Online</button></a>
+      <button class="btns alone" id="back2" onclick="nav('div1')">Back</button>
     </div>
   </body>
   <script>
@@ -57,6 +58,14 @@
     }
     else{
       nav("div1");
+    }
+
+    if(localStorage.getItem("language")=="AR")
+    {
+      toArabic();
+    }
+    else{
+      toEnglish();
     }
 
     api_url="https://tttapi.herokuapp.com/api/v1/---------/X";
@@ -71,6 +80,54 @@
       document.getElementById("div2").style.display="none";
       document.getElementById("div3").style.display="none";
       document.getElementById(x).style.display="block";
+    }
+
+    function changelang()
+    {
+      if(localStorage.getItem("language")=="EN")
+      {
+        let isExecuted = confirm("Are you sure to change language to arabic ?!");
+        if(isExecuted)
+        {
+          toArabic();
+        }
+      }
+      else{
+        let isExecuted = confirm("هل انت متاكد من تغيير اللغة الى الانجليزية ؟؟");
+        if(isExecuted)
+        {
+          toEnglish();
+        }
+      }
+      
+    }
+    function toArabic()
+    {
+      localStorage.setItem("language", "AR");
+      document.getElementById("single").textContent="لاعب فردى";
+      document.getElementById("two").textContent="لاعبان";
+      document.getElementById("easy").textContent="سهل";
+      document.getElementById("hard").textContent="صعب";
+      document.getElementById("local").textContent="بدون انترنت";
+      document.getElementById("online").textContent="متصل بالانترنت";
+      document.getElementById("about").textContent="معلومات عنا";
+      document.getElementById("lang").textContent="تغيير اللغة";
+      document.getElementById("back1").textContent="رجوع";
+      document.getElementById("back2").textContent="رجوع";
+    }
+    function toEnglish()
+    {
+      localStorage.setItem("language", "EN");
+      document.getElementById("single").textContent="Single Player";
+      document.getElementById("two").textContent="Two Players";
+      document.getElementById("easy").textContent="Easy";
+      document.getElementById("hard").textContent="Hard";
+      document.getElementById("local").textContent="Local";
+      document.getElementById("online").textContent="Online";
+      document.getElementById("about").textContent="About us";
+      document.getElementById("lang").textContent="Change Language";
+      document.getElementById("back1").textContent="Back";
+      document.getElementById("back2").textContent="Back";
     }
   </script>
 </html>
