@@ -183,7 +183,7 @@
       localStorage.setItem("language", "AR");
       document.getElementById("p0").textContent="انت بحاجة لحساب لكى ترا محتوى هذه الصفحة";
       document.getElementById("p1").textContent="انشاء حساب جديد";
-      document.getElementById("bottext").innerHTML="لديك حساب ؟؟ <a href="+"{% url 'accounts:signup' next%}"+">قم بتسجيل الدخول</a>";
+      document.getElementById("bottext").innerHTML="لديك حساب ؟؟ <a href="+"{% url 'accounts:login' next%}"+">قم بتسجيل الدخول</a>";
       document.getElementById("tx1").placeholder="الاسم الاول";
       document.getElementById("tx2").placeholder="الاسم الاخير";
       document.getElementById("email").placeholder="البريد الالكترونى";
