@@ -11,10 +11,13 @@
         background-color: #EEE;
         overflow: hidden;
       }
-      #div1{
+      #div1 , #div2 , #div3{
         margin: auto;
         text-align: center;
         margin-top:20px;
+      }
+      #div2 , #div3{
+        display: none;
       }
       button{
         height: 40px;
@@ -33,18 +36,34 @@
     </style>
   </head>
   <body>
-    <div id="div1">
-      <a href="{% url 'app:bot' %}"><button class="btns">VS easy bot</button></a>
-      <a href="{% url 'app:ai' %}"><button class="btns">VS AI bot</button></a>
-      <a href="{% url 'app:local' %}"><button class="btns">VS local player</button></a>
-      <a href="{% url 'app:new_game' %}"><button class="btns">VS online player</button></a>
+    <div id="div1" class="layouts">
+      <button class="btns" onclick="nav('div2')">Single Player</button>
+      <button class="btns" onclick="nav('div3')">Two Players</button>
       <a href="{% url 'app:about' %}"><button class="btns" id="about">About</button></a>
+    </div>
+    <div id="div2" class="layouts">
+      <button class="btns" onclick="nav('div1')">Back</button>
+      <a href="{% url 'app:bot' %}"><button class="btns">Easy</button></a>
+      <a href="{% url 'app:ai' %}"><button class="btns">Hard</button></a>
+    </div>
+    <div id="div3" class="layouts">
+      <button class="btns" onclick="nav('div1')">Back</button>
+      <a href="{% url 'app:local' %}"><button class="btns">Local</button></a>
+      <a href="{% url 'app:new_game' %}"><button class="btns">Online</button></a>
     </div>
   </body>
   <script>
     api_url="https://tttapi.herokuapp.com/api/v1/---------/X";
         fetch(api_url)
             .then(response => response.json())
-            .then(data => done(data));
+            .then(data => console.log(data));
+
+    function nav(x)
+    {
+      document.getElementById("div1").style.display="none";
+      document.getElementById("div2").style.display="none";
+      document.getElementById("div3").style.display="none";
+      document.getElementById(x).style.display="block";
+    }
   </script>
 </html>
