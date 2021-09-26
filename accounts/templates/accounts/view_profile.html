@@ -9,9 +9,9 @@
         margin: 0;
         padding: 0;
         width: 300px;
-        height: 407px;
         background-color: #EEE;
         overflow: hidden;
+        overflow-y: auto;
       }
       #div1{
         margin: auto;
@@ -54,7 +54,7 @@
       }
       #user_stats{
         text-align: left;
-        padding-left: 10px;
+        padding: 0px 10px;
       }
       .fa{
         font-size: 25px;
@@ -64,6 +64,21 @@
         padding: 0;
         margin: 0;
       }
+            ::-webkit-scrollbar {
+                width: 0px;
+            }
+            ::-webkit-scrollbar-track {
+                background: #DDD; 
+            }
+            ::-webkit-scrollbar-track:hover {
+                background: #CCC; 
+            }
+            ::-webkit-scrollbar-thumb {
+                background: #00A; 
+            }
+            ::-webkit-scrollbar-thumb:hover {
+                background: #009; 
+            }
     </style>
   </head>
   <body>
@@ -73,14 +88,48 @@
         <img id="profile_pic" src="{{ friend.image.url }}">
       </div>
       <p id="username">{{ friend }}</p>
-      <a href="{% url 'app:game' %}?room=invite&user={{friend.front_id}}"><button class="btns"><p id="inside"><i class="fas fa-user-friends"></i> Play together</p></button></a>
+      <a href="{% url 'app:game' %}?room=invite&user={{friend.front_id}}"><button class="btns"><p id="inside"><i class="fas fa-user-friends"></i> <span id="s1">Play together</span></p></button></a>
       <div id="user_stats">
-        <p>Played {{ friend.total_games }} games</p>
-        <p>win : {{ friend.won_games }}</p>
-        <p>lose : {{ friend.lost_games }}</p>
-        <p>draw : {{ friend.draw_games }}</p>
-        <p>win rate : {{ win_rate }} %</p>
+        <p id="p1">Played {{ friend.total_games }} games</p>
+        <p id="p2">win : {{ friend.won_games }}</p>
+        <p id="p3">lose : {{ friend.lost_games }}</p>
+        <p id="p4">draw : {{ friend.draw_games }}</p>
+        <p id="p5">win rate : {{ win_rate }} %</p>
       </div>
     </div>
   </body>
+  <script>
+    if(localStorage.getItem("language")=="AR")
+    {
+        toArabic();
+    }
+    else{
+        toEnglish();
+    }
+    
+    function toArabic()
+    {
+      localStorage.setItem("language", "AR");
+      document.getElementById("s1").textContent="اللعب سويا";
+      document.getElementById("username").textContent="{{ friend }}";
+      document.getElementById("p1").textContent="لعب {{ friend.total_games }} مباراة";
+      document.getElementById("p2").textContent="فاز {{ friend.won_games }} مباراة";
+      document.getElementById("p3").textContent="خسر {{ friend.lost_games }} مباراة";
+      document.getElementById("p4").textContent="تعادل {{ friend.draw_games }} مباراة";
+      document.getElementById("p5").textContent="نسبة الفوز ({{ win_rate }}%)";
+      document.getElementById("user_stats").style.textAlign="right";
+    }
+    function toEnglish()
+    {
+      localStorage.setItem("language", "EN");
+      document.getElementById("s1").textContent="Play together";
+      document.getElementById("username").textContent="{{ friend }}";
+      document.getElementById("p1").textContent="Played {{ friend.total_games }} games";
+      document.getElementById("p2").textContent="win : {{ friend.won_games }}";
+      document.getElementById("p3").textContent="lose : {{ friend.lost_games }}";
+      document.getElementById("p4").textContent="draw : {{ friend.draw_games }}";
+      document.getElementById("p5").textContent="win rate : {{ win_rate }} %";
+      document.getElementById("user_stats").style.textAlign="left";
+    }
+  </script>
 </html>

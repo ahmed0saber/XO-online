@@ -7,17 +7,15 @@
         margin: 0;
         padding: 0;
         width: 300px;
-        height: 407px;
         background-color: #EEE;
         overflow: hidden;
+        overflow-y: auto;
       }
       #div1{
         margin: auto;
         text-align: center;
       }
       #leaderboard{
-        overflow-y: auto;
-        height: 407px;
         padding: 0px;
       }
       #head{
@@ -136,4 +134,26 @@
       </div>
     </div>
   </body>
+  <script>
+    if(localStorage.getItem("language")=="AR")
+    {
+        toArabic();
+    }
+    else{
+        toEnglish();
+    }
+    
+    function toArabic()
+    {
+      localStorage.setItem("language", "AR");
+      document.getElementById("head1").textContent="الرتبة";
+      document.getElementById("head2").textContent="مرات الفوز";
+    }
+    function toEnglish()
+    {
+      localStorage.setItem("language", "EN");
+      document.getElementById("head1").textContent="Rank";
+      document.getElementById("head2").textContent="Wins";
+    }
+  </script>
 </html>

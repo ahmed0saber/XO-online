@@ -7,13 +7,11 @@
         margin: 0;
         padding: 0;
         width: 300px;
-        height: 407px;
         background-color: #EEE;
         overflow: hidden;
         overflow-y: auto;
       }
       #div1{
-        min-height: 450px;
         margin: auto;
         text-align: center;
       }
@@ -49,7 +47,7 @@
         font-size: 25px;
         font-family: Times New Roman;
         padding: 0;
-        margin: 15px;
+        margin: 10px;
       }
       .errors{
         color: red;
@@ -67,6 +65,21 @@
         border-color: green;
         outline-color: green;
       }
+            ::-webkit-scrollbar {
+                width: 0px;
+            }
+            ::-webkit-scrollbar-track {
+                background: #DDD; 
+            }
+            ::-webkit-scrollbar-track:hover {
+                background: #CCC; 
+            }
+            ::-webkit-scrollbar-thumb {
+                background: #00A; 
+            }
+            ::-webkit-scrollbar-thumb:hover {
+                background: #009; 
+            }
     </style>
   </head>
   <body>
@@ -76,11 +89,12 @@
         <a href="{% url 'app:home' %}"><button id="back">Back</button></a>
       </div>
       {% endif %}
+      <p id="p0">Viewing the content of this page requires an account</p>
       <p id="p1">Create new account</p>
       <form action="" method="POST">
         {% csrf_token %}
-        <input class="name" type="text" placeholder="First name" name="first_name">
-        <input class="name" type="text" placeholder="Last name" name="last_name">
+        <input class="name" id="tx1" type="text" placeholder="First name" name="first_name">
+        <input class="name" id="tx2" type="text" placeholder="Last name" name="last_name">
         <input id='email' type="email" placeholder="Email" name="email">
         <div class='errors' id='email_errors'></div>
         {{form.email.errors}}
@@ -93,9 +107,12 @@
         <input type="submit" id="btn" value="sign up">
 
       </form>
-      <p>Already have account ?! <a href="{% url 'accounts:login' next%}">Log in</a></p>
+      <p id="bottext">Already have account ?! <a href="{% url 'accounts:login' next%}">Log in</a></p>
     </div>
     <script>
+
+    
+
       let email = document.getElementById('email')
       email.oninput = async ()=>{
         if (email.value == ''){
@@ -151,6 +168,42 @@
           document.getElementById('pass2_errors').innerHTML = 'Two passwords must be the same' 
         }
       }
+
+
+    if(localStorage.getItem("language")=="AR")
+    {
+        toArabic();
+    }
+    else{
+        toEnglish();
+    }
+    
+    function toArabic()
+    {
+      localStorage.setItem("language", "AR");
+      document.getElementById("p0").textContent="انت بحاجة لحساب لكى ترا محتوى هذه الصفحة";
+      document.getElementById("p1").textContent="انشاء حساب جديد";
+      document.getElementById("bottext").innerHTML="لديك حساب ؟؟ <a href="+"{% url 'accounts:login' next%}"+">قم بتسجيل الدخول</a>";
+      document.getElementById("tx1").placeholder="الاسم الاول";
+      document.getElementById("tx2").placeholder="الاسم الاخير";
+      document.getElementById("email").placeholder="البريد الالكترونى";
+      document.getElementById("password1").placeholder="كلمة المرور";
+      document.getElementById("password2").placeholder="تاكيد كلمة المرور";
+      document.getElementById("btn").value="تسجيل";
+    }
+    function toEnglish()
+    {
+      localStorage.setItem("language", "EN");
+      document.getElementById("p0").textContent="Viewing the content of this page requires an account";
+      document.getElementById("p1").textContent="Create new account";
+      document.getElementById("bottext").innerHTML="Already have account ?! <a href="+"{% url 'accounts:login' next%}"+">Log in</a>";
+      document.getElementById("tx1").placeholder="First name";
+      document.getElementById("tx2").placeholder="Last name";
+      document.getElementById("email").placeholder="Email";
+      document.getElementById("password1").placeholder="Password";
+      document.getElementById("password2").placeholder="Confirm password";
+      document.getElementById("btn").value="sign up";
+    }
     </script>
   </body>
 </html>

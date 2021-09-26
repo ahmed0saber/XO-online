@@ -7,9 +7,9 @@
         margin: 0;
         padding: 0;
         width: 300px;
-        height: 407px;
         background-color: #EEE;
         overflow: hidden;
+        overflow-y: auto;
       }
       #div1{
         margin: auto;
@@ -25,9 +25,13 @@
         font-size: 18px;
         font-family: Times New Roman;
       }
-      #header_p{
-        font-size: 25px;
+      .header_p{
+        font-size: 22px;
         font-family: Times New Roman;
+        border: 1px solid #aaa9;
+        padding: 2px 8px;
+        background-color: #9992;
+        border-radius: 10px;
       }
       #back{
         height: 40px;
@@ -35,34 +39,48 @@
         float: left;
         margin: 10px;
       }
-      #profile{
-        height: 40px;
-        width: 100px;
-        float: right;
-        margin: 10px;
-      }
       #header{
         background-color: #33F;
         height: 60px;
       }
       #info{
-        height: 327px;
-        overflow-y: scroll;
-        padding: 10px;
+        padding: 8px;
       }
-      #p2{
+      .p2{
         padding-left: 10px;
       }
-      #p3{
+      .p3{
         padding-left: 20px;
       }
       p{
         margin: 5px;
       }
-      hr{
-        background-color: #33F;
-        height: 1px;
-      }
+            ::-webkit-scrollbar {
+                width: 0px;
+            }
+            ::-webkit-scrollbar-track {
+                background: #DDD; 
+            }
+            ::-webkit-scrollbar-track:hover {
+                background: #CCC; 
+            }
+            ::-webkit-scrollbar-thumb {
+                background: #00A; 
+            }
+            ::-webkit-scrollbar-thumb:hover {
+                background: #009; 
+            }
+            #section1{
+                background-color: #fff;
+                padding: 2px;
+                border: 1px solid #aaa9;
+                margin-bottom: 10px;
+                border-radius: 10px;
+            }
+            a{
+                color: #00A;
+                text-decoration: none;
+            }
     </style>
   </head>
   <body>
@@ -71,16 +89,54 @@
         <a href="{% url 'app:home' %}"><button id="back">Back</button></a>
       </div>
       <div id="info">
-      <p id="header_p">About the game</p>
-      <p id="p2">Online Tic Tac Toe is a web game where you can play 4 different modes</p>
-      <p id="p3">•play vs easy bot or a random-move bot</p>
-      <p id="p3">•play vs AI bot or unbeatable bot that works with artificial intelligence using minimax algorithm</p>
-      <p id="p3">•play vs a person locally , from one device</p>
-      <p id="p3">•play vs a person online , from 2 different devices</p><hr>
-      <p id="header_p">About the developers</p>
-      <p id="p2"><a href="">Ahmed Saber</a> , A frontend web developer</p>
-      <p id="p2"><a href="">Ahmed Yasser</a> , A backend web developer</p>
+        <div id="section1">
+            <p class="header_p" id="pp0">About the game</p>
+            <p class="p2" id="pp1">Online Tic Tac Toe is a web game where you can play 4 different modes</p>
+            <p class="p3" id="pp2">•play vs easy bot or a random-move bot</p>
+            <p class="p3" id="pp3">•play vs AI bot or unbeatable bot</p>
+            <p class="p3" id="pp4">•play vs a person locally , from one device</p>
+            <p class="p3" id="pp5">•play vs a person online , from 2 different devices</p>
+        </div>
+        <div id="section1">
+            <p class="header_p" id="pp6">About the developers</p>
+      <p class="p2"><a href="">Ahmed Saber</a> , A frontend web developer</p>
+      <p class="p2"><a href="">Ahmed Yasser</a> , A backend web developer</p>
+        </div>
       </div>
     </div>
   </body>
+  <script>
+    if(localStorage.getItem("language")=="AR")
+    {
+        toArabic();
+    }
+    else{
+        toEnglish();
+    }
+    
+    function toArabic()
+    {
+      localStorage.setItem("language", "AR");
+      document.getElementById("back").textContent="رجوع";
+      document.getElementById("pp0").textContent="عن اللعبة";
+      document.getElementById("pp1").textContent="لعبة اكس اوو الاونلاين تمكنك من لعب 4 انماط مختلفة";
+      document.getElementById("pp2").textContent="•اللعب ضد روبوت سهل يلعب عشوائيا";
+      document.getElementById("pp3").textContent="•اللعب ضد بوت صعب لا يمكن هزيمته";
+      document.getElementById("pp4").textContent="•اللعب مع شخص بجوارك باستخدام نفس الجهاز";
+      document.getElementById("pp5").textContent="•اللعب ضد شخص متصل بالانترنت من جهاز اخر";
+      document.getElementById("pp6").textContent="عن المطورين";
+    }
+    function toEnglish()
+    {
+      localStorage.setItem("language", "EN");
+      document.getElementById("back").textContent="Back";
+      document.getElementById("pp0").textContent="About the game";
+      document.getElementById("pp1").textContent="Online Tic Tac Toe is a web game where you can play 4 different modes";
+      document.getElementById("pp2").textContent="•play vs easy bot or a random-move bot";
+      document.getElementById("pp3").textContent="•play vs AI bot or unbeatable bot";
+      document.getElementById("pp4").textContent="•play vs a person locally , from one device";
+      document.getElementById("pp5").textContent="•play vs a person online , from 2 different devices";
+      document.getElementById("pp6").textContent="About the developers";
+    }
+  </script>
 </html>

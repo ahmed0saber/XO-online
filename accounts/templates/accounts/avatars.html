@@ -1,5 +1,4 @@
 <html>
-
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -32,7 +31,6 @@
             margin: 0;
             padding: 0;
             width: 300px;
-            height: 407px;
             background-color: #EEE;
             overflow: hidden;
             overflow-y: auto;
@@ -73,25 +71,21 @@
             padding: 5px;
         }
 
-        ::-webkit-scrollbar {
-            width: 10px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: #BBB;
-        }
-
-        ::-webkit-scrollbar-track:hover {
-            background: #CCC;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: #008;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: #00B;
-        }
+            ::-webkit-scrollbar {
+                width: 0px;
+            }
+            ::-webkit-scrollbar-track {
+                background: #DDD; 
+            }
+            ::-webkit-scrollbar-track:hover {
+                background: #CCC; 
+            }
+            ::-webkit-scrollbar-thumb {
+                background: #00A; 
+            }
+            ::-webkit-scrollbar-thumb:hover {
+                background: #009; 
+            }
 
         input {
             height: 30px;
@@ -114,7 +108,7 @@
 <body>
     <div id="div1">
         <div id="title">
-            <p>‹Choose a picture›</p>
+            <p id="p1">‹Choose a picture›</p>
         </div>
         <div id="pics">
             <div id="space">
@@ -134,10 +128,31 @@
             <form method="POST" action="" enctype="multipart/form-data">
                 {% csrf_token %}
                 <input type="hidden" value="0" id="pic_id" name="choice" action="">
-                <input type="submit" value="Save">
+                <input type="submit" id="btn" value="Save">
             </form>
         </div>
     </div>
 </body>
-
+<script>
+    if(localStorage.getItem("language")=="AR")
+    {
+        toArabic();
+    }
+    else{
+        toEnglish();
+    }
+    
+    function toArabic()
+    {
+      localStorage.setItem("language", "AR");
+      document.getElementById("p1").textContent="‹اختر صورة›";
+      document.getElementById("btn").value="حفظ";
+    }
+    function toEnglish()
+    {
+      localStorage.setItem("language", "EN");
+      document.getElementById("p1").textContent="‹Choose a picture›";
+      document.getElementById("btn").value="Save";
+    }
+  </script>
 </html>

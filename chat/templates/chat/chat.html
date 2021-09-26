@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -219,6 +218,28 @@
 </body>
 
 <script>
+
+    if(localStorage.getItem("language")=="AR")
+    {
+        toArabic();
+    }
+    else{
+        toEnglish();
+    }
+    
+    function toArabic()
+    {
+      localStorage.setItem("language", "AR");
+      document.getElementById("loadmsgs").textContent="تحميل رسائل سابقة";
+      document.getElementById("tx1").placeholder="اكتب رسالتك هنا";
+    }
+    function toEnglish()
+    {
+      localStorage.setItem("language", "EN");
+      document.getElementById("loadmsgs").textContent="Load previous messages";
+      document.getElementById("tx1").textContent="Enter your message here";
+    }
+
     var element = document.getElementById("msg_container");
     element.scrollTop = element.scrollHeight;
 
@@ -239,14 +260,21 @@
         for (message of messages) {
             var myobj = document.getElementById("loadmsgs");
             myobj.remove();
+            if(localStorage.getItem("language")=="EN")
+            {
+                var xx = "Load previous messages";
+            }
+            else{
+                var xx = "تحميل رسائل سابقة";
+            }
             if (message.sender.front_id == "{{user.front_id}}"){
-                element.innerHTML = `<button onclick="_load()" id="loadmsgs">Load previous messages</button>` + `
+                element.innerHTML = `<button onclick="_load()" id="loadmsgs">` + xx + `</button>` + `
                     <div id="user_div" class="msg" data-id="${message.unique_id}">
                 <a href="${message.sender.profile_url}"><img id="user_img" src="` + message.sender.image + `"></a>
                 <p id="user_msg">` + message.content + `<br><span id="date">` + message.date_sent + `</span></p>
             </div>` + element.innerHTML;
             }else{
-                element.innerHTML = `<button onclick="_load()" id="loadmsgs">Load previous messages</button>` + `
+                element.innerHTML = `<button onclick="_load()" id="loadmsgs">` + xx + `</button>` + `
                     <div class="msg" data-id="${message.unique_id}">
                 <a href="${message.sender.profile_url}"><img src="` + message.sender.image + `"></a>
                 <p><a href="${message.sender.profile_url}"><span id="name"> ` + message.sender.name + ` </span></a><br>` + message.content + `<br><span id="date">` + message.date_sent + `</span></p>
@@ -258,7 +286,14 @@
         {
           var myobj = document.getElementById("loadmsgs");
           myobj.remove();
-          element.innerHTML = `<p id="nomore">No more previous messages</p>` + element.innerHTML ;
+          if(localStorage.getItem("language")=="EN")
+          {
+            element.innerHTML = `<p id="nomore">No more previous messages</p>` + element.innerHTML;
+          }
+          else{
+            element.innerHTML = `<p id="nomore">لا يوجد المزيد من الرسائل السابقة</p>` + element.innerHTML;
+          }
+          
         }
         var dimension2 = element.scrollHeight;
         element.scrollTop = dimension2 - dimension1;

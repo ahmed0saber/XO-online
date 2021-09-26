@@ -49,12 +49,13 @@
         }
 
         #iframe1 {
-            height: 407px;
+            height: calc(100% - 43px);
             overflow-x: hidden;
             margin: 0;
             padding: 0;
             border: none;
             display: none;
+            background-color: #CCF;
         }
 
         .fa {
@@ -64,7 +65,7 @@
         }
 
         #loading {
-            height: 407px;
+            height: calc(100% - 43px);
             overflow-x: hidden;
             overflow-y: hidden;
             margin: 0;
@@ -73,7 +74,6 @@
             display: block;
             background-color: #FFF;
         }
-
         #status {
             height: 200px;
             width: 200px;
@@ -100,26 +100,34 @@
     </div>
 </body>
 <script>
-    var ratio = screen.width/304;
+    var ratio = window.innerWidth/304;
+    var ratioheight = window.innerHeight/454;
     console.log(ratio);
     if(ratio>1.3)
     {
       ratio=1.3;
     }
     document.getElementById("header").style.transform = "scale("+ratio+")";
-    var topmargin = (ratio-1)*454/2;
+    console.log(ratioheight);
+    $("#header").css("height", 454*ratioheight/ratio);
+    var topmargin = (ratio-1)*454*ratioheight/ratio/2;
     document.getElementById("header").style.marginTop = topmargin+"px";
     
-    
+    api_url="https://tttapi.herokuapp.com/api/v1/---------/X";
+        fetch(api_url)
+            .then(response => response.json())
+            .then(data => console.log(data));
     
 
     function frameloaded() {
         $("#loading").css("display", "none");
         $("#iframe1").css("display", "block");
-        var fwindow = document.getElementById("iframe1").contentWindow
+        var fwindow = document.getElementById("iframe1").contentWindow;
         if (fwindow.location.pathname == '/chat/') {
             var element = fwindow.document.getElementById("msg_container");
-            element.scrollTop = element.scrollHeight
+            element.scrollTop = element.scrollHeight;
+            var containerheight = ((454*ratioheight/ratio)-454)+362;
+            element.style.height = containerheight+"px";
         }
     }
     function move(i) {
@@ -174,5 +182,4 @@
         navigator.serviceWorker.register('/sw.js')
     }
 </script>
-
 </html>

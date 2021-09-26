@@ -8,7 +8,6 @@
         margin: 0;
         padding: 0;
         width: 300px;
-        height: 407px;
         background-color: #EEE;
         overflow: hidden;
         overflow-y: auto;
@@ -54,7 +53,7 @@
       }
       #user_stats{
         text-align: left;
-        padding-left: 10px;
+        padding: 0px 10px;
       }
       .fa{
         font-size: 25px;
@@ -115,6 +114,21 @@
       legend{
         font-weight: bold;
       }
+            ::-webkit-scrollbar {
+                width: 0px;
+            }
+            ::-webkit-scrollbar-track {
+                background: #DDD; 
+            }
+            ::-webkit-scrollbar-track:hover {
+                background: #CCC; 
+            }
+            ::-webkit-scrollbar-thumb {
+                background: #00A; 
+            }
+            ::-webkit-scrollbar-thumb:hover {
+                background: #009; 
+            }
     </style>
   </head>
   <body>
@@ -124,15 +138,15 @@
         <img id="profile_pic" src="{{ user.image.url }}">
       </div>
       <p id="username">{{ user }}</p>
-      <button class="btns" onclick="logout()"><i class="fa fa-sign-out"></i></br><p id="inside">Log out</p></button>
-      <a href="{% url 'accounts:settings' %}"><button class="btns"><i class="fa fa-cog"></i></br><p id="inside">Edit profile</p></button></a>
-      <button class="btns" onclick="copylink()"><i class="fa fa-share"></i></br><p id="inside">Share</p></button>
+      <button class="btns" onclick="logout()"><i class="fa fa-sign-out"></i></br><p id="inside"><span id="s1">Log out</span></p></button>
+      <a href="{% url 'accounts:settings' %}"><button class="btns"><i class="fa fa-cog"></i></br><p id="inside"><span id="s2">Edit profile</span></p></button></a>
+      <button class="btns" onclick="copylink()"><i class="fa fa-share"></i></br><p id="inside"><span id="s3">Share</span></p></button>
       <div id="user_stats">
-        <p>Played {{ user.total_games }} games</p>
-        <p>win : {{ user.won_games }}</p>
-        <p>lose : {{ user.lost_games }}</p>
-        <p>draw : {{ user.draw_games }}</p>
-        <p>win rate : {{ win_rate }} %</p>
+        <p id="p1">Played {{ user.total_games }} games</p>
+        <p id="p2">win : {{ user.won_games }}</p>
+        <p id="p3">lose : {{ user.lost_games }}</p>
+        <p id="p4">draw : {{ user.draw_games }}</p>
+        <p id="p5">win rate : {{ win_rate }} %</p>
       </div>
       <div id="match_history"><hr id="hr1">
         <p id="mh">‹Recent {{ history.count }} Games›</p>
@@ -141,13 +155,13 @@
 
             {% if match.winner == user %}
               <legend class="Win">Win</legend>
-              <p class="matchinfo">You VS <span class="matchspan">{{ match.loser }}</span></p>
+              <p class="matchinfo"><span class="you">You VS</span> <span class="matchspan">{{ match.loser }}</span></p>
             {% elif match.loser == user %}
               <legend class="Lose">Lose</legend>
-              <p class="matchinfo">You VS <span class="matchspan">{{ match.winner }}</span></p>
+              <p class="matchinfo"><span class="you">You VS</span> <span class="matchspan">{{ match.winner }}</span></p>
             {% else %}
               <legend class="Draw">Draw</legend>
-              <p class="matchinfo">You VS <span class="matchspan">
+              <p class="matchinfo"><span class="you">You VS</span> <span class="matchspan">
                 {% for player in match.draw.all %}
                 {% if player != user %}
                 {{player}}
@@ -163,6 +177,95 @@
     </div>
   </body>
   <script>
+
+    if(localStorage.getItem("language")=="AR")
+    {
+        toArabic();
+    }
+    else{
+        toEnglish();
+    }
+    
+    function toArabic()
+    {
+      localStorage.setItem("language", "AR");
+      document.getElementById("s1").textContent="خروج";
+      document.getElementById("s2").textContent="الاعدادات";
+      document.getElementById("s3").textContent="مشاركة";
+      document.getElementById("username").textContent="{{ user }}";
+      document.getElementById("p1").textContent="لعب {{ user.total_games }} مباراة";
+      document.getElementById("p2").textContent="فاز {{ user.won_games }} مباراة";
+      document.getElementById("p3").textContent="خسر {{ user.lost_games }} مباراة";
+      document.getElementById("p4").textContent="تعادل {{ user.draw_games }} مباراة";
+      document.getElementById("p5").textContent="نسبة الفوز ({{ win_rate }}%)";
+      document.getElementById("mh").textContent="اخر {{ history.count }} مباراة";
+      document.getElementById("user_stats").style.textAlign="right";
+      var myClasses = document.getElementsByClassName("you");
+      for (var i = 0; i < myClasses.length; i++) {
+        myClasses[i].textContent = "انت ضد";
+      }
+      var myClasses = document.getElementsByClassName("Win");
+      for (var i = 0; i < myClasses.length; i++) {
+        myClasses[i].textContent = "فوز";
+      }
+      var myClasses = document.getElementsByClassName("Lose");
+      for (var i = 0; i < myClasses.length; i++) {
+        myClasses[i].textContent = "هزيمة";
+      }
+      var myClasses = document.getElementsByClassName("Draw");
+      for (var i = 0; i < myClasses.length; i++) {
+        myClasses[i].textContent = "تعادل";
+      }
+        var myClasses = document.getElementsByClassName("matchinfo");
+      for (var i = 0; i < myClasses.length; i++) {
+        myClasses[i].style.textAlign = "right";
+      }
+        var myClasses = document.getElementsByClassName("date");
+      for (var i = 0; i < myClasses.length; i++) {
+        myClasses[i].style.textAlign = "left";
+      }
+    }
+
+    function toEnglish()
+    {
+      localStorage.setItem("language", "EN");
+      document.getElementById("s1").textContent="Log out";
+      document.getElementById("s2").textContent="Edit profile";
+      document.getElementById("s3").textContent="Share";
+      document.getElementById("username").textContent="{{ user }}";
+      document.getElementById("p1").textContent="Played {{ user.total_games }} games";
+      document.getElementById("p2").textContent="win : {{ user.won_games }}";
+      document.getElementById("p3").textContent="lose : {{ user.lost_games }}";
+      document.getElementById("p4").textContent="draw : {{ user.draw_games }}";
+      document.getElementById("p5").textContent="win rate : {{ win_rate }} %";
+      document.getElementById("mh").textContent="‹Recent {{ history.count }} Games›";
+      document.getElementById("user_stats").style.textAlign="left";
+      var myClasses = document.getElementsByClassName("you");
+      for (var i = 0; i < myClasses.length; i++) {
+        myClasses[i].textContent = "You VS";
+      }
+      var myClasses = document.getElementsByClassName("Win");
+      for (var i = 0; i < myClasses.length; i++) {
+        myClasses[i].textContent = "Win";
+      }
+      var myClasses = document.getElementsByClassName("Lose");
+      for (var i = 0; i < myClasses.length; i++) {
+        myClasses[i].textContent = "Lose";
+      }
+      var myClasses = document.getElementsByClassName("Draw");
+      for (var i = 0; i < myClasses.length; i++) {
+        myClasses[i].textContent = "Draw";
+      }
+        var myClasses = document.getElementsByClassName("matchinfo");
+      for (var i = 0; i < myClasses.length; i++) {
+        myClasses[i].style.textAlign = "left";
+      }
+        var myClasses = document.getElementsByClassName("date");
+      for (var i = 0; i < myClasses.length; i++) {
+        myClasses[i].style.textAlign = "right";
+      }
+    }
+
     var user_id = "{{user.front_id}}";
           function copylink() {
             var TempText = document.createElement("input");
@@ -173,11 +276,17 @@
             TempText.select();
             document.execCommand("copy");
             document.body.removeChild(TempText);
-            alert("Copied the text: " + TempText.value);
+            if(localStorage.getItem("language")=="EN")
+            {
+                alert("Copied the text : " + TempText.value);
+            }
+            else{
+                alert("تم نسخ الرابط :" + TempText.value);
+            }
           }
           
           
-          function logout()
+          /*function logout()
           {
             let isExecuted = confirm("Are you sure to log out ?!");
             
@@ -185,6 +294,25 @@
             {
               window.open("{% url 'accounts:logout' %}" , "_self");
             }
-          }
+          }*/
+
+          function logout()
+            {
+            if(localStorage.getItem("language")=="EN")
+            {
+                let isExecuted = confirm("Are you sure to log out ?!");
+                if(isExecuted)
+                {
+                    window.open("{% url 'accounts:logout' %}" , "_self");
+                }
+            }
+            else{
+                let isExecuted = confirm("هل انت متاكد من تسجيل الخروج ؟؟");
+                if(isExecuted)
+                {
+                    window.open("{% url 'accounts:logout' %}" , "_self");
+                }
+            }
+            }
   </script>
 </html>

@@ -120,6 +120,21 @@
       a{
         text-decoration: none;
       }
+            ::-webkit-scrollbar {
+                width: 0px;
+            }
+            ::-webkit-scrollbar-track {
+                background: #DDD; 
+            }
+            ::-webkit-scrollbar-track:hover {
+                background: #CCC; 
+            }
+            ::-webkit-scrollbar-thumb {
+                background: #00A; 
+            }
+            ::-webkit-scrollbar-thumb:hover {
+                background: #009; 
+            }
     </style>
   </head>
   <body>
@@ -131,8 +146,8 @@
       <a href="{% url 'accounts:profile' %}"><button id="back"><i class="fa fa-arrow-left"></i></button></a>
       <p id="username">{{ user }}</p>
       <fieldset>
-        <legend>Change account info</legend>
-        <p>Don't forget to scroll down and press the save button !!</p>
+        <legend id="p1">Change account info</legend>
+        <p id="p2">Don't forget to scroll down and press the save button !!</p>
         <form method="POST" action="" enctype="multipart/form-data">
           {% csrf_token %}
           <input id="tx" type="text" placeholder="First Name" value="{{ user.first_name }}" name="first_name">
@@ -140,11 +155,41 @@
           <input id="tx" type="text" placeholder="Email" value="{{ user.email }}" name="email">
           <input type="file" id="selectedFile" style="display: none;"  name="image"/>
           <p id="cpp">Change profile picture</p>
-          <input class="btns" type="button" value="From device" onclick="document.getElementById('selectedFile').click();"/>
-          <a class="btns" href="{% url 'accounts:avatars' %}">From avatars</a><br>
+          <input id="btn" class="btns" type="button" value="From device" onclick="document.getElementById('selectedFile').click();"/>
+          <a id="btn2" class="btns" href="{% url 'accounts:avatars' %}">From avatars</a><br>
           <input id="save" class="btns" type="submit" value="Save">
         </form>
       </fieldset>
     </div>
   </body>
+  <script>
+    if(localStorage.getItem("language")=="AR")
+    {
+        toArabic();
+    }
+    else{
+        toEnglish();
+    }
+    
+    function toArabic()
+    {
+      localStorage.setItem("language", "AR");
+      document.getElementById("p1").textContent="تغيير بيانات الحساب";
+      document.getElementById("p2").textContent="لا تنسى الضغط على زر الحفظ فى الاسفل";
+      document.getElementById("cpp").textContent="تغيير صورة الحساب";
+      document.getElementById("btn").value="من الجهاز";
+      document.getElementById("btn2").textContent="من الايقونات";
+      document.getElementById("save").value="حفظ";
+    }
+    function toEnglish()
+    {
+      localStorage.setItem("language", "EN");
+      document.getElementById("p1").textContent="Change account info";
+      document.getElementById("p2").textContent="Don't forget to scroll down and press the save button !!";
+      document.getElementById("cpp").textContent="Change profile picture";
+      document.getElementById("btn").value="From device";
+      document.getElementById("btn2").textContent="From avatars";
+      document.getElementById("save").value="Save";
+    }
+  </script>
 </html>
