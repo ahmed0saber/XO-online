@@ -95,7 +95,6 @@
     function toArabic()
     {
       localStorage.setItem("language", "AR");
-      document.getElementById("back").textContent="رجوع";
       document.getElementById("p1").textContent="قم بتسجيل الدخول للاستمرار";
       document.getElementById("bottext").innerHTML="ليس لديك حساب ؟؟ <a href="+"{% url 'accounts:signup' next%}"+">قم بانشاء واحد</a>";
       document.getElementById("tx1").placeholder="البريد الالكترونى";
@@ -105,7 +104,6 @@
     function toEnglish()
     {
       localStorage.setItem("language", "EN");
-      document.getElementById("back").textContent="Back";
       document.getElementById("p1").textContent="Log in to continue";
       document.getElementById("bottext").innerHTML="Don't have account ?! <a href="+"{% url 'accounts:signup' next%}"+">Create one</a>";
       document.getElementById("tx1").placeholder="Email";
