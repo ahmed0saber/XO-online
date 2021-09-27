@@ -211,7 +211,7 @@
         </div>
         <div id="input_area">
             <input autocomplete="off" type="text" id="tx1" placeholder="Enter your message here">
-            <button id="send" onclick="_send()"><i class="fa fa-paper-plane"></i></button>
+            <button id="send" onclick="_Send()"><i class="fa fa-paper-plane"></i></button>
         </div>
         <button id="down" class="fa fa-chevron-down" onclick="_start()"></button>
     </div>
@@ -351,7 +351,7 @@
             }, 1000)
         }
 
-        function _send() {
+        function _Send() {
             var element = document.getElementById("msg_container");
             let message = document.getElementById("tx1").value
             socket.send(
@@ -362,7 +362,7 @@
 
         document.getElementById("tx1").onkeypress = e => {
         if (e.keyCode == 13){
-            _send()
+            _Send()
         }
     }
     }
