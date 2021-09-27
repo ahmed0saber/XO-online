@@ -1,6 +1,7 @@
 from django.db import models
 from accounts.models import CustomUser
 import uuid
+
 # Create your models here.
 class global_message(models.Model):
     sender = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
