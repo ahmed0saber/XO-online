@@ -4,3 +4,7 @@ workbox.routing.registerRoute(
     ({request}) => request.destination === 'image',
     new workbox.strategies.NetworkFirst()
 )
+
+self.addEventListener('fetch', (e)=>{
+    console.log('fetching some data', e)
+})
