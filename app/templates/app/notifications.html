@@ -78,4 +78,10 @@
         </div>
     </div>
   </body>
+  <script>
+      api_url="https://xo-online.herokuapp.com/accounts/api/notifications/ar/";
+        fetch(api_url)
+            .then(response => response.json())
+            .then(data => console.log(data));
+  </script>
 </html>
