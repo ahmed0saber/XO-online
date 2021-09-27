@@ -7,6 +7,11 @@
         "src": "https://xoonlinebucket.s3.amazonaws.com/logo/tic-tac-toe.svg",
         "type": "image/svg+xml",
         "sizes": "512x512"
+      },
+      {
+        "src": "https://xoonlinebucket.s3.amazonaws.com/logo/tic-tac-toe.png",
+        "type": "image/svg+xml",
+        "sizes": "512x512"
       }
     ],
     "start_url": "/",
