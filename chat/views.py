@@ -23,9 +23,12 @@ class ChatView(ListView):
 @api_view(['GET'])
 def older_messages(request):
     latest = global_message.objects.get(unique_id=request.GET.get('id'))
+    first = global_message.objects.first()
+    if latest == first: return Response(messageSerializer(many=True).data)
     offset = 16
     query = global_message.objects.filter(id__gt=latest.id-offset, id__lt=latest.id).order_by('-date_sent')
-    while query.count() < 15:
+    print(first, first in query)
+    while query.count() < 15 and first not in query:
         offset += 15
         query = global_message.objects.filter(id__gt=latest.id-offset, id__lt=latest.id).order_by('-date_sent')
     serializer = messageSerializer(query, many=True)
