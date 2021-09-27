@@ -61,27 +61,58 @@
   </head>
   <body>
     <div id="div1">
-      {% for notification in notifications %}
-      <a href="{{ notification.url }}">
-
-        <div id="notification">
-          <p>
-            {{ notification.content }}
-          </p>
-          <p id="info">{{ notification.time }}</p>
-        </div>
-      </a>
-      {% endfor %}
-        <div id="notification">
-          <p>Hello {{ user }} !!<br>Welcome to xo-online , where you can play vs bots , friends or even strangers.<br>For more info about the game or the developers , press home icon then the button named "About".<br>Have fun and enjoy your time !</p>
-          <p id="info">Best wishes<br>The developers</p>
-        </div>
     </div>
   </body>
   <script>
-      api_url="https://xo-online.herokuapp.com/accounts/api/notifications/ar/";
-        fetch(api_url)
+    let container = document.getElementById('div1')
+    if (localStorage.getItem('language') == "AR"){
+      api_url="/accounts/api/notifications/ar/"
+      fetch(api_url)
             .then(response => response.json())
-            .then(data => console.log(data));
+            .then(data => {
+              for(notification of data){
+                let tag = ` <a href="${ notification.url }">
+                              <div id="notification" style='text-align:right;'>
+                                <p dir='auto' >
+                                  ${ notification.arabic }
+                                </p>
+                                <p id="info">${ notification.time }</p>
+                              </div>
+                            </a>`
+                container.innerHTML += tag 
+                }
+                container.innerHTML += `<div id="notification" style='text-align:right'>
+                  <p dir='rtl'>مرحبا {{user}}!!<br>
+                    اهلا بك في X&O حيث يمكنك اللعب ضد الكومبيوتر او ضد اصدقائك او حتي مع غرباء .
+                    <br>
+                    للمزيد من المعلومات حول اللعبة و المبرمجين ، اضغط علي ايقونة المنزل ثم اضغط علي "معلومات عننا".
+                    <br>استمتع بوقتك !</p>
+                  <p id="info"  style='text-align:left'>افضل التمنيات<br>❤ المبرمجين</p>
+                </div>`
+            })
+    }else{
+
+      api_url="/accounts/api/notifications/en/"
+      fetch(api_url)
+            .then(response => response.json())
+            .then(data => {
+              for(notification of data){
+                let tag = ` <a href="${ notification.url }">
+                              <div id="notification" style='text-align:left;'>
+                                <p dir="auto">
+                                  ${ notification.content }
+                                </p>
+                                <p id="info">${ notification.time }</p>
+                              </div>
+                            </a>`
+                            container.innerHTML += tag 
+              }
+              container.innerHTML += `<div id="notification">
+              <p>Hello {{user}}!!<br>Welcome to xo-online , where you can play vs bots , friends or even strangers.<br>For more info about the game or the developers , press home icon then the button named "About".<br>Have fun and enjoy your time !</p>
+              <p id="info">Best wishes<br>The developers</p>
+            </div>`
+            })
+    }
+
   </script>
 </html>
