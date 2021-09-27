@@ -211,7 +211,7 @@
         </div>
         <div id="input_area">
             <input autocomplete="off" type="text" id="tx1" placeholder="Enter your message here">
-            <button id="send" onclick="sendmsg()"><i class="fa fa-paper-plane"></i></button>
+            <button id="send"><i class="fa fa-paper-plane"></i></button>
         </div>
         <button id="down" class="fa fa-chevron-down" onclick="_start()"></button>
     </div>
@@ -358,6 +358,10 @@
             )
             document.getElementById("tx1").value = "";
         }
+        
+        $("#send").click(function(){
+          _send();
+        });
 
         document.getElementById("tx1").onkeypress = e => {
         if (e.keyCode == 13){
@@ -373,10 +377,6 @@
     }
     let fastScroll = ()=>{
         element.style.scrollBehavior = 'auto'
-    }
-    
-    function sendmsg(){
-        _send();
     }
 </script>
 </html>
