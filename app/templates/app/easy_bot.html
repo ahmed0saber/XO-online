@@ -20,15 +20,21 @@
         height: 40px;
         width: 40px;
         margin: 5px;
+        background-color: #119;
+        border: none;
+        transition-duration: 0.3s;
+      }
+      #back:hover{
+        background-color: #119a;
       }
       #header{
-        background-color: #33F;
+        background-color: #33F0;
         height: 50px;
         text-align: left;
       }
       .fa{
         font-size: 25px;
-        color: #117;
+        color: #eee;
         background:transparent;
       }
       .pickbtns{
@@ -72,10 +78,14 @@
         margin-top:15px;
         font-size:22px;
         font-family: 'Times New Roman', Times, serif;
-        background-color: #00B;
+        background-color: #11a;
         color: #EEE;
         border: 1px solid #000;
         border-radius:10px;
+        transition-duration: 0.3s;
+      }
+      .btns:hover , .pickbtns:hover{
+        background-color: #11ab;
       }
       table{
         margin-top: -10px;
@@ -99,9 +109,6 @@
       input:disabled,
       input[disabled]{
         background-color: #BBF;
-      }
-      .btns:hover , .pickbtns:hover{
-        background-color: #00B;
       }
     </style>
   </head>
@@ -165,14 +172,6 @@
       document.getElementById("play").style.display = 'block';
       document.getElementById("picked").innerHTML = 'You picked ' + picked ;
     }
-    
-    
-    
-    
-    
-    
-    
-    
 
     function done(x){
       console.log(x);
