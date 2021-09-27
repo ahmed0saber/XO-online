@@ -38,11 +38,11 @@ class EnglishNotificationsViewset(GenericViewSet, ListModelMixin):
     serializer_class = EnglishNotificationsSerializer
     permission_classes = [IsAuthenticated]
     def get_queryset(self):
-        return self.request.user.notification
+        return self.request.user.notification.order_by('-time')
 
 
 class ArabicNotificationsViewset(GenericViewSet, ListModelMixin):
     serializer_class = ArabicNotificationsSerializer
     permission_classes = [IsAuthenticated]
     def get_queryset(self):
-        return self.request.user.notification
+        return self.request.user.notification.order_by('-time')
