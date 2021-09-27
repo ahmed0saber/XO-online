@@ -1,6 +1,8 @@
 <html>
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
     <title>online Tic Tac Toe</title>
     <style>
       body{
@@ -15,29 +17,23 @@
         margin: auto;
         text-align: left;
       }
-      button{
-        height: 40px;
-        width: 225px;
-        margin: 15px;
-        border: 2px solid #117;
-        border-radius: 10px;
-        padding: 5px;
-        font-size: 18px;
-        font-family: Times New Roman;
-      }
       .header_p{
         font-size: 22px;
         font-family: Times New Roman;
         border: 1px solid #aaa9;
         padding: 2px 8px;
         background-color: #9992;
-        border-radius: 10px;
       }
       #back{
         height: 40px;
         width: 100px;
         float: left;
         margin: 10px;
+        border: 2px solid #117;
+        border-radius: 10px;
+        padding: 5px;
+        font-size: 18px;
+        font-family: Times New Roman;
       }
       #header{
         background-color: #33F;
@@ -75,12 +71,41 @@
                 padding: 2px;
                 border: 1px solid #aaa9;
                 margin-bottom: 10px;
-                border-radius: 10px;
             }
             a{
                 color: #00A;
                 text-decoration: none;
             }
+.card {
+    background: #fff;
+    margin-bottom: 10px;
+    transition: .5s;
+    border: 1px solid #0004;
+    border-radius: .1875rem;
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    box-shadow: none;
+    text-align: center;
+}
+.card .body {
+    font-size: 14px;
+    color: #424242;
+    padding: 20px;
+    font-weight: 400;
+}
+.profile-header {
+    position: relative
+}
+.profile-header .profile-image img {
+    border-radius: 50%;
+    width: 140px;
+    border: 3px solid #fff;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23)
+}
+.btn-simple{
+  margin:5px;
+}
     </style>
   </head>
   <body>
@@ -99,8 +124,45 @@
         </div>
         <div id="section1">
             <p class="header_p" id="pp6">About the developers</p>
-      <p class="p2"><a href="">Ahmed Saber</a> , A frontend web developer</p>
-      <p class="p2"><a href="">Ahmed Yasser</a> , A backend web developer</p>
+
+            <div class="col-xl-6 col-lg-7 col-md-12">
+              <div class="card profile-header">
+                  <div class="body">
+                      <div class="row">
+                          <div class="col-lg-4 col-md-4 col-12">
+                              <div class="profile-image float-md-right"> <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt=""> </div>
+                          </div>
+                          <div class="col-lg-8 col-md-8 col-12">
+                              <h4 class="m-t-0 m-b-0"><strong>Ahmed Saber</strong></h4>
+                              <span class="job_post">Frontend web developer</span>
+                              <div>
+                                  <button class="btn btn-primary btn-round btn-simple">More info</button>
+                              </div>
+                          </div>                
+                      </div>
+                  </div>                    
+              </div>
+          </div>
+
+          <div class="col-xl-6 col-lg-7 col-md-12">
+            <div class="card profile-header">
+                <div class="body">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-4 col-12">
+                            <div class="profile-image float-md-right"> <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt=""> </div>
+                        </div>
+                        <div class="col-lg-8 col-md-8 col-12">
+                            <h4 class="m-t-0 m-b-0"><strong>Ahmed Yasser</strong></h4>
+                            <span class="job_post">Backend web developer</span>
+                            <div>
+                                <button class="btn btn-primary btn-round btn-simple">More info</button>
+                            </div>
+                        </div>                
+                    </div>
+                </div>                    
+            </div>
+        </div>
+
         </div>
       </div>
     </div>
