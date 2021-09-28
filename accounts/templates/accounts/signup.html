@@ -14,6 +14,8 @@
       #div1{
         margin: auto;
         text-align: center;
+        overflow: hidden;
+        overflow-y: auto;
       }
       #back{
         height: 30px;
@@ -28,10 +30,8 @@
         height: 40px;
         width: 225px;
         margin: 10px;
-        border: 2px solid #117;
-        border-radius: 10px;
         padding: 5px;
-        font-size: 18px;
+        font-size: 19px;
         font-family: Times New Roman;
         outline: none;
       }
@@ -40,14 +40,25 @@
         margin: 10px 0 10px 0;
       }
       #btn{
-        width: 100px;
-        margin-bottom: 5px;
+        width: 225px;
+        background-image: radial-gradient(#007, #00a, #00f);
+        color: #eee;
+        border: none;
+        transition-duration: 0.3s;
+        border-radius: 100px;
+      }
+      #btn:hover{
+        transform: translate(-2px,-2px);
+        box-shadow: 3px 3px 5px #0009;
       }
       #p1{
         font-size: 25px;
         font-family: Times New Roman;
         padding: 0;
         margin: 10px;
+      }
+      #p0{
+        padding: 8px 0px 0px 0px;
       }
       .errors{
         color: red;
@@ -80,6 +91,21 @@
             ::-webkit-scrollbar-thumb:hover {
                 background: #009; 
             }
+            .txt{
+              border: none;
+              border-bottom: 1px dashed #009;
+              transition-duration: 0.3s;
+            }
+            .txt:focus{
+              border: 1px dashed #009;
+              border-bottom: 1px solid #009;
+              background-color: #0072;
+            }
+            a{
+              color: #009;
+              font-weight: bold;
+              text-decoration: none;
+            }
     </style>
   </head>
   <body>
@@ -93,15 +119,15 @@
       <p id="p1">Create new account</p>
       <form action="" method="POST">
         {% csrf_token %}
-        <input class="name" id="tx1" type="text" placeholder="First name" name="first_name">
-        <input class="name" id="tx2" type="text" placeholder="Last name" name="last_name">
-        <input id='email' type="email" placeholder="Email" name="email">
+        <input class="name txt" id="tx1" type="text" placeholder="First name" name="first_name">
+        <input class="name txt" id="tx2" type="text" placeholder="Last name" name="last_name">
+        <input id='email' type="email" placeholder="Email" class="txt" name="email">
         <div class='errors' id='email_errors'></div>
         {{form.email.errors}}
-        <input id='password1' type="password" placeholder="Password" name="password1">
+        <input id='password1' type="password" placeholder="Password" name="password1" class="txt">
         <div class='errors' id='pass_errors'></div>
         {{form.password1.errors}}
-        <input id='password2' type="password" placeholder="Confirm password" name="password2">
+        <input id='password2' type="password" placeholder="Confirm password" name="password2" class="txt">
         <div class='errors' id='pass2_errors'></div>
         {{form.password2.errors}}
         <input type="submit" id="btn" value="sign up">
