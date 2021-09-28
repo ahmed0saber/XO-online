@@ -23,7 +23,7 @@
         background-color: #00B;
         color: #EEE;
         border: 2px solid #007;
-        border-radius: 10px;
+        border-radius: 10%;
       }
       #profile_pic{
         width: 100px;
@@ -83,6 +83,17 @@
         margin-bottom: 10px;
         border-radius: 20%;
         padding: 0;
+        /*background-color: #090;*/
+        color: #eee;
+      }
+      .winfield{
+        background-color: #090;
+      }
+      .losefield{
+        background-color: #900;
+      }
+      .drawfield{
+        background-color: #009;
       }
       .matchinfo{
         text-align: left;
@@ -99,7 +110,7 @@
         margin: 3px;
       }
       .matchspan{
-        color: #000;
+        color: #eee;
         font-weight: bold;
       }
       .Win{
@@ -113,6 +124,9 @@
       }
       legend{
         font-weight: bold;
+        background-color: #eee;
+        border-radius: 25%;
+        border: 2px solid #000;
       }
             ::-webkit-scrollbar {
                 width: 0px;
@@ -151,15 +165,22 @@
       <div id="match_history"><hr id="hr1">
         <p id="mh">‹Recent {{ history.count }} Games›</p>
         {% for match in history %}
-          <fieldset>
+          
 
             {% if match.winner == user %}
+            <fieldset class="winfield">
               <legend class="Win">Win</legend>
               <p class="matchinfo"><span class="you">You VS</span> <span class="matchspan">{{ match.loser }}</span></p>
+              <p class="date">{{match.time|date:'M. j, g:i A'}}</p>
+              </fieldset>
             {% elif match.loser == user %}
+            <fieldset class="losefield">
               <legend class="Lose">Lose</legend>
               <p class="matchinfo"><span class="you">You VS</span> <span class="matchspan">{{ match.winner }}</span></p>
+              <p class="date">{{match.time|date:'M. j, g:i A'}}</p>
+              </fieldset>
             {% else %}
+            <fieldset class="drawfield">
               <legend class="Draw">Draw</legend>
               <p class="matchinfo"><span class="you">You VS</span> <span class="matchspan">
                 {% for player in match.draw.all %}
@@ -168,9 +189,9 @@
                 {%  endif %}
                 {% endfor %}
               </span></p>
-            {% endif %}
               <p class="date">{{match.time|date:'M. j, g:i A'}}</p>
-          </fieldset>
+              </fieldset>
+            {% endif %}
         {% endfor %}
         <br></div>
       </div>
