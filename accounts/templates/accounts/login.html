@@ -28,15 +28,22 @@
         height: 40px;
         width: 225px;
         margin: 15px;
-        border: 2px solid #117;
-        border-radius: 10px;
         padding: 5px;
-        font-size: 18px;
+        font-size: 19px;
         font-family: Times New Roman;
         outline: none;
       }
       #btn{
-        width: 100px;
+        width: 225px;
+        background-image: radial-gradient(#007, #00a, #00f);
+        color: #eee;
+        border: none;
+        transition-duration: 0.3s;
+        border-radius: 100px;
+      }
+      #btn:hover{
+        transform: translate(-2px,-2px);
+        box-shadow: 3px 3px 5px #0009;
       }
       #p1{
         font-size: 25px;
@@ -59,6 +66,21 @@
             ::-webkit-scrollbar-thumb:hover {
                 background: #009; 
             }
+            .txt{
+              border: none;
+              border-bottom: 1px dashed #009;
+              transition-duration: 0.3s;
+            }
+            .txt:focus{
+              border: 1px dashed #009;
+              border-bottom: 1px solid #009;
+              background-color: #0072;
+            }
+            a{
+              color: #009;
+              font-weight: bold;
+              text-decoration: none;
+            }
     </style>
   </head>
   <body>
@@ -71,8 +93,8 @@
       <p id="p1">Log in to continue</p>
       <form action="" method="POST">
         {% csrf_token %}
-        <input type="text" placeholder="Email" name="email" id="tx1">
-        <input type="password" placeholder="Password" name="password" id="tx2">
+        <input type="text" placeholder="Email" name="email" id="tx1" class="txt">
+        <input type="password" placeholder="Password" name="password" id="tx2" class="txt">
         <input type="submit" id="btn" value="log in">
       </form>
       {% if messages %}
