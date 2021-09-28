@@ -19,13 +19,10 @@
             width: 52px;
             height: 34px;
             margin: 5px;
-            color: #000;
-            border: none;
-            transition-duration: 0.7s;
-            font-size: 22px;
-            font-family: 'Times New Roman', Times, serif;
             border-radius: 20px;
             border: 1px solid black;
+            background: url("https://drive.google.com/uc?id=1XRszTw7B3-lI60ohbbmPBEdnoPjh26H1&export=download") no-repeat;
+            background-color: #fff;
         }
 
         #down {
@@ -46,18 +43,22 @@
             font-size: 20px;
             color: #000;
         }
-
         #loadmsgs {
             margin: 10px;
             margin-left: calc(50% - 60px);
             height: 40px;
             width: 120px;
-            transition-duration: 0.7s;
             font-size: 12px;
-            color: #000;
+            color: #fffe;
+            background-color: #009;
+            border-radius: 25%;
+            border: 1px solid #0009;
+            transition-duration: 0.2s;
             font-family: Times New Roman;
         }
-
+        #loadmsgs:hover{
+          opacity: 0.7;
+        }
         input {
             width: calc(100% - 84px);
             height: 30px;
@@ -210,7 +211,7 @@
         </div>
         <div id="input_area">
             <input autocomplete="off" type="text" id="tx1" placeholder="Enter your message here">
-            <button id="send"><i class="fa fa-paper-plane"></i></button>
+            <button id="send"></button>
         </div>
         <button id="down" class="fa fa-chevron-down" onclick="_start()"></button>
     </div>
