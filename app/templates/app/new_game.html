@@ -53,9 +53,16 @@
 		::placeholder {
 		  color: #3379;
 		}
+		hr {
+  border: 0;
+  clear:both;
+  display:block;
+  width: 80%;               
+  background-color:#0079;
+  height: 1px;
+}
 	</style>
 </head>
-
 <body>
 	<div id="div1">
         <div id="header">
@@ -63,7 +70,6 @@
         </div>
 		<p class="ps">Play an auto matching random game</p>
 		<a href="{% url 'app:game' %}?room=random"><button class="btns">Search for a match</button></a>
-
 		<hr>
 		<p class="ps">Play a custom game</p>
 		<a href="{% url 'app:game' %}?room=create"><button class="btns">Create room</button></a>
