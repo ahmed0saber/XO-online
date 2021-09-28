@@ -244,9 +244,12 @@
     element.scrollTop = element.scrollHeight;
 
     function _start(){
-        
-        element.scrollTop = element.scrollHeight;
-        
+        /*element.scrollTop = element.scrollHeight;*/
+        if (element.scrollTop > element.scrollHeight - 900){
+                smoothScroll()
+                element.scrollTop = element.scrollHeight;
+                fastScroll()
+            } 
     }
 
     var scrolled = true;
@@ -342,7 +345,7 @@
                 smoothScroll()
                 element.scrollTop = element.scrollHeight;
                 fastScroll()
-            } 
+            }
         }
 
         socket.onclose = ()=>{
