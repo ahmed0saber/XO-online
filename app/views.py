@@ -8,6 +8,12 @@ def header(request):
 def home(request):
     return render(request, 'app/newhome.html')
 
+def single(request):
+    return render(request, 'app/single.html')
+
+def two(request):
+    return render(request, 'app/two.html')
+
 def bot(request):
     return render(request, 'app/easy_bot.html')
 
