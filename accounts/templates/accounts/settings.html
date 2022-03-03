@@ -1,195 +1,75 @@
-<html>
-  <head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <title>Online Tic Tac Toe</title>
+    <title>Edit | XO Online</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=BioRhyme:wght@400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://ahmed0saber.github.io/XO-online/external-files/style.css">
     <script>
-          window.addEventListener('load', function() {
-  document.querySelector('input[type="file"]').addEventListener('change', function() {
-      if (this.files && this.files[0]) {
-          var img = document.querySelector('img');
-          img.onload = () => {
-              URL.revokeObjectURL(img.src);  // no longer needed, free memory
-          }
-
-          img.src = URL.createObjectURL(this.files[0]); // set src to blob url
-      }
-  });
-});
-     function goavatars()
-     {
-       window.open("{% url 'accounts:avatars' %}","_self");
-     }
-        </script>
-    <style>
-      body{
-        margin: 0;
-        padding: 0;
-        width: 300px;
-        height: 407px;
-        background-color: #EEE;
-        overflow: hidden;
-        overflow-y: auto;
-      }
-      #div1{
-        margin: auto;
-        text-align: center;
-      }
-      .btns{
-        padding: 7px;
-        margin: 5px;
-        background-color: #00A;
-        border: 1px solid #007;
-        color: #EEE;
-        border-radius: 5px;
-        font-size: 12px;
-        font-family: Times New Roman;
-      }
-      #profile_pic{
-        width: 100px;
-        height: 100px;
-        border-radius: 50%;
-        margin: 25px;
-        padding: 0px;
-        border: 3px solid #009;
-        background-color: #FFF;
-        position: relative;
-        top: -78px;
-      }
-      #space{
-        width: 100%;
-        height: 75px;
-        background-color: #EEE;
-      }
-      #img_div{
-        height: 128px;
-      }
-      #username{
-        font-family: Times New Roman;
-        font-size: 18px;
-        padding: 0;
-        margin: 0;
-        margin-top: -40px;
-      }
-      fieldset{
-        margin: 20px;
-        height: 305px;
-        border-color: #33F;
-        box-shadow: 0 0 5px #117;
-      }
-      legend{
-        background-color: #EEE;
-      }
-      #tx{
-        height: 30px;
-        width: 200px;
-        margin: 10px;
-        padding: 5px;
-        background-color: #AAF;
-        outline: none;
-        color: #000;
-        border: 2px solid #007;
-        border-radius: 5px;
-        font-size: 17px;
-        font-family: Times New Roman;
-      }
-      #save{
-        width: 75px;
-        margin-top: 30px;
-        font-size: 20px;
-      }
-      #back{
-        position: relative;
-        top: -120px;
-        left: -120px;
-        height: 50px;
-        width: 50px;
-        background-color: #00A;
-        border: 2px solid #007;
-        border-radius: 50%;
-      }
-      .fa{
-        font-size: 32px;
-        color: #EEE;
-      }
-      #cpp{
-        margin: 0;
-        padding: 5px;
-        font-size: 14px;
-      }
-      a{
-        text-decoration: none;
-      }
-            ::-webkit-scrollbar {
-                width: 0px;
-            }
-            ::-webkit-scrollbar-track {
-                background: #DDD; 
-            }
-            ::-webkit-scrollbar-track:hover {
-                background: #CCC; 
-            }
-            ::-webkit-scrollbar-thumb {
-                background: #00A; 
-            }
-            ::-webkit-scrollbar-thumb:hover {
-                background: #009; 
-            }
-    </style>
-  </head>
-  <body>
-    <div id="div1">
-      <div id="img_div">
-        <div id="space"></div>
-        <img id="profile_pic" src="{{ user.image.url }}">
-      </div>
-      <a href="{% url 'accounts:profile' %}"><button id="back"><i class="fa fa-arrow-left"></i></button></a>
-      <p id="username">{{ user }}</p>
-      <fieldset>
-        <legend id="p1">Change account info</legend>
-        <p id="p2">Don't forget to scroll down and press the save button !!</p>
-        <form method="POST" action="" enctype="multipart/form-data">
-          {% csrf_token %}
-          <input id="tx" type="text" placeholder="First Name" value="{{ user.first_name }}" name="first_name">
-          <input id="tx" type="text" placeholder="Last Name" value="{{ user.last_name }}" name="last_name">
-          <input id="tx" type="text" placeholder="Email" value="{{ user.email }}" name="email">
-          <input type="file" id="selectedFile" style="display: none;"  name="image"/>
-          <p id="cpp">Change profile picture</p>
-          <input id="btn" class="btns" type="button" value="From device" onclick="document.getElementById('selectedFile').click();"/>
-          <a id="btn2" class="btns" href="{% url 'accounts:avatars' %}">From avatars</a><br>
-          <input id="save" class="btns" type="submit" value="Save">
-        </form>
-      </fieldset>
+        window.addEventListener('load', function() {
+            document.querySelector('input[type="file"]').addEventListener('change', function() {
+                if (this.files && this.files[0]) {
+                    var img = document.querySelector('img');
+                    img.onload = () => {
+                        URL.revokeObjectURL(img.src);  // no longer needed, free memory
+                    }
+                    img.src = URL.createObjectURL(this.files[0]); // set src to blob url
+                }
+            });
+        });
+        function goavatars()
+        {
+            window.open("{% url 'accounts:avatars' %}","_self");
+        }
+    </script>
+</head>
+<body>
+    <div class="loader">
+        <div class="circle"></div>
     </div>
-  </body>
-  <script>
-    if(localStorage.getItem("language")=="AR")
-    {
-        toArabic();
-    }
-    else{
-        toEnglish();
-    }
-    
-    function toArabic()
-    {
-      localStorage.setItem("language", "AR");
-      document.getElementById("p1").textContent="تغيير بيانات الحساب";
-      document.getElementById("p2").textContent="لا تنسى الضغط على زر الحفظ فى الاسفل";
-      document.getElementById("cpp").textContent="تغيير صورة الحساب";
-      document.getElementById("btn").value="من الجهاز";
-      document.getElementById("btn2").textContent="من الايقونات";
-      document.getElementById("save").value="حفظ";
-    }
-    function toEnglish()
-    {
-      localStorage.setItem("language", "EN");
-      document.getElementById("p1").textContent="Change account info";
-      document.getElementById("p2").textContent="Don't forget to scroll down and press the save button !!";
-      document.getElementById("cpp").textContent="Change profile picture";
-      document.getElementById("btn").value="From device";
-      document.getElementById("btn2").textContent="From avatars";
-      document.getElementById("save").value="Save";
-    }
-  </script>
+    <header>
+        <span class="logo">XO Online</span>
+        <nav>
+            <div>
+                <a href="{% url 'app:header' %}"><i class="fa fa-home"></i> <span>Home</span></a>
+                <a href="{% url 'app:board' %}"><i class="fa fa-trophy"></i> <span>Leaderboard</span></a>
+                <a href="{% url 'chat:chat' %}"><i class="fa fa-envelope"></i> <span>Chat</span></a>
+                <a href="{% url 'app:notifications' %}"><i class="fa fa-bell"></i> <span>Notifications</span></a>
+                <a class="active" href="{% url 'accounts:profile' %}"><i class="fa fa-user"></i> <span>Profile</span></a>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <section class="home">
+            <section class="logo-container">
+                <img src="{{ user.image.url }}">
+            </section>
+            <section class="profile-controls">
+                <section class="profile-controls">
+                    <form method="POST" action="" enctype="multipart/form-data">
+                        <p>First Name</p>
+                        <input type="text" placeholder="First Name" value="{{ user.first_name }}" name="first_name">
+                        <p>Last Name</p>
+                        <input type="text" placeholder="Last Name" value="{{ user.last_name }}" name="last_name">
+                        <p>Email Address</p>
+                        <input type="email" placeholder="Email" value="{{ user.email }}" name="email">
+                        <p>Change Profile Picture</p>
+                        <input type="file" id="selectedFile" style="display: none;"  name="image"/>
+                        <div class="col-btns">
+                            <a onclick="document.getElementById('selectedFile').click();">From Device</a>
+                            <a href="{% url 'accounts:avatars' %}">From Avatars</a>
+                        </div>
+                        <button type="submit">Save</button>
+                    </form>
+                </section>
+            </section>
+        </section>
+    </main>
+</body>
+<script src="https://ahmed0saber.github.io/XO-online/external-files/script.js"></script>
+<script src="https://kit.fontawesome.com/282bcf757e.js" crossorigin="anonymous"></script>
 </html>
