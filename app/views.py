@@ -6,7 +6,7 @@ def header(request):
     return render(request, 'app/start.html')
 
 def home(request):
-    return render(request, 'app/newhome.html')
+    return render(request, 'app/start.html')
 
 def single(request):
     return render(request, 'app/single.html')
