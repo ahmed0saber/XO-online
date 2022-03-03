@@ -18,7 +18,7 @@
         <span class="logo">XO Online</span>
         <nav>
             <div>
-                <a class="active" href="{% url 'app:home' %}"><i class="fa fa-home"></i> <span>Home</span></a>
+                <a class="active" href="{% url 'app:header' %}"><i class="fa fa-home"></i> <span>Home</span></a>
                 <a href="{% url 'app:board' %}"><i class="fa fa-trophy"></i> <span>Leaderboard</span></a>
                 <a href="{% url 'chat:chat' %}"><i class="fa fa-envelope"></i> <span>Chat</span></a>
                 <a href="{% url 'app:notifications' %}"><i class="fa fa-bell"></i> <span>Notifications</span></a>
@@ -34,9 +34,9 @@
             <section class="btns">
                 <p>Which mode do you prefer to play ?</p>
                 <p>Notice that hard mode is unbeatable.</p>
-                <a href="./easy.html">Easy</a>
-                <a href="./hard.html">Hard</a>
-                <a href="./index.html"><i class="fa fa-angle-left"></i> Back</a>
+                <a href="{% url 'app:bot' %}">Easy</a>
+                <a href="{% url 'app:ai' %}">Hard</a>
+                <a href="{% url 'app:header' %}"><i class="fa fa-angle-left"></i> Back</a>
             </section>
         </section>
     </main>
