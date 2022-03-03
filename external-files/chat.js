@@ -129,11 +129,11 @@ let start_socket = ()=>{
         _send();
     });
 
-    document.getElementById("tx1").onkeypress = e => {
-    if (e.keyCode == 13){
-        _send()
-    }
-}
+    /*document.getElementById("tx1").onkeypress = e => {
+        if (e.keyCode == 13){
+            _send()
+        }
+    }*/
 }
 start_socket()
 
