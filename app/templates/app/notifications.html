@@ -1,119 +1,59 @@
-<html>
-  <head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <title>online Tic Tac Toe</title>
-    <style>
-      body{
-        margin: 0;
-        padding: 0;
-        width: 300px;
-        background-color: #EEE;
-        overflow: hidden;
-        overflow-y: auto;
-      }
-      #div1{
-        margin: auto;
-        text-align: center;
-      }
-      #notification{
-        width: 90%;
-        border: 2px solid #007;
-        box-shadow: 0px 0px 5px #339;
-        min-height: 50px;
-        border-radius: 10px;
-        text-align: left;
-        padding: 8px;
-        margin: calc(5% - 10px);
-        margin-top: 15px;
-        background-color: #EEF;
-      }
-      p{
-        padding: 0;
-        margin: 0;
-        font-size: 15px;
-        font-family: Times New Roman;
-      }
-      a{
-        text-decoration: none;
-        color: #007;
-        font-weight: bold;
-      }
-      #info{
-        font-size: 13px;
-        text-align: right;
-      }
-            ::-webkit-scrollbar {
-                width: 0px;
-            }
-            ::-webkit-scrollbar-track {
-                background: #DDD; 
-            }
-            ::-webkit-scrollbar-track:hover {
-                background: #CCC; 
-            }
-            ::-webkit-scrollbar-thumb {
-                background: #00A; 
-            }
-            ::-webkit-scrollbar-thumb:hover {
-                background: #009; 
-            }
-    </style>
-  </head>
-  <body>
-    <div id="div1">
+    <title>Notifications | XO Online</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=BioRhyme:wght@400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://ahmed0saber.github.io/XO-online/external-files/style.css">
+</head>
+<body>
+    <div class="loader">
+        <div class="circle"></div>
     </div>
-  </body>
-  <script>
-    let container = document.getElementById('div1')
-    if (localStorage.getItem('language') == "AR"){
-      api_url="/accounts/api/notifications/ar/"
-      fetch(api_url)
-            .then(response => response.json())
-            .then(data => {
-              for(notification of data){
-                let tag = ` <a href="${ notification.url }">
-                              <div id="notification" style='text-align:right;'>
-                                <p dir='auto' >
-                                  ${ notification.arabic }
-                                </p>
-                                <p id="info">${ notification.time }</p>
-                              </div>
-                            </a>`
-                container.innerHTML += tag 
-                }
-                container.innerHTML += `<div id="notification" style='text-align:right'>
-                  <p dir='rtl'>مرحبا {{user}}!!<br>
-                    اهلا بك في X&O حيث يمكنك اللعب ضد الكومبيوتر او ضد اصدقائك او حتي مع غرباء .
-                    <br>
-                    للمزيد من المعلومات حول اللعبة و المبرمجين ، اضغط علي ايقونة المنزل ثم اضغط علي "معلومات عننا".
-                    <br>استمتع بوقتك !</p>
-                  <p id="info"  style='text-align:left'>افضل التمنيات<br>❤ المبرمجين</p>
-                </div>`
-            })
-    }else{
-
-      api_url="/accounts/api/notifications/en/"
-      fetch(api_url)
-            .then(response => response.json())
-            .then(data => {
-              for(notification of data){
-                let tag = ` <a href="${ notification.url }">
-                              <div id="notification" style='text-align:left;'>
-                                <p dir="auto">
-                                  ${ notification.content }
-                                </p>
-                                <p id="info">${ notification.time }</p>
-                              </div>
-                            </a>`
-                            container.innerHTML += tag 
-              }
-              container.innerHTML += `<div id="notification">
-              <p>Hello {{user}}!!<br>Welcome to xo-online , where you can play vs bots , friends or even strangers.<br>For more info about the game or the developers , press home icon then the button named "About".<br>Have fun and enjoy your time !</p>
-              <p id="info">Best wishes<br>The developers</p>
-            </div>`
-            })
-    }
-
-  </script>
+    <header>
+        <span class="logo">XO Online</span>
+        <nav>
+            <div>
+                <a href="{% url 'app:header' %}"><i class="fa fa-home"></i> <span>Home</span></a>
+                <a href="{% url 'app:board' %}"><i class="fa fa-trophy"></i> <span>Leaderboard</span></a>
+                <a href="{% url 'chat:chat' %}"><i class="fa fa-envelope"></i> <span>Chat</span></a>
+                <a class="active" href="{% url 'app:notifications' %}"><i class="fa fa-bell"></i> <span>Notifications</span></a>
+                <a href="{% url 'accounts:profile' %}"><i class="fa fa-user"></i> <span>Profile</span></a>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <section class="notifications">
+            <section class="notifications-container">
+            </section>
+        </section>
+    </main>
+</body>
+<script src="https://ahmed0saber.github.io/XO-online/external-files/script.js"></script>
+<script>
+let container = document.getElementsByClassName('notifications-container')[0]
+let api_url="/accounts/api/notifications/en/"
+fetch(api_url)
+    .then(response => response.json())
+    .then(data => {
+        for(notification of data){
+        let tag = ` <a href="${ notification.url }">
+                        <div class="notification">
+                            <p>${ notification.content }</p>
+                            <span>${ notification.time }</span>
+                        </div>
+                    </a>`
+                    container.innerHTML += tag 
+        }
+        container.innerHTML += `<div id="notification">
+        <p>Hello {{user}}!!<br>Welcome to xo-online , where you can play vs bots , friends or even strangers.<br>For more info about the game or the developers , press home icon then the button named "About".<br>Have fun and enjoy your time !</p>
+        <p id="info">Best wishes<br>The developers</p>
+    </div>`
+    })
+</script>
+<script src="https://kit.fontawesome.com/282bcf757e.js" crossorigin="anonymous"></script>
 </html>
