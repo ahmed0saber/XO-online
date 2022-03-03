@@ -38,9 +38,9 @@
                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="300" height="300" viewBox="0 0 265 300"><defs><style>.a{clip-path:url(#g);}.b{fill:#1282a2;}.b,.c,.d{font-size:200px;font-family:"BioRhyme";}.c{fill:#f7fff7;}.d{fill:#fff;}.e{fill:#2e3532;}.f{filter:url(#c);}.g{filter:url(#a);}</style><filter id="a" x="13.5" y="-24.5" width="199" height="275" filterUnits="userSpaceOnUse"><feOffset dx="3" dy="3" input="SourceAlpha"/><feGaussianBlur stdDeviation="1.5" result="b"/><feFlood/><feComposite operator="in" in2="b"/><feComposite in="SourceGraphic"/></filter><filter id="c"><feOffset dx="3" dy="3" input="SourceAlpha"/><feGaussianBlur stdDeviation="1.5" result="d"/><feFlood flood-opacity="0.702" result="e"/><feComposite operator="out" in="SourceGraphic" in2="d"/><feComposite operator="in" in="e"/><feComposite operator="in" in2="SourceGraphic"/></filter><clipPath id="g"><rect width="300" height="300"/></clipPath></defs><g id="f" class="a"><rect class="e" width="300" height="300"/><g class="g" transform="matrix(1, 0, 0, 1, 0, 0)"><text class="b" transform="translate(17 187)"><tspan x="0" y="0">X</tspan></text></g><g data-type="innerShadowGroup"><text class="c" transform="translate(113 244)"><tspan x="0" y="0">O</tspan></text><g class="f" transform="matrix(1, 0, 0, 1, 0, 0)"><text class="d" transform="translate(113 244)"><tspan x="0" y="0">O</tspan></text></g></g></g></svg>
             </section>
             <section class="btns">
-                <a href="./single-player.html">Single Player</a>
-                <a href="./two-players.html">Two Players</a>
-                <a href="./about.html">About US</a>
+                <a href="{% url 'app:single' %}">Single Player</a>
+                <a href="{% url 'app:two' %}">Two Players</a>
+                <a href="{% url 'app:about' %}">About US</a>
                 <a>Change Language</a>
             </section>
         </section>
