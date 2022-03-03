@@ -1,384 +1,70 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <title>online Tic Tac Toe</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            width: 300px;
-            height: 407px;
-            background-color: #EEE;
-            overflow: hidden;
-        }
-        #send {
-            float: right;
-            width: 52px;
-            height: 34px;
-            margin: 5px;
-            border-radius: 20px;
-            border: 1px solid black;
-            background: url("https://drive.google.com/uc?id=1Xk13epjsMdJV8CGWlA3TbS4tU1CktBnF&export=download") no-repeat;
-            background-color: #fff;
-        }
-
-        #down {
-            float: right;
-            width: 50px;
-            height: 50px;
-            text-shadow: 0 0 2px #FFF;
-            border: none;
-            transition-duration: 0.7s;
-            background: rgba(0, 0, 255, 0.2);
-            border-radius: 50%;
-            position: relative;
-            left: -20px;
-            top: -125px;
-        }
-
-        .fa {
-            font-size: 20px;
-            color: #000;
-        }
-        #loadmsgs {
-            margin: 10px;
-            margin-left: calc(50% - 60px);
-            height: 40px;
-            width: 120px;
-            font-size: 12px;
-            color: #fffe;
-            background-color: #009;
-            border-radius: 25%;
-            border: 1px solid #0009;
-            transition-duration: 0.2s;
-            font-family: Times New Roman;
-        }
-        #loadmsgs:hover{
-          opacity: 0.7;
-        }
-        input {
-            width: calc(100% - 84px);
-            height: 30px;
-            margin: 5px;
-            border: none;
-            padding-left: 7px;
-            font-size: 16px;
-            font-family: 'Times New Roman', Times, serif;
-            color: #333;
-            outline: none;
-            border-radius: 20px;
-            background-color: #fff;
-            border: 1px solid black;
-        }
-
-        #msg_container {
-            height: 362px;
-            background-color: #FFF;
-            overflow-y: auto;
-            overflow-x: hidden;
-        }
-        
-        .msg{
-          display: flex;
-          direction: ltr;
-        }
-        
-        p {
-            padding: 10px;
-            border-radius: 0px 10px 10px 10px;
-            margin: 5px 0px 5px 0px;
-            background-color: #222;
-            color: #EEE;
-            word-break: break-word;
-            max-width: 200px;
-            display: inline-block;
-            font-family: Sans-Serif;
-            font-size: 13px;
-        }
-
-        #user_msg {
-            background-color: #33C;
-            color: #FFF;
-            border-radius: 10px 0px 10px 10px;
-            direction: ltr;
-        }
-
-        #user_div {
-            direction: rtl;
-        }
-        
-        img{
-          height: 40px;
-          width: 40px;
-          margin: 5px;
-          border: 1px solid #000;
-          border-radius: 50%;
-        }
-        #user_img{
-          border: 1px solid #33C;
-        }
-        #name{
-          font-size: 12px;
-          font-family: Times New Roman;
-          position: relative;
-          top: -6px;
-          left: -6px;
-          font-weight: bold;
-          padding: 1px;
-          background-color: #7779;
-          border-radius: 5px;
-          color: #FFF;
-        }
-        a{
-          text-decoration: none;
-          color: #FFF;
-          -webkit-tap-highlight-color: rgba(0,0,0,0);
-        }
-        #date{
-          float: right;
-          font-size: 10px;
-          font-family: Times New Roman;
-          position: relative;
-          right: -5px;
-          bottom: -5px;
-        }
-
-        ::-webkit-scrollbar {
-            width: 15px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: #f1f1ff;
-        }
-
-        ::-webkit-scrollbar-track:hover {
-            background: #D1D1DD;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: #88F;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: #55F;
-        }
-
-        #div1 {
-            margin: auto;
-        }
-
-        #input_area {
-            border-top: 2px solid #33F;
-        }
-        #nomore{
-          color: #000;
-          font-size: 14px;
-          font-family: Times New Roman;
-          background: transparent;
-          text-align: center;
-        }
-    </style>
+    <title>Chat | XO Online</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=BioRhyme:wght@400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://ahmed0saber.github.io/XO-online/external-files/style.css">
 </head>
+<body>
+    <div class="loader">
+        <div class="circle"></div>
+    </div>
+    <div class="fullscreen">
+        <header>
+            <span class="logo">XO Online</span>
+            <nav>
+                <div>
+                    <a href="{% url 'app:header' %}"><i class="fa fa-home"></i> <span>Home</span></a>
+                    <a href="{% url 'app:board' %}"><i class="fa fa-trophy"></i> <span>Leaderboard</span></a>
+                    <a class="active" href="{% url 'chat:chat' %}"><i class="fa fa-envelope"></i> <span>Chat</span></a>
+                    <a href="{% url 'app:notifications' %}"><i class="fa fa-bell"></i> <span>Notifications</span></a>
+                    <a href="{% url 'accounts:profile' %}"><i class="fa fa-user"></i> <span>Profile</span></a>
+                </div>
+            </nav>
+        </header>
 
-<body onload="_start()">
-    <div id="div1">
-        <div id="msg_container">
-            <button onclick="_load()" id="loadmsgs">Load previous messages</button>
-            {% for message in messages %}
-            {% if message.sender == user %}
-            <div id="user_div" data-id="{{ message.unique_id }}" class="msg">
-              <a href="{% url 'accounts:view_user' message.sender.front_id %}"><img id="user_img" src="{{ message.sender.image.url }}"></a>
-              <p id="user_msg">{{ message.content }}<br><span id="date">{{ message.date_sent|date:'M. j, g:i A' }}</span></p>
-            </div>
-            <!--<div id="user_div" data-id="{{ message.unique_id }}" data-username="{{ message.sender }}" data-user-image="{{ message.sender.image.url }}" data-profile-url="{% url 'accounts:view_user' message.sender.front_id %}">
-                <p id="user_msg">{{ message.content }}</p>
-            </div>-->
-            
-            {% else %}
-            <div class="msg" data-id="{{ message.unique_id }}">
-              <a href="{% url 'accounts:view_user' message.sender.front_id %}"><img src="{{ message.sender.image.url }}"></a>
-              <p><a href="{% url 'accounts:view_user' message.sender.front_id %}"><span id="name"> {{ message.sender }} </span></a><br>{{ message.content }}<br><span id="date">{{ message.date_sent|date:'M. j, g:i A' }}</span></p>
-            </div>
-            
-            <!--<div data-id="{{ message.unique_id }}" data-username="{{ message.sender }}" data-user-image="{{ message.sender.image.url }}" data-profile-url="{% url 'accounts:view_user' message.sender.front_id %}">
-                <p>{{ message.content }}</p>
-            </div>-->
-            
-            {% endif %}
-            {% endfor %}
-        </div>
-        <div id="input_area">
-            <input autocomplete="off" type="text" id="tx1" placeholder="Enter your message here">
-            <button id="send"></button>
-        </div>
-        <button id="down" class="fa fa-chevron-down" onclick="_start()"></button>
+        <main class="main-chat">
+            <section class="home chat-section">
+                <section class="chat">
+                    <div class="msg-container" id="msg_container">
+                        <button onclick="_load()" id="loadmsgs">Load previous messages</button>
+                        {% for message in messages %}
+                        {% if message.sender == user %}
+                        <div class="msg myMSG" data-id="{{ message.unique_id }}">
+                            <div>
+                                <p>{{ message.content }}</p>
+                                <span>{{ message.date_sent|date:'M. j, g:i A' }}</span>
+                            </div>
+                        </div>
+                        {% else %}
+                        <div class="msg" data-id="{{ message.unique_id }}">
+                            <a href="{% url 'accounts:view_user' message.sender.front_id %}">
+                                <img src="{{ message.sender.image.url }}">
+                            </a>
+                            <div>
+                                <h4>{{ message.sender }}</h4>
+                                <p>{{ message.content }}</p>
+                                <span>{{ message.date_sent|date:'M. j, g:i A' }}</span>
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                </section>
+            </section>
+        </main>
+    </div>
+    <div class="inputs">
+        <input type="text" autocomplete="off" id="tx1" placeholder="Message">
+        <button type="button" id="send">Send</button>
     </div>
 </body>
-
-<script>
-
-    if(localStorage.getItem("language")=="AR")
-    {
-        toArabic();
-    }
-    else{
-        toEnglish();
-    }
-    
-    function toArabic()
-    {
-      localStorage.setItem("language", "AR");
-      document.getElementById("loadmsgs").textContent="تحميل رسائل سابقة";
-      document.getElementById("tx1").placeholder="اكتب رسالتك هنا";
-    }
-    function toEnglish()
-    {
-      localStorage.setItem("language", "EN");
-      document.getElementById("loadmsgs").textContent="Load previous messages";
-      document.getElementById("tx1").textContent="Enter your message here";
-    }
-
-    var element = document.getElementById("msg_container");
-    element.scrollTop = element.scrollHeight;
-
-    function _start(){
-        /*element.scrollTop = element.scrollHeight;*/
-                smoothScroll()
-                element.scrollTop = element.scrollHeight;
-                fastScroll()
-    }
-
-    var scrolled = true;
-    async function _load() {
-        var element = document.getElementById("msg_container");
-        var dimension1 = element.scrollHeight;
-        var oldest = element.querySelector('div').dataset.id
-        var messages = await fetch(`{% url 'chat:older_messages' %}?id=${oldest}`)
-        messages = await messages.json()
-        var inner1 = element.innerHTML;
-        for (message of messages) {
-            var myobj = document.getElementById("loadmsgs");
-            myobj.remove();
-            if(localStorage.getItem("language")=="EN")
-            {
-                var xx = "Load previous messages";
-            }
-            else{
-                var xx = "تحميل رسائل سابقة";
-            }
-            if (message.sender.front_id == "{{user.front_id}}"){
-                element.innerHTML = `<button onclick="_load()" id="loadmsgs">` + xx + `</button>` + `
-                    <div id="user_div" class="msg" data-id="${message.unique_id}">
-                <a href="${message.sender.profile_url}"><img id="user_img" src="` + message.sender.image + `"></a>
-                <p id="user_msg">` + message.content + `<br><span id="date">` + message.date_sent + `</span></p>
-            </div>` + element.innerHTML;
-            }else{
-                element.innerHTML = `<button onclick="_load()" id="loadmsgs">` + xx + `</button>` + `
-                    <div class="msg" data-id="${message.unique_id}">
-                <a href="${message.sender.profile_url}"><img src="` + message.sender.image + `"></a>
-                <p><a href="${message.sender.profile_url}"><span id="name"> ` + message.sender.name + ` </span></a><br>` + message.content + `<br><span id="date">` + message.date_sent + `</span></p>
-            </div>` + element.innerHTML;
-            }
-            
-        }
-        if(element.innerHTML == inner1)
-        {
-          var myobj = document.getElementById("loadmsgs");
-          myobj.remove();
-          if(localStorage.getItem("language")=="EN")
-          {
-            element.innerHTML = `<p id="nomore">No more previous messages</p>` + element.innerHTML;
-          }
-          else{
-            element.innerHTML = `<p id="nomore">لا يوجد المزيد من الرسائل السابقة</p>` + element.innerHTML;
-          }
-          
-        }
-        var dimension2 = element.scrollHeight;
-        element.scrollTop = dimension2 - dimension1;
-      }
-
-
-    
-
-
-
-    var element = document.getElementById("msg_container");
-    element.addEventListener('scroll', function (event) {
-        var element = event.target;
-        if (element.scrollHeight - element.scrollTop === element.clientHeight) {
-            scrolled = true;
-        }
-        else {
-            scrolled = false;
-        }
-    });
-
-    // websocket handling 
-    let protocol = window.location.protocol == "https:" ? "wss:" : "ws:"
-    let url = protocol + "//" + window.location.host + '/ws/chat/'
-    let start_socket = ()=>{
-
-        const socket = new WebSocket(url)
-        socket.onmessage = (data)=>{
-            message = JSON.parse(data.data)
-            if (message.sender.front_id == "{{user.front_id}}"){
-              
-                element.innerHTML +=`
-                <div id="user_div" class="msg" data-id="${message.unique_id}">
-                    <a href="${message.sender.profile_url}"><img id="user_img" src="` + message.sender.image + `"></a>
-                    <p id="user_msg">` + message.content + `<br><span id="date">` + message.date_sent + `</span></p>
-                </div>`
-            }else{
-                
-                element.innerHTML +=`
-                <div class="msg" data-id="${message.unique_id}">
-                    <a href="${message.sender.profile_url}"><img src="` + message.sender.image + `"></a>
-                    <p><a href="${message.sender.profile_url}"><span id="name"> ` + message.sender.name + ` </span></a><br>` + message.content + `<br><span id="date">` + message.date_sent + `</span></p>
-                </div>`
-            }
-            if (element.scrollTop > element.scrollHeight - 900){
-                smoothScroll()
-                element.scrollTop = element.scrollHeight;
-                fastScroll()
-            }
-        }
-
-        socket.onclose = ()=>{
-            setTimeout(()=>{
-                start_socket()
-            }, 1000)
-        }
-        function _send() {
-            var element = document.getElementById("msg_container");
-            let message = document.getElementById("tx1").value
-            socket.send(
-                JSON.stringify({'message':message})
-            )
-            document.getElementById("tx1").value = "";
-        }
-        
-        $("#send").click(function(){
-          _send();
-        });
-
-        document.getElementById("tx1").onkeypress = e => {
-        if (e.keyCode == 13){
-            _send()
-        }
-    }
-    }
-    start_socket()
-
-
-    let smoothScroll = ()=>{
-        element.style.scrollBehavior = 'smooth'
-    }
-    let fastScroll = ()=>{
-        element.style.scrollBehavior = 'auto'
-    }
-</script>
+<script src="https://ahmed0saber.github.io/XO-online/external-files/script.js"></script>
+<script src="https://ahmed0saber.github.io/XO-online/external-files/chat.js"></script>
+<script src="https://kit.fontawesome.com/282bcf757e.js" crossorigin="anonymous"></script>
 </html>
