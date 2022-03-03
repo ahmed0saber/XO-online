@@ -1,339 +1,102 @@
-<html>
-  <head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <title>Online Tic Tac Toe</title>
-    <style>
-      body{
-        margin: 0;
-        padding: 0;
-        width: 300px;
-        background-color: #EEE;
-        overflow: hidden;
-        overflow-y: auto;
-      }
-      #div1{
-        margin: auto;
-        text-align: center;
-      }
-      .btns{
-        height: 50px;
-        width: 70px;
-        margin: 10px;
-        background-color: #00B;
-        color: #EEE;
-        border: 2px solid #007;
-        border-radius: 10%;
-      }
-      #profile_pic{
-        width: 100px;
-        height: 100px;
-        border-radius: 50%;
-        margin: 25px;
-        padding: 0px;
-        position: relative;
-        top: -78px;
-        background-color:#EEE;
-        border: 3px solid #009;
-        box-shadow: 0px 0px 5px #0009;
-      }
-      #space{
-        width: 100%;
-        height: 75px;
-      }
-      #img_div{
-        height: 128px;
-      }
-      #username{
-        font-family: Times New Roman;
-        font-size: 18px;
-        padding: 0;
-        margin: 0;
-        margin-top: 5px;
-      }
-      #user_stats{
-        text-align: left;
-        padding: 0px 10px;
-      }
-      .fa{
-        font-size: 25px;
-      }
-      #inside{
-        font-size: 11px;
-        padding: 0;
-        margin: 0;
-      }
-      #mh{
-        font-size: 20px;
-        margin: 5px;
-        background-color: #000;
-        color: #EEE;
-        border: 2px solid #0007;
-      }
-      #hr1{
-        margin: 0px auto;
-        padding: 0;
-        width: 90%;
-        border: 1px solid #0007;
-      }
-      fieldset{
-        width: 85%;
-        border: 2px solid #000;
-        margin: 0px auto;
-        margin-bottom: 10px;
-        border-radius: 20%;
-        padding: 0;
-        /*background-color: #090;*/
-        color: #eee;
-      }
-      .winfield{
-        background-color: #090;
-      }
-      .losefield{
-        background-color: #900;
-      }
-      .drawfield{
-        background-color: #009;
-      }
-      .matchinfo{
-        text-align: left;
-        font-size: 14px;
-        padding: 0;
-        padding-left: 5px;
-        margin: 3px;
-      }
-      .date{
-        text-align: right;
-        font-size: 12px;
-        padding: 0;
-        padding-right: 5px;
-        margin: 3px;
-      }
-      .matchspan{
-        color: #eee;
-        font-weight: bold;
-      }
-      .Win{
-        color: #070;
-      }
-      .Lose{
-        color: #700;
-      }
-      .Draw{
-        color: #007;
-      }
-      legend{
-        font-weight: bold;
-        background-color: #eee;
-        border-radius: 25%;
-        border: 2px solid #000;
-      }
-            ::-webkit-scrollbar {
-                width: 0px;
-            }
-            ::-webkit-scrollbar-track {
-                background: #DDD; 
-            }
-            ::-webkit-scrollbar-track:hover {
-                background: #CCC; 
-            }
-            ::-webkit-scrollbar-thumb {
-                background: #00A; 
-            }
-            ::-webkit-scrollbar-thumb:hover {
-                background: #009; 
-            }
-    </style>
-  </head>
-  <body>
-    <div id="div1">
-      <div id="img_div">
-        <div id="space"></div>
-        <img id="profile_pic" src="{{ user.image.url }}">
-      </div>
-      <p id="username">{{ user }}</p>
-      <button class="btns" onclick="logout()"><i class="fa fa-sign-out"></i></br><p id="inside"><span id="s1">Log out</span></p></button>
-      <a href="{% url 'accounts:settings' %}"><button class="btns"><i class="fa fa-cog"></i></br><p id="inside"><span id="s2">Edit profile</span></p></button></a>
-      <button class="btns" onclick="copylink()"><i class="fa fa-share"></i></br><p id="inside"><span id="s3">Share</span></p></button>
-      <div id="user_stats">
-        <p id="p1">Played {{ user.total_games }} games</p>
-        <p id="p2">win : {{ user.won_games }}</p>
-        <p id="p3">lose : {{ user.lost_games }}</p>
-        <p id="p4">draw : {{ user.draw_games }}</p>
-        <p id="p5">win rate : {{ win_rate }} %</p>
-      </div>
-      <div id="match_history"><hr id="hr1">
-        <p id="mh">‹Recent {{ history.count }} Games›</p>
-        {% for match in history %}
-          
-
-            {% if match.winner == user %}
-            <fieldset class="winfield">
-              <legend class="Win">Win</legend>
-              <p class="matchinfo"><span class="you">You VS</span> <span class="matchspan">{{ match.loser }}</span></p>
-              <p class="date">{{match.time|date:'M. j, g:i A'}}</p>
-              </fieldset>
-            {% elif match.loser == user %}
-            <fieldset class="losefield">
-              <legend class="Lose">Lose</legend>
-              <p class="matchinfo"><span class="you">You VS</span> <span class="matchspan">{{ match.winner }}</span></p>
-              <p class="date">{{match.time|date:'M. j, g:i A'}}</p>
-              </fieldset>
-            {% else %}
-            <fieldset class="drawfield">
-              <legend class="Draw">Draw</legend>
-              <p class="matchinfo"><span class="you">You VS</span> <span class="matchspan">
-                {% for player in match.draw.all %}
-                {% if player != user %}
-                {{player}}
-                {%  endif %}
-                {% endfor %}
-              </span></p>
-              <p class="date">{{match.time|date:'M. j, g:i A'}}</p>
-              </fieldset>
-            {% endif %}
-        {% endfor %}
-        <br></div>
-      </div>
+    <title>Profile | XO Online</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=BioRhyme:wght@400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://ahmed0saber.github.io/XO-online/external-files/style.css">
+</head>
+<body>
+    <div class="loader">
+        <div class="circle"></div>
     </div>
-  </body>
-  <script>
-
-    if(localStorage.getItem("language")=="AR")
-    {
-        toArabic();
+    <header>
+        <span class="logo">XO Online</span>
+        <nav>
+            <div>
+                <a href="{% url 'app:header' %}"><i class="fa fa-home"></i> <span>Home</span></a>
+                <a href="{% url 'app:board' %}"><i class="fa fa-trophy"></i> <span>Leaderboard</span></a>
+                <a href="{% url 'chat:chat' %}"><i class="fa fa-envelope"></i> <span>Chat</span></a>
+                <a href="{% url 'app:notifications' %}"><i class="fa fa-bell"></i> <span>Notifications</span></a>
+                <a class="active" href="{% url 'accounts:profile' %}"><i class="fa fa-user"></i> <span>Profile</span></a>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <section class="home">
+            <section class="logo-container">
+                <img src="{{ user.image.url }}">
+            </section>
+            <section class="profile-controls">
+                <h3>{{ user }}</h3>
+                <div class="col-btns">
+                    <a onclick="logout()">Log out</a>
+                    <a href="{% url 'accounts:settings' %}">Edit Profile</a>
+                    <a onclick="copylink()">Share</a>
+                </div>
+                <p>Played {{ user.total_games }} games</p>
+                <p>Win: {{ user.won_games }}</p>
+                <p>Lose: {{ user.lost_games }}</p>
+                <p>Draw: {{ user.draw_games }}</p>
+                <p>Win rate: {{ win_rate }} %</p>
+            </section>
+        </section>
+        <section class="match-history">
+            <h2>Recent {{ history.count }} Games</h2>
+            {% for match in history %}
+            {% if match.winner == user %}
+            <fieldset>
+                <legend class="win">win</legend>
+                <p>You VS {{ match.loser }}</p>
+                <span>{{match.time|date:'M. j, g:i A'}}</span>
+            </fieldset>
+            {% elif match.loser == user %}
+            <fieldset>
+                <legend class="lose">lose</legend>
+                <p>You VS {{ match.winner }}</p>
+                <span>{{match.time|date:'M. j, g:i A'}}</span>
+            </fieldset>
+            {% else %}
+            <fieldset>
+                <legend class="draw">draw</legend>
+                <p>You VS
+                    {% for player in match.draw.all %}
+                    {% if player != user %}
+                    {{player}}
+                    {%  endif %}
+                    {% endfor %}
+                </p>
+                <span>{{match.time|date:'M. j, g:i A'}}</span>
+            </fieldset>
+            {% endif %}
+            {% endfor %}
+        </section>
+    </main>
+</body>
+<script>
+var user_id = "{{user.front_id}}";
+function copylink(){
+    var TempText = document.createElement("input");
+    var url = window.location.href
+    var TextToCopy = url.slice(0, url.indexOf("/", 10)+1)+ "?user="+user_id;
+    TempText.value = TextToCopy;
+    document.body.appendChild(TempText);
+    TempText.select();
+    document.execCommand("copy");
+    document.body.removeChild(TempText);
+    alert("Copied the text : " + TempText.value);
+}
+function logout(){
+    let isExecuted = confirm("Are you sure to log out ?!");
+    if(isExecuted){
+        window.open("{% url 'accounts:logout' %}" , "_self");
     }
-    else{
-        toEnglish();
-    }
-    
-    function toArabic()
-    {
-      localStorage.setItem("language", "AR");
-      document.getElementById("s1").textContent="خروج";
-      document.getElementById("s2").textContent="الاعدادات";
-      document.getElementById("s3").textContent="مشاركة";
-      document.getElementById("username").textContent="{{ user }}";
-      document.getElementById("p1").textContent="لعب {{ user.total_games }} مباراة";
-      document.getElementById("p2").textContent="فاز {{ user.won_games }} مباراة";
-      document.getElementById("p3").textContent="خسر {{ user.lost_games }} مباراة";
-      document.getElementById("p4").textContent="تعادل {{ user.draw_games }} مباراة";
-      document.getElementById("p5").textContent="نسبة الفوز ({{ win_rate }}%)";
-      document.getElementById("mh").textContent="اخر {{ history.count }} مباراة";
-      document.getElementById("user_stats").style.textAlign="right";
-      var myClasses = document.getElementsByClassName("you");
-      for (var i = 0; i < myClasses.length; i++) {
-        myClasses[i].textContent = "انت ضد";
-      }
-      var myClasses = document.getElementsByClassName("Win");
-      for (var i = 0; i < myClasses.length; i++) {
-        myClasses[i].textContent = "فوز";
-      }
-      var myClasses = document.getElementsByClassName("Lose");
-      for (var i = 0; i < myClasses.length; i++) {
-        myClasses[i].textContent = "هزيمة";
-      }
-      var myClasses = document.getElementsByClassName("Draw");
-      for (var i = 0; i < myClasses.length; i++) {
-        myClasses[i].textContent = "تعادل";
-      }
-        var myClasses = document.getElementsByClassName("matchinfo");
-      for (var i = 0; i < myClasses.length; i++) {
-        myClasses[i].style.textAlign = "right";
-      }
-        var myClasses = document.getElementsByClassName("date");
-      for (var i = 0; i < myClasses.length; i++) {
-        myClasses[i].style.textAlign = "left";
-      }
-    }
-
-    function toEnglish()
-    {
-      localStorage.setItem("language", "EN");
-      document.getElementById("s1").textContent="Log out";
-      document.getElementById("s2").textContent="Edit profile";
-      document.getElementById("s3").textContent="Share";
-      document.getElementById("username").textContent="{{ user }}";
-      document.getElementById("p1").textContent="Played {{ user.total_games }} games";
-      document.getElementById("p2").textContent="win : {{ user.won_games }}";
-      document.getElementById("p3").textContent="lose : {{ user.lost_games }}";
-      document.getElementById("p4").textContent="draw : {{ user.draw_games }}";
-      document.getElementById("p5").textContent="win rate : {{ win_rate }} %";
-      document.getElementById("mh").textContent="‹Recent {{ history.count }} Games›";
-      document.getElementById("user_stats").style.textAlign="left";
-      var myClasses = document.getElementsByClassName("you");
-      for (var i = 0; i < myClasses.length; i++) {
-        myClasses[i].textContent = "You VS";
-      }
-      var myClasses = document.getElementsByClassName("Win");
-      for (var i = 0; i < myClasses.length; i++) {
-        myClasses[i].textContent = "Win";
-      }
-      var myClasses = document.getElementsByClassName("Lose");
-      for (var i = 0; i < myClasses.length; i++) {
-        myClasses[i].textContent = "Lose";
-      }
-      var myClasses = document.getElementsByClassName("Draw");
-      for (var i = 0; i < myClasses.length; i++) {
-        myClasses[i].textContent = "Draw";
-      }
-        var myClasses = document.getElementsByClassName("matchinfo");
-      for (var i = 0; i < myClasses.length; i++) {
-        myClasses[i].style.textAlign = "left";
-      }
-        var myClasses = document.getElementsByClassName("date");
-      for (var i = 0; i < myClasses.length; i++) {
-        myClasses[i].style.textAlign = "right";
-      }
-    }
-
-    var user_id = "{{user.front_id}}";
-          function copylink() {
-            var TempText = document.createElement("input");
-            var url = window.location.href
-            var TextToCopy = url.slice(0, url.indexOf("/", 10)+1)+ "?user="+user_id;
-            TempText.value = TextToCopy;
-            document.body.appendChild(TempText);
-            TempText.select();
-            document.execCommand("copy");
-            document.body.removeChild(TempText);
-            if(localStorage.getItem("language")=="EN")
-            {
-                alert("Copied the text : " + TempText.value);
-            }
-            else{
-                alert("تم نسخ الرابط :" + TempText.value);
-            }
-          }
-          
-          
-          /*function logout()
-          {
-            let isExecuted = confirm("Are you sure to log out ?!");
-            
-            if(isExecuted)
-            {
-              window.open("{% url 'accounts:logout' %}" , "_self");
-            }
-          }*/
-
-          function logout()
-            {
-            if(localStorage.getItem("language")=="EN")
-            {
-                let isExecuted = confirm("Are you sure to log out ?!");
-                if(isExecuted)
-                {
-                    window.open("{% url 'accounts:logout' %}" , "_self");
-                }
-            }
-            else{
-                let isExecuted = confirm("هل انت متاكد من تسجيل الخروج ؟؟");
-                if(isExecuted)
-                {
-                    window.open("{% url 'accounts:logout' %}" , "_self");
-                }
-            }
-            }
-  </script>
+}
+</script>
+<script src="https://ahmed0saber.github.io/XO-online/external-files/script.js"></script>
+<script src="https://kit.fontawesome.com/282bcf757e.js" crossorigin="anonymous"></script>
 </html>
