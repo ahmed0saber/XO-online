@@ -63,7 +63,7 @@
                 <a href="{% url 'accounts:view_user' user.front_id %}">
                     <div class="row">
                         <div id="rank">
-                            <p>{{ forloop.counter + 3 }}</p>
+                            <p>{{ forloop.counter }}</p>
                         </div>
                         <div id="pic">
                             <img src="{{ user.image.url }}">
