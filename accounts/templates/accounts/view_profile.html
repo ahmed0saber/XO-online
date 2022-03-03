@@ -1,135 +1,50 @@
-<html>
-  <head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
-    <script src="https://kit.fontawesome.com/f541c9703f.js" crossorigin="anonymous"></script>
-    <title>Online Tic Tac Toe</title>
-    <style>
-      body{
-        margin: 0;
-        padding: 0;
-        width: 300px;
-        background-color: #EEE;
-        overflow: hidden;
-        overflow-y: auto;
-      }
-      #div1{
-        margin: auto;
-        text-align: center;
-      }
-      .btns{
-        height: 50px;
-        width: 225px;
-        margin: 10px;
-        background-color: #00B;
-        color: #EEE;
-        border: 2px solid #007;
-        border-radius: 10px;
-      }
-      #profile_pic{
-        width: 100px;
-        height: 100px;
-        border-radius: 50%;
-        margin: 25px;
-        padding: 0px;
-        position: relative;
-        top: -78px;
-        background-color:#EEE;
-        border: 3px solid #009;
-        box-shadow: 0px 0px 5px #0009;
-      }
-      #space{
-        width: 100%;
-        height: 75px;
-      }
-      #img_div{
-        height: 128px;
-      }
-      #username{
-        font-family: Times New Roman;
-        font-size: 18px;
-        padding: 0;
-        margin: 0;
-        margin-top: 5px;
-      }
-      #user_stats{
-        text-align: left;
-        padding: 0px 10px;
-      }
-      .fa{
-        font-size: 25px;
-      }
-      #inside{
-        font-size: 25px;
-        padding: 0;
-        margin: 0;
-      }
-            ::-webkit-scrollbar {
-                width: 0px;
-            }
-            ::-webkit-scrollbar-track {
-                background: #DDD; 
-            }
-            ::-webkit-scrollbar-track:hover {
-                background: #CCC; 
-            }
-            ::-webkit-scrollbar-thumb {
-                background: #00A; 
-            }
-            ::-webkit-scrollbar-thumb:hover {
-                background: #009; 
-            }
-    </style>
-  </head>
-  <body>
-    <div id="div1">
-      <div id="img_div">
-        <div id="space"></div>
-        <img id="profile_pic" src="{{ friend.image.url }}">
-      </div>
-      <p id="username">{{ friend }}</p>
-      <a href="{% url 'app:game' %}?room=invite&user={{friend.front_id}}"><button class="btns"><p id="inside"><i class="fas fa-user-friends"></i> <span id="s1">Play together</span></p></button></a>
-      <div id="user_stats">
-        <p id="p1">Played {{ friend.total_games }} games</p>
-        <p id="p2">win : {{ friend.won_games }}</p>
-        <p id="p3">lose : {{ friend.lost_games }}</p>
-        <p id="p4">draw : {{ friend.draw_games }}</p>
-        <p id="p5">win rate : {{ win_rate }} %</p>
-      </div>
+    <title>Share | XO Online</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=BioRhyme:wght@400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://ahmed0saber.github.io/XO-online/external-files/style.css">
+</head>
+<body>
+    <div class="loader">
+        <div class="circle"></div>
     </div>
-  </body>
-  <script>
-    if(localStorage.getItem("language")=="AR")
-    {
-        toArabic();
-    }
-    else{
-        toEnglish();
-    }
-    
-    function toArabic()
-    {
-      localStorage.setItem("language", "AR");
-      document.getElementById("s1").textContent="اللعب سويا";
-      document.getElementById("username").textContent="{{ friend }}";
-      document.getElementById("p1").textContent="لعب {{ friend.total_games }} مباراة";
-      document.getElementById("p2").textContent="فاز {{ friend.won_games }} مباراة";
-      document.getElementById("p3").textContent="خسر {{ friend.lost_games }} مباراة";
-      document.getElementById("p4").textContent="تعادل {{ friend.draw_games }} مباراة";
-      document.getElementById("p5").textContent="نسبة الفوز ({{ win_rate }}%)";
-      document.getElementById("user_stats").style.textAlign="right";
-    }
-    function toEnglish()
-    {
-      localStorage.setItem("language", "EN");
-      document.getElementById("s1").textContent="Play together";
-      document.getElementById("username").textContent="{{ friend }}";
-      document.getElementById("p1").textContent="Played {{ friend.total_games }} games";
-      document.getElementById("p2").textContent="win : {{ friend.won_games }}";
-      document.getElementById("p3").textContent="lose : {{ friend.lost_games }}";
-      document.getElementById("p4").textContent="draw : {{ friend.draw_games }}";
-      document.getElementById("p5").textContent="win rate : {{ win_rate }} %";
-      document.getElementById("user_stats").style.textAlign="left";
-    }
-  </script>
+    <header>
+        <span class="logo">XO Online</span>
+        <nav>
+            <div>
+                <a class="active" href="{% url 'app:header' %}"><i class="fa fa-home"></i> <span>Home</span></a>
+                <a href="{% url 'app:board' %}"><i class="fa fa-trophy"></i> <span>Leaderboard</span></a>
+                <a href="{% url 'chat:chat' %}"><i class="fa fa-envelope"></i> <span>Chat</span></a>
+                <a href="{% url 'app:notifications' %}"><i class="fa fa-bell"></i> <span>Notifications</span></a>
+                <a href="{% url 'accounts:profile' %}"><i class="fa fa-user"></i> <span>Profile</span></a>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <section class="home">
+            <section class="logo-container">
+                <img src="{{ friend.image.url }}">
+            </section>
+            <section class="profile-controls">
+                <h3>{{ friend }}</h3>
+                <div class="col-btns">
+                    <a href="{% url 'app:game' %}?room=invite&user={{friend.front_id}}">Play Together</a>
+                </div>
+                <p>Played {{ friend.total_games }} games</p>
+                <p>Win: {{ friend.won_games }}</p>
+                <p>Lose: {{ friend.lost_games }}</p>
+                <p>Draw: {{ friend.draw_games }}</p>
+                <p>Win rate: {{ win_rate }} %</p>
+            </section>
+        </section>
+    </main>
+</body>
+<script src="https://ahmed0saber.github.io/XO-online/external-files/script.js"></script>
+<script src="https://kit.fontawesome.com/282bcf757e.js" crossorigin="anonymous"></script>
 </html>
