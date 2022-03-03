@@ -30,7 +30,7 @@ def sign_up(request, next):
                     'new_game':'app:new_game',
                     'avatars':'accounts:avatars'
                 }
-                return redirect(pathes.get(next, 'app:home'))
+                return redirect(pathes.get(next, 'app:header'))
     else:
         form = CustomUserCreationForm()
     context = {
@@ -55,7 +55,7 @@ def log_in(request, next):
                     'new_game':'app:new_game',
                     'avatars':'accounts:avatars'
                 }
-            return redirect(pathes.get(next, 'app:home'))
+            return redirect(pathes.get(next, 'app:header'))
         else:
             messages.error(request, 'Wrong user name or password please check your info')
     
