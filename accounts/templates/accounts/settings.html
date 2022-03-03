@@ -51,6 +51,7 @@
             <section class="profile-controls">
                 <section class="profile-controls">
                     <form method="POST" action="" enctype="multipart/form-data">
+                        {% csrf_token %}
                         <p>First Name</p>
                         <input type="text" placeholder="First Name" value="{{ user.first_name }}" name="first_name">
                         <p>Last Name</p>
