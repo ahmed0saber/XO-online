@@ -1,235 +1,109 @@
-<html>
-  <head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>online Tic Tac Toe</title>
-    <style>
-      body{
-        margin: 0;
-        padding: 0;
-        width: 300px;
-        background-color: #EEE;
-        overflow: hidden;
-        overflow-y: auto;
-      }
-      #div1{
-        margin: auto;
-        text-align: center;
-        overflow: hidden;
-        overflow-y: auto;
-      }
-      #back{
-        height: 30px;
-        float: left;
-        margin: 10px;
-      }
-      #header{
-        background-color: #33F;
-        height: 52px;
-      }
-      input{
-        height: 40px;
-        width: 225px;
-        margin: 10px;
-        padding: 5px;
-        font-size: 19px;
-        font-family: Times New Roman;
-        outline: none;
-      }
-      .name{
-        width: 110px;
-        margin: 10px 0 10px 0;
-      }
-      #btn{
-        width: 225px;
-        background-image: radial-gradient(#007, #00a, #00f);
-        color: #eee;
-        border: none;
-        transition-duration: 0.3s;
-        border-radius: 100px;
-      }
-      #btn:hover{
-        transform: translate(-2px,-2px);
-        box-shadow: 3px 3px 5px #0009;
-      }
-      #p1{
-        font-size: 25px;
-        font-family: Times New Roman;
-        padding: 0;
-        margin: 10px;
-      }
-      #p0{
-        padding: 0px 0px 0px 0px;
-      }
-      .errors{
-        color: red;
-        margin: 0;
-        width: 225px;
-        margin: auto;
-        text-align: left;
-        font-size: 14px;
-      }
-      .wrong{
-        border-color: red;
-        outline-color: red;
-      }
-      .right{
-        border-color: green;
-        outline-color: green;
-      }
-            ::-webkit-scrollbar {
-                width: 0px;
-            }
-            ::-webkit-scrollbar-track {
-                background: #DDD; 
-            }
-            ::-webkit-scrollbar-track:hover {
-                background: #CCC; 
-            }
-            ::-webkit-scrollbar-thumb {
-                background: #00A; 
-            }
-            ::-webkit-scrollbar-thumb:hover {
-                background: #009; 
-            }
-            .txt{
-              border: none;
-              border-bottom: 1px dashed #009;
-              transition-duration: 0.3s;
-            }
-            .txt:focus{
-              border: 1px dashed #009;
-              border-bottom: 1px solid #009;
-              background-color: #0072;
-            }
-            a{
-              color: #009;
-              font-weight: bold;
-              text-decoration: none;
-            }
-    </style>
-  </head>
-  <body>
-    <div id="div1">
-      {% if request.path == '/accounts/signup/game/' %} 
-      <div id="header">
-        <a href="{% url 'app:home' %}"><button id="back">Back</button></a>
-      </div>
-      {% endif %}
-      <p id="p0">Viewing the content of this page requires an account</p>
-      <p id="p1">Create new account</p>
-      <form action="" method="POST">
-        {% csrf_token %}
-        <input class="name txt" id="tx1" type="text" placeholder="First name" name="first_name">
-        <input class="name txt" id="tx2" type="text" placeholder="Last name" name="last_name">
-        <input id='email' type="email" placeholder="Email" class="txt" name="email">
-        <div class='errors' id='email_errors'></div>
-        {{form.email.errors}}
-        <input id='password1' type="password" placeholder="Password" name="password1" class="txt">
-        <div class='errors' id='pass_errors'></div>
-        {{form.password1.errors}}
-        <input id='password2' type="password" placeholder="Confirm password" name="password2" class="txt">
-        <div class='errors' id='pass2_errors'></div>
-        {{form.password2.errors}}
-        <input type="submit" id="btn" value="sign up">
-
-      </form>
-      <p id="bottext">Already have account ?! <a href="{% url 'accounts:login' next%}">Log in</a></p>
+    <title>Signup | XO Online</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=BioRhyme:wght@400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://ahmed0saber.github.io/XO-online/external-files/style.css">
+</head>
+<body>
+    <div class="loader">
+        <div class="circle"></div>
     </div>
-    <script>
-
-    
-
-      let email = document.getElementById('email')
-      email.oninput = async ()=>{
-        if (email.value == ''){
-          email.classList = ''
-          document.getElementById('email_errors').innerHTML = ''
-          return
+    <header>
+        <span class="logo">XO Online</span>
+        <nav>
+            <div>
+                <a class="active" href="{% url 'app:header' %}"><i class="fa fa-home"></i> <span>Home</span></a>
+                <a href="{% url 'app:board' %}"><i class="fa fa-trophy"></i> <span>Leaderboard</span></a>
+                <a href="{% url 'chat:chat' %}"><i class="fa fa-envelope"></i> <span>Chat</span></a>
+                <a href="{% url 'app:notifications' %}"><i class="fa fa-bell"></i> <span>Notifications</span></a>
+                <a href="{% url 'accounts:profile' %}"><i class="fa fa-user"></i> <span>Profile</span></a>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <section class="form">
+            <h2>Create new account</h2>
+            <form action="" method="POST">
+                {% csrf_token %}
+                <input type="text" placeholder="First Name" name="first_name">
+                <input type="text" placeholder="Last Name" name="last_name">
+                <input type="email" placeholder="Email" name="email">
+                <div class='errors' id='email_errors'></div>
+                {{form.email.errors}}
+                <input type="password" placeholder="Password" name="password1">
+                <div class='errors' id='pass_errors'></div>
+                {{form.password1.errors}}
+                <input type="password" placeholder="Confirm Password" name="password2">
+                <div class='errors' id='pass2_errors'></div>
+                {{form.password2.errors}}
+                <button type="submit">Sign up</button>
+                <p>Already have account ? <a href="{% url 'accounts:login' next%}">Log in</a></p>
+            </form>
+        </section>
+    </main>
+</body>
+<script>
+let email = document.getElementById('email')
+email.oninput = async ()=>{
+    if (email.value == ''){
+        email.classList = ''
+        document.getElementById('email_errors').innerHTML = ''
+        return
+    }
+    let res = await fetch(`/accounts/api/check_email/?email=${email.value}`)
+    if (res.ok){
+        email.classList = 'right'
+        document.getElementById('email_errors').innerHTML = ''
+    }else{
+        console.clear()
+        email.classList = 'wrong'
+        res = await res.json()
+        document.getElementById('email_errors').innerHTML ='' 
+        for (err of res.details){
+        document.getElementById('email_errors').innerHTML += `<p class='errors'>${err}</p>` 
         }
-        
-        let res = await fetch(`/accounts/api/check_email/?email=${email.value}`)
-        if (res.ok){
-          email.classList = 'right'
-          document.getElementById('email_errors').innerHTML = ''
-        }else{
-          console.clear()
-          email.classList = 'wrong'
-          res = await res.json()
-          document.getElementById('email_errors').innerHTML ='' 
-          for (err of res.details){
-            document.getElementById('email_errors').innerHTML += `<p class='errors'>${err}</p>` 
-          }
-        }
-      }
+    }
+}
 
-      let password = document.getElementById('password1')
-      password.oninput = async ()=>{
-        if (password.value == ''){
-          password.classList = ''
-          document.getElementById('pass_errors').innerHTML = ''
-          return
-        }
-        let res = await fetch(`/accounts/api/check_password/?password=${password.value}`)
-        if (res.ok){
-          password.classList = 'right'
-          document.getElementById('pass_errors').innerHTML = ''
-        }else{
-          console.clear()
-          password.classList = 'wrong'
-          res = await res.json()
-          document.getElementById('pass_errors').innerHTML = '' 
-          for (err of res.details){
+let password = document.getElementById('password1')
+password.oninput = async ()=>{
+    if (password.value == ''){
+        password.classList = ''
+        document.getElementById('pass_errors').innerHTML = ''
+        return
+    }
+    let res = await fetch(`/accounts/api/check_password/?password=${password.value}`)
+    if (res.ok){
+        password.classList = 'right'
+        document.getElementById('pass_errors').innerHTML = ''
+    }else{
+        console.clear()
+        password.classList = 'wrong'
+        res = await res.json()
+        document.getElementById('pass_errors').innerHTML = '' 
+        for (err of res.details){
             document.getElementById('pass_errors').innerHTML += `<p class='errors'>${err}</p>` 
-          }
         }
-      }
+    }
+}
 
-      let password2 = document.getElementById('password2')
-      password2.oninput = ()=>{
-        if (password2.value == password.value){
-          password2.classList = 'right'
-          document.getElementById('pass2_errors').innerHTML = ''
-        }else{
-          password2.classList = 'wrong'
-          document.getElementById('pass2_errors').innerHTML = 'Two passwords must be the same' 
-        }
-      }
-
-
-    if(localStorage.getItem("language")=="AR")
-    {
-        toArabic();
+let password2 = document.getElementById('password2')
+password2.oninput = ()=>{
+    if (password2.value == password.value){
+        password2.classList = 'right'
+        document.getElementById('pass2_errors').innerHTML = ''
+    }else{
+        password2.classList = 'wrong'
+        document.getElementById('pass2_errors').innerHTML = 'Two passwords must be the same' 
     }
-    else{
-        toEnglish();
-    }
-    
-    function toArabic()
-    {
-      localStorage.setItem("language", "AR");
-      document.getElementById("p0").textContent="انت بحاجة لحساب لكى ترا محتوى هذه الصفحة";
-      document.getElementById("p1").textContent="انشاء حساب جديد";
-      document.getElementById("bottext").innerHTML="لديك حساب ؟؟ <a href="+"{% url 'accounts:login' next%}"+">قم بتسجيل الدخول</a>";
-      document.getElementById("tx1").placeholder="الاسم الاول";
-      document.getElementById("tx2").placeholder="الاسم الاخير";
-      document.getElementById("email").placeholder="البريد الالكترونى";
-      document.getElementById("password1").placeholder="كلمة المرور";
-      document.getElementById("password2").placeholder="تاكيد كلمة المرور";
-      document.getElementById("btn").value="تسجيل";
-    }
-    function toEnglish()
-    {
-      localStorage.setItem("language", "EN");
-      document.getElementById("p0").textContent="Viewing the content of this page requires an account";
-      document.getElementById("p1").textContent="Create new account";
-      document.getElementById("bottext").innerHTML="Already have account ?! <a href="+"{% url 'accounts:login' next%}"+">Log in</a>";
-      document.getElementById("tx1").placeholder="First name";
-      document.getElementById("tx2").placeholder="Last name";
-      document.getElementById("email").placeholder="Email";
-      document.getElementById("password1").placeholder="Password";
-      document.getElementById("password2").placeholder="Confirm password";
-      document.getElementById("btn").value="sign up";
-    }
-    </script>
-  </body>
+}
+</script>
+<script src="https://ahmed0saber.github.io/XO-online/external-files/script.js"></script>
+<script src="https://kit.fontawesome.com/282bcf757e.js" crossorigin="anonymous"></script>
 </html>
