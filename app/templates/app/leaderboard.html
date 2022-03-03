@@ -28,30 +28,6 @@
     </header>
     <main>
         <section class="home leaderboard">
-            <section class="top-player">
-                <section class="top">
-                    <div class="rank-card">
-                        <span class="badge">2</span>
-                        <img src="{{ second.image.url }}">
-                        <p>{{ second }}</p>
-                        <p>{{ second.won_games }} wins</p>
-                    </div>
-                    <div class="rank-card">
-                        <span class="badge">1</span>
-                        <img src="{{ first.image.url }}">
-                        <p>{{ first }}</p>
-                        <p>{{ first.won_games }} wins</p>
-                    </div>
-                    <div class="rank-card">
-                        <span class="badge">3</span>
-                        <img src="{{ third.image.url }}">
-                        <p>{{ third }}</p>
-                        <p>{{ third.won_games }} wins</p>
-                    </div>
-                </section>
-            </section>
-            
-
             <section class="others">
                 {% for user in users %}
                 <a href="{% url 'accounts:view_user' user.front_id %}">
