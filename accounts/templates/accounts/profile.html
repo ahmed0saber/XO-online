@@ -81,8 +81,8 @@
 var user_id = "{{user.front_id}}";
 function copylink(){
     var TempText = document.createElement("input");
-    var url = window.location.href + "/accounts/user"
-    var TextToCopy = url.slice(0, url.indexOf("/", 10)+1)+ "?user="+user_id;
+    var url = window.location.href
+    var TextToCopy = url.slice(0, url.indexOf("/", 10)+1) + "/accounts/user/"+user_id;
     TempText.value = TextToCopy;
     document.body.appendChild(TempText);
     TempText.select();
