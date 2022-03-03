@@ -1,136 +1,49 @@
-<html>
-  <head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>online Tic Tac Toe</title>
-    <style>
-      body{
-        margin: 0;
-        padding: 0;
-        width: 300px;
-        background-color: #EEE;
-        overflow: hidden;
-        overflow-y: auto;
-      }
-      #div1{
-        margin: auto;
-        text-align: center;
-      }
-      #back{
-        height: 30px;
-        float: left;
-        margin: 10px;
-      }
-      #header{
-        background-color: #33F;
-        height: 52px;
-      }
-      input{
-        height: 40px;
-        width: 225px;
-        margin: 15px;
-        padding: 5px;
-        font-size: 19px;
-        font-family: Times New Roman;
-        outline: none;
-      }
-      #btn{
-        width: 225px;
-        background-image: radial-gradient(#007, #00a, #00f);
-        color: #eee;
-        border: none;
-        transition-duration: 0.3s;
-        border-radius: 100px;
-      }
-      #btn:hover{
-        transform: translate(-2px,-2px);
-        box-shadow: 3px 3px 5px #0009;
-      }
-      #p1{
-        font-size: 25px;
-        font-family: Times New Roman;
-        padding: 0;
-        margin: 15px;
-      }
-            ::-webkit-scrollbar {
-                width: 0px;
-            }
-            ::-webkit-scrollbar-track {
-                background: #DDD; 
-            }
-            ::-webkit-scrollbar-track:hover {
-                background: #CCC; 
-            }
-            ::-webkit-scrollbar-thumb {
-                background: #00A; 
-            }
-            ::-webkit-scrollbar-thumb:hover {
-                background: #009; 
-            }
-            .txt{
-              border: none;
-              border-bottom: 1px dashed #009;
-              transition-duration: 0.3s;
-            }
-            .txt:focus{
-              border: 1px dashed #009;
-              border-bottom: 1px solid #009;
-              background-color: #0072;
-            }
-            a{
-              color: #009;
-              font-weight: bold;
-              text-decoration: none;
-            }
-    </style>
-  </head>
-  <body>
-    <div id="div1">
-      {% if request.path == '/accounts/signup/game/' %} 
-      <div id="header">
-        <a href=""><button id="back">Back</button></a>
-      </div>
-      {% endif %}
-      <p id="p1">Log in to continue</p>
-      <form action="" method="POST">
-        {% csrf_token %}
-        <input type="text" placeholder="Email" name="email" id="tx1" class="txt">
-        <input type="password" placeholder="Password" name="password" id="tx2" class="txt">
-        <input type="submit" id="btn" value="log in">
-      </form>
-      {% if messages %}
-        {% for message in messages %}
-          <p>{{ message }}</p>
-        {% endfor %}
-      {% endif %}
-      <p id="bottext">Don't have account ?! <a href="{% url 'accounts:signup' next%}">Create one</a></p>
+    <title>Login | XO Online</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=BioRhyme:wght@400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://ahmed0saber.github.io/XO-online/external-files/style.css">
+</head>
+<body>
+    <div class="loader">
+        <div class="circle"></div>
     </div>
-  </body>
-  <script>
-    if(localStorage.getItem("language")=="AR")
-    {
-        toArabic();
-    }
-    else{
-        toEnglish();
-    }
-    
-    function toArabic()
-    {
-      localStorage.setItem("language", "AR");
-      document.getElementById("p1").textContent="قم بتسجيل الدخول للاستمرار";
-      document.getElementById("bottext").innerHTML="ليس لديك حساب ؟؟ <a href="+"{% url 'accounts:signup' next%}"+">قم بانشاء واحد</a>";
-      document.getElementById("tx1").placeholder="البريد الالكترونى";
-      document.getElementById("tx2").placeholder="كلمة المرور";
-      document.getElementById("btn").value="تسجيل";
-    }
-    function toEnglish()
-    {
-      localStorage.setItem("language", "EN");
-      document.getElementById("p1").textContent="Log in to continue";
-      document.getElementById("bottext").innerHTML="Don't have account ?! <a href="+"{% url 'accounts:signup' next%}"+">Create one</a>";
-      document.getElementById("tx1").placeholder="Email";
-      document.getElementById("tx2").placeholder="Password";
-      document.getElementById("btn").value="log in";
-    }
-  </script>
+    <header>
+        <span class="logo">XO Online</span>
+        <nav>
+            <div>
+                <a class="active" href="{% url 'app:header' %}"><i class="fa fa-home"></i> <span>Home</span></a>
+                <a href="{% url 'app:board' %}"><i class="fa fa-trophy"></i> <span>Leaderboard</span></a>
+                <a href="{% url 'chat:chat' %}"><i class="fa fa-envelope"></i> <span>Chat</span></a>
+                <a href="{% url 'app:notifications' %}"><i class="fa fa-bell"></i> <span>Notifications</span></a>
+                <a href="{% url 'accounts:profile' %}"><i class="fa fa-user"></i> <span>Profile</span></a>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <section class="form">
+            <h2>Login to continue</h2>
+            <form action="" method="POST">
+                {% csrf_token %}
+                <input type="email" name="email" placeholder="Email">
+                <input type="password" name="password" placeholder="Password">
+                <button>Log in</button>
+                {% if messages %}
+                {% for message in messages %}
+                <p>{{ message }}</p>
+                {% endfor %}
+                {% endif %}
+                <p>Don't have account ? <a href="{% url 'accounts:signup' next%}">Create one</a></p>
+            </form>
+        </section>
+    </main>
+</body>
+<script src="https://ahmed0saber.github.io/XO-online/external-files/script.js"></script>
+<script src="https://kit.fontawesome.com/282bcf757e.js" crossorigin="anonymous"></script>
 </html>
