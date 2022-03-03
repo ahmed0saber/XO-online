@@ -1,193 +1,62 @@
-<html>
-  <head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-    <title>online Tic Tac Toe</title>
-    <style>
-      body{
-        margin: 0;
-        padding: 0;
-        width: 300px;
-        background-color: #EEE;
-        overflow: hidden;
-        overflow-y: auto;
-      }
-      #div1{
-        margin: auto;
-        text-align: left;
-      }
-      .header_p{
-        font-size: 22px;
-        font-family: Times New Roman;
-        border: 1px solid #aaa9;
-        padding: 2px 8px;
-        background-color: #9992;
-      }
-      #header{
-        background-color: #33F0;
-        height: 36px;
-      }
-      #info{
-        padding: 8px;
-      }
-      .p2{
-        padding-left: 10px;
-      }
-      .p3{
-        padding-left: 20px;
-      }
-      p{
-        margin: 5px;
-      }
-            ::-webkit-scrollbar {
-                width: 0px;
-            }
-            ::-webkit-scrollbar-track {
-                background: #DDD; 
-            }
-            ::-webkit-scrollbar-track:hover {
-                background: #CCC; 
-            }
-            ::-webkit-scrollbar-thumb {
-                background: #00A; 
-            }
-            ::-webkit-scrollbar-thumb:hover {
-                background: #009; 
-            }
-            #section1{
-                background-color: #fff;
-                padding: 2px;
-                border: 1px solid #aaa9;
-                margin-bottom: 10px;
-            }
-            a{
-                color: #00A;
-                text-decoration: none;
-            }
-.card {
-    background: #eee;
-    margin-bottom: 10px;
-    transition: .5s;
-    border: 1px solid #0004;
-    border-radius: .1875rem;
-    display: inline-block;
-    position: relative;
-    width: 100%;
-    box-shadow: none;
-    text-align: center;
-}
-.card .body {
-    font-size: 14px;
-    color: #424242;
-    padding: 20px;
-    font-weight: 400;
-}
-.profile-header {
-    position: relative
-}
-.profile-header .profile-image img {
-    border-radius: 50%;
-    width: 140px;
-    border: 3px solid #fff;
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23)
-}
-.btn-simple{
-  margin:5px;
-}
-    </style>
-  </head>
-  <body>
-    <div id="div1">
-      <div id="header">
-        <a href="{% url 'app:home' %}"><button id="back" class="btn btn-primary btn-round btn-simple">Back</button></a>
-      </div>
-      <div id="info">
-        <div id="section1">
-            <p class="header_p" id="pp0">About the game</p>
-            <p class="p2" id="pp1">Online Tic Tac Toe is a web game where you can play 4 different modes</p>
-            <p class="p3" id="pp2">•play vs easy bot or a random-move bot</p>
-            <p class="p3" id="pp3">•play vs AI bot or unbeatable bot</p>
-            <p class="p3" id="pp4">•play vs a person locally , from one device</p>
-            <p class="p3" id="pp5">•play vs a person online , from 2 different devices</p>
-        </div>
-        <div id="section1">
-            <p class="header_p" id="pp6">About the developers</p>
-
-            <div class="col-xl-6 col-lg-7 col-md-12">
-              <div class="card profile-header">
-                  <div class="body">
-                      <div class="row">
-                          <div class="col-lg-4 col-md-4 col-12">
-                              <div class="profile-image float-md-right"> <img src="https://drive.google.com/uc?id=1LerskcCbdpHcbnCKzKUoW0AcqtuRJoj5&export=download" alt=""> </div>
-                          </div>
-                          <div class="col-lg-8 col-md-8 col-12">
-                              <h4 class="m-t-0 m-b-0"><strong>Ahmed Saber</strong></h4>
-                              <span class="job_post">Frontend web developer</span>
-                              <div>
-                                  <button class="btn btn-primary btn-round btn-simple" onclick="window.open('https://ahmed0saber.github.io/portfolio/portfolio', '_blank');">More info</button>
-                              </div>
-                          </div>                
-                      </div>
-                  </div>                    
-              </div>
-          </div>
-
-          <div class="col-xl-6 col-lg-7 col-md-12">
-            <div class="card profile-header">
-                <div class="body">
-                    <div class="row">
-                        <div class="col-lg-4 col-md-4 col-12">
-                            <div class="profile-image float-md-right"> <img src="https://drive.google.com/uc?id=1LYrSX9sSsVpQ5Bp2jrz3WmKz3VfIXx4G&export=download" alt=""> </div>
-                        </div>
-                        <div class="col-lg-8 col-md-8 col-12">
-                            <h4 class="m-t-0 m-b-0"><strong>Ahmed Yasser</strong></h4>
-                            <span class="job_post">Backend web developer</span>
-                            <div>
-                                <button class="btn btn-primary btn-round btn-simple"onclick="window.open('https://www.linkedin.com/in/ahmedyasser54/', '_blank');">More info</button>
-                            </div>
-                        </div>                
-                    </div>
-                </div>                    
-            </div>
-        </div>
-
-        </div>
-      </div>
+    <title>About | XO Online</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=BioRhyme:wght@400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://ahmed0saber.github.io/XO-online/external-files/style.css">
+</head>
+<body>
+    <div class="loader">
+        <div class="circle"></div>
     </div>
-  </body>
-  <script>
-    if(localStorage.getItem("language")=="AR")
-    {
-        toArabic();
-    }
-    else{
-        toEnglish();
-    }
-    
-    function toArabic()
-    {
-      localStorage.setItem("language", "AR");
-      document.getElementById("back").textContent="رجوع";
-      document.getElementById("pp0").textContent="عن اللعبة";
-      document.getElementById("pp1").textContent="لعبة اكس اوو الاونلاين تمكنك من لعب 4 انماط مختلفة";
-      document.getElementById("pp2").textContent="•اللعب ضد روبوت سهل يلعب عشوائيا";
-      document.getElementById("pp3").textContent="•اللعب ضد بوت صعب لا يمكن هزيمته";
-      document.getElementById("pp4").textContent="•اللعب مع شخص بجوارك باستخدام نفس الجهاز";
-      document.getElementById("pp5").textContent="•اللعب ضد شخص متصل بالانترنت من جهاز اخر";
-      document.getElementById("pp6").textContent="عن المطورين";
-    }
-    function toEnglish()
-    {
-      localStorage.setItem("language", "EN");
-      document.getElementById("back").textContent="Back";
-      document.getElementById("pp0").textContent="About the game";
-      document.getElementById("pp1").textContent="Online Tic Tac Toe is a web game where you can play 4 different modes";
-      document.getElementById("pp2").textContent="•play vs easy bot or a random-move bot";
-      document.getElementById("pp3").textContent="•play vs AI bot or unbeatable bot";
-      document.getElementById("pp4").textContent="•play vs a person locally , from one device";
-      document.getElementById("pp5").textContent="•play vs a person online , from 2 different devices";
-      document.getElementById("pp6").textContent="About the developers";
-    }
-  </script>
+    <header>
+        <span class="logo">XO Online</span>
+        <nav>
+            <div>
+                <a class="active" href="{% url 'app:home' %}"><i class="fa fa-home"></i> <span>Home</span></a>
+                <a href="{% url 'app:board' %}"><i class="fa fa-trophy"></i> <span>Leaderboard</span></a>
+                <a href="{% url 'chat:chat' %}"><i class="fa fa-envelope"></i> <span>Chat</span></a>
+                <a href="{% url 'app:notifications' %}"><i class="fa fa-bell"></i> <span>Notifications</span></a>
+                <a href="{% url 'accounts:profile' %}"><i class="fa fa-user"></i> <span>Profile</span></a>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <section class="home">
+            <section class="logo-container">
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="300" height="300" viewBox="0 0 265 300"><defs><style>.a{clip-path:url(#g);}.b{fill:#1282a2;}.b,.c,.d{font-size:200px;font-family:"BioRhyme";}.c{fill:#f7fff7;}.d{fill:#fff;}.e{fill:#2e3532;}.f{filter:url(#c);}.g{filter:url(#a);}</style><filter id="a" x="13.5" y="-24.5" width="199" height="275" filterUnits="userSpaceOnUse"><feOffset dx="3" dy="3" input="SourceAlpha"/><feGaussianBlur stdDeviation="1.5" result="b"/><feFlood/><feComposite operator="in" in2="b"/><feComposite in="SourceGraphic"/></filter><filter id="c"><feOffset dx="3" dy="3" input="SourceAlpha"/><feGaussianBlur stdDeviation="1.5" result="d"/><feFlood flood-opacity="0.702" result="e"/><feComposite operator="out" in="SourceGraphic" in2="d"/><feComposite operator="in" in="e"/><feComposite operator="in" in2="SourceGraphic"/></filter><clipPath id="g"><rect width="300" height="300"/></clipPath></defs><g id="f" class="a"><rect class="e" width="300" height="300"/><g class="g" transform="matrix(1, 0, 0, 1, 0, 0)"><text class="b" transform="translate(17 187)"><tspan x="0" y="0">X</tspan></text></g><g data-type="innerShadowGroup"><text class="c" transform="translate(113 244)"><tspan x="0" y="0">O</tspan></text><g class="f" transform="matrix(1, 0, 0, 1, 0, 0)"><text class="d" transform="translate(113 244)"><tspan x="0" y="0">O</tspan></text></g></g></g></svg>
+            </section>
+            <section class="side">
+                <h2>About the game</h2>
+                <h3>Online Tic Tac Toe is a web game where you can play 4 different modes:-</h3>
+                <p>play vs easy bot or a random-move bot.</p>
+                <p>play vs AI bot or unbeatable bot.</p>
+                <p>play vs a person locally , from one device.</p>
+                <p>play vs a person online , from 2 different devices.</p>
+            </section>
+        </section>
+        <h2 style="color:#f7fff7;text-align:center;">About the developers</h2>
+        <section class="home about">
+            <section class="side card">
+                <img src="https://drive.google.com/uc?id=1LerskcCbdpHcbnCKzKUoW0AcqtuRJoj5&export=download">
+                <h3>Ahmed Saber</h3>
+                <p>Frontend Web Developer</p>
+                <a href="https://ahmed0saber.onrender.com/" target="_blank">More Info</a>
+            </section>
+            <section class="side card">
+                <img src="https://drive.google.com/uc?id=1LYrSX9sSsVpQ5Bp2jrz3WmKz3VfIXx4G&export=download">
+                <h3>Ahmed Yasser</h3>
+                <p>Backend Web Developer</p>
+                <a href="https://www.linkedin.com/in/ahmedyasser54/" target="_blank">More Info</a>
+            </section>
+        </section>
+    </main>
+</body>
+<script src="https://ahmed0saber.github.io/XO-online/external-files/script.js"></script>
+<script src="https://kit.fontawesome.com/282bcf757e.js" crossorigin="anonymous"></script>
 </html>

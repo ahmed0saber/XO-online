@@ -1,291 +1,84 @@
-<html>
-  <head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <title>online Tic Tac Toe</title>
-    <style>
-      body{
-        margin: 0;
-        padding: 0;
-        width: 300px;
-        height: 407px;
-        background-color: #EEE;
-        overflow: hidden;
-      }
-      #div1{
-        margin: auto;
-        text-align: center;
-      }
-      #back{
-        height: 40px;
-        width: 40px;
-        margin: 5px;
-        background-color: #119;
-        border: none;
-        transition-duration: 0.3s;
-      }
-      #back:hover{
-        background-color: #119a;
-      }
-      #header{
-        background-color: #33F0;
-        height: 50px;
-        text-align: left;
-      }
-      .fa{
-        font-size: 25px;
-        color: #eee;
-        background:transparent;
-      }
-      .pickbtns{
-        height: 100px;
-        width: 100px;
-        margin: 23px;
-        font-size:75px;
-        color: #EEE;
-        border: 2px solid #007;
-        background-color: #00B;
-        font-family: sans-serif;
-        transition-duration: 0.3s;
-      }
-      p{
-        margin-top: 15px;
-        padding: 0px;
-        font-size:22px;
-        font-family: 'Times New Roman', Times, serif;
-      }
-      #info , #info2{
-        font-size: 18px;
-        font-family: sans-serif;
-        color: #000;
-      }
-      #info2{
-        color: #333;
-        font-size: 16px;
-      }
-      #pickox{
-        display: block;
-      }
-      #play{
-        display: none;
-      }
-      .btns{
-        height: 35px;
-        width: 100px;
-        margin-top:15px;
-        font-size:22px;
-        font-family: 'Times New Roman', Times, serif;
-        background-color: #11a;
-        color: #EEE;
-        border: 1px solid #000;
-        border-radius:10px;
-        transition-duration: 0.3s;
-      }
-      .btns:hover , .pickbtns:hover{
-        background-color: #11ab;
-      }
-      table{
-        margin-top: -10px;
-      }
-      input{
-        width: 75px;
-        height: 75px;
-        font-size:55px;
-        color: #007;
-        border: 2px solid #0077;
-        font-family: sans-serif;
-        transition-duration: 0.3s;
-        border-radius: 0;
-        -webkit-border-radius: 0;
-        -webkit-appearance: none;
-        padding:0;
-      }
-      input:hover{
-        background-color: #88E;
-      }
-      input:disabled,
-      input[disabled]{
-        background-color: #BBF;
-      }
-    </style>
-  </head>
-  <body>
-    <div id="div1">
-        <div id="header">
-            <a href="{% url 'app:home' %}"><button id="back"><i class="fa fa-arrow-left"></i></button></a>
-        </div>
-      <div id="pickxo">
-        <p id="info">Pick one that you want to play with !</p>
-        <p id="info2">notice that X plays the first turn</p>
-        <button onclick="pickit('X')" class="pickbtns">X</button><button onclick="pickit('O')" class="pickbtns">O</button>
-      </div>
-      <div id="play">
-        <p id="picked">000</p>
-        <table align="center">
-          <tr>
-            <td><input type="button" value="" onclick="done('0')" id="b0"/></td>
-            <td><input type="button" value="" onclick="done('1')" id="b1"/></td>
-            <td><input type="button" value="" onclick="done('2')" id="b2"/></td>
-          </tr>
-          <tr>
-            <td><input type="button" value="" onclick="done('3')" id="b3"/></td>
-            <td><input type="button" value="" onclick="done('4')" id="b4"/></td>
-            <td><input type="button" value="" onclick="done('5')" id="b5"/></td>
-          </tr>
-          <tr>
-            <td><input type="button" value="" onclick="done('6')" id="b6"/></td>
-            <td><input type="button" value="" onclick="done('7')" id="b7"/></td>
-            <td><input type="button" value="" onclick="done('8')" id="b8"/></td>
-          </tr>
-        </table>
-        <button onclick="restart()" class="btns">Restart</button>
-      </div>
+    <title>Easy | XO Online</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=BioRhyme:wght@400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://ahmed0saber.github.io/XO-online/external-files/style.css">
+</head>
+<body>
+    <div class="loader">
+        <div class="circle"></div>
     </div>
-  </body>
-  <script>
-  /*Math.floor(Math.random() * 9)*/
-  
-    var picked;
-    var b;
-    var turn=0 , board=[];
-    for(var i=0;i<9;i++)
-    {
-      board[i]='';
-    }
-    
-    function pickit(a)
-    {
-      picked = a;
-      if(picked=='X')
-      {
-        b='O';
-      }
-      else{
-        b='X';
-        turn=1;
-        done(auto());
-      }
-      document.getElementById("pickxo").style.display = 'none';
-      document.getElementById("play").style.display = 'block';
-      document.getElementById("picked").innerHTML = 'You picked ' + picked ;
-    }
+    <header>
+        <span class="logo">XO Online</span>
+        <nav>
+            <div>
+                <a class="active" href="{% url 'app:home' %}"><i class="fa fa-home"></i> <span>Home</span></a>
+                <a href="{% url 'app:board' %}"><i class="fa fa-trophy"></i> <span>Leaderboard</span></a>
+                <a href="{% url 'chat:chat' %}"><i class="fa fa-envelope"></i> <span>Chat</span></a>
+                <a href="{% url 'app:notifications' %}"><i class="fa fa-bell"></i> <span>Notifications</span></a>
+                <a href="{% url 'accounts:profile' %}"><i class="fa fa-user"></i> <span>Profile</span></a>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <section class="home">
+            <section class="logo-container">
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="300" height="300" viewBox="0 0 265 300"><defs><style>.a{clip-path:url(#g);}.b{fill:#1282a2;}.b,.c,.d{font-size:200px;font-family:"BioRhyme";}.c{fill:#f7fff7;}.d{fill:#fff;}.e{fill:#2e3532;}.f{filter:url(#c);}.g{filter:url(#a);}</style><filter id="a" x="13.5" y="-24.5" width="199" height="275" filterUnits="userSpaceOnUse"><feOffset dx="3" dy="3" input="SourceAlpha"/><feGaussianBlur stdDeviation="1.5" result="b"/><feFlood/><feComposite operator="in" in2="b"/><feComposite in="SourceGraphic"/></filter><filter id="c"><feOffset dx="3" dy="3" input="SourceAlpha"/><feGaussianBlur stdDeviation="1.5" result="d"/><feFlood flood-opacity="0.702" result="e"/><feComposite operator="out" in="SourceGraphic" in2="d"/><feComposite operator="in" in="e"/><feComposite operator="in" in2="SourceGraphic"/></filter><clipPath id="g"><rect width="300" height="300"/></clipPath></defs><g id="f" class="a"><rect class="e" width="300" height="300"/><g class="g" transform="matrix(1, 0, 0, 1, 0, 0)"><text class="b" transform="translate(17 187)"><tspan x="0" y="0">X</tspan></text></g><g data-type="innerShadowGroup"><text class="c" transform="translate(113 244)"><tspan x="0" y="0">O</tspan></text><g class="f" transform="matrix(1, 0, 0, 1, 0, 0)"><text class="d" transform="translate(113 244)"><tspan x="0" y="0">O</tspan></text></g></g></g></svg>
+            </section>
+            <section class="btns" id="pickxo">
+                <p>Pick one that you want to play with !</p>
+                <p>Notice that X plays the first turn.</p>
+                <a onclick="pickit('X')">X</a>
+                <a onclick="pickit('O')">O</a>
+                <a href="{% url 'app:single' %}"><i class="fa fa-angle-left"></i> Back</a>
+            </section>
 
-    function done(x){
-      console.log(x);
-      var my_element = document.getElementById('b'+x) ;
-      var text = document.getElementById('picked') ;
-        if(turn==0){
-          var my_element = document.getElementById('b'+x) ;
-            my_element.disabled=true;
-            console.log("you played");
-            turn=1;
-            my_element.value=picked;
-            board[x]=picked;
-            for(var i=0;i<=8;i++)
-            {
-                document.getElementById('b'+i).disabled=true;
-            }
-        }
-        else if(turn==1)
-        {
-          var my_element = document.getElementById('b'+x) ;
-            my_element.disabled=true;
-            console.log("bot played");
-            turn=0;
-            my_element.value=b;
-            board[x]=b;
-            for(var i=0;i<=8;i++)
-            {
-              if(board[i]=='')
-              {
-                document.getElementById('b'+i).disabled=false;
-              }
-            }
-        }
-        
-        if(check_win(board[x]))
-        {
-            
-            document.getElementById('picked').innerHTML=board[x]+' wins';
-            for(var i=0;i<=8;i++)
-            {
-                document.getElementById('b'+i).disabled=true;
-            }
-        }
-        else if(check_draw())
-        {
-          document.getElementById('picked').innerHTML='draw';
-        }
-        if(turn==1 && !check_draw() && !check_win('X') && !check_win('O'))
-        {
-          var variab1=auto();
-          done(variab1);
-        }
-    }
-    
-    function auto()
-    {
-      var bot = Math.floor(Math.random() * 9);
-      console.log("random : "+bot);
-      if(board[bot]=='')
-      {
-        return ''+bot+'';
-      }
-      else
-      {
-        return auto();
-      }
-    }
+            <section id="play">
+                <p id="picked">000</p>
+                <div class="grid-container" onclick="done('0')">
+                    <p class="grid"></p>
+                </div>
+                <div class="grid-container" onclick="done('1')">
+                    <p class="grid"></p>
+                </div>
+                <div class="grid-container" onclick="done('2')">
+                    <p class="grid"></p>
+                </div>
 
-    function check_win(player)
-    {
-        for(var i=0;i<=2;i++)
-        {
-            if(board[i]==board[i+3]&&board[i]==board[i+6]&&board[i]==player)
-            {
-                return true;
-            }
-        }
-        for(var i=0;i<=6;i+=3)
-        {
-            if(board[i]==board[i+1]&&board[i]==board[i+2]&&board[i]==player)
-            {
-                return true;
-            }
-        }
-        if(board[0]==board[4]&&board[0]==board[8]&&board[0]==player)
-        {
-            return true;
-        }
-        if(board[2]==board[4]&&board[2]==board[6]&&board[2]==player)
-        {
-            return true;
-        }
-    }
+                <div class="grid-container" onclick="done('3')">
+                    <p class="grid"></p>
+                </div>
+                <div class="grid-container" onclick="done('4')">
+                    <p class="grid"></p>
+                </div>
+                <div class="grid-container" onclick="done('5')">
+                    <p class="grid"></p>
+                </div>
 
-    function check_draw()
-    {
-      for(var i=0;i<9;i++)
-      {
-        if(board[i]=='')
-        {
-          return false;
-        }
-      }
-      return true;
-    }
+                <div class="grid-container" onclick="done('6')">
+                    <p class="grid"></p>
+                </div>
+                <div class="grid-container" onclick="done('7')">
+                    <p class="grid"></p>
+                </div>
+                <div class="grid-container" onclick="done('8')">
+                    <p class="grid"></p>
+                </div>
 
-    function restart()
-    {
-        document.getElementById("play").style.display = 'none';
-        document.getElementById("pickxo").style.display = 'block';
-        for(var i=0;i<=8;i++)
-        {
-            document.getElementById('b'+i).disabled=false;
-            document.getElementById('b'+i).value='';
-            board[i]='';
-        }
-        turn=0;
-    }
-  </script>
+                <div class="btn-container">
+                    <button onclick="restart()" class="btns">Restart</button>
+                </div>
+            </section>
+        </section>
+    </main>
+</body>
+<script src="https://ahmed0saber.github.io/XO-online/external-files/script.js"></script>
+<script src="https://ahmed0saber.github.io/XO-online/external-files/easy.js"></script>
+<script src="https://kit.fontawesome.com/282bcf757e.js" crossorigin="anonymous"></script>
 </html>

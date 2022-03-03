@@ -1,206 +1,78 @@
-<html>
-  <head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <title>online Tic Tac Toe</title>
-    <style>
-      body{
-        margin: 0;
-        padding: 0;
-        width: 300px;
-        height: 407px;
-        background-color: #EEE;
-        overflow: hidden;
-      }
-      #div1{
-        margin: auto;
-        text-align: center;
-      }
-      #back{
-        height: 40px;
-        width: 40px;
-        margin: 5px;
-        background-color: #119;
-        border: none;
-        transition-duration: 0.3s;
-      }
-      #back:hover{
-        background-color: #119a;
-      }
-      #header{
-        background-color: #33F0;
-        height: 50px;
-        text-align: left;
-      }
-      .fa{
-        font-size: 25px;
-        color: #eee;
-        background:transparent;
-      }
-      table{
-        margin-top: -10px;
-      }
-      input{
-        width: 75px;
-        height: 75px;
-        font-size:55px;
-        color: #007;
-        border: 2px solid #0077;
-        font-family: sans-serif;
-        transition-duration: 0.3s;
-        border-radius: 0;
-        -webkit-border-radius: 0;
-        -webkit-appearance: none;
-        padding:0;
-      }
-      input:hover{
-        background-color: #88E;
-      }
-      input:disabled,
-      input[disabled]{
-        background-color: #BBF;
-      }
-      .btns{
-        height: 35px;
-        width: 100px;
-        margin-top:15px;
-        font-size:22px;
-        font-family: 'Times New Roman', Times, serif;
-        background-color: #00B;
-        color: #EEE;
-        border: 1px solid #000;
-        border-radius:10px;
-      }
-      p{
-        margin-top: 15px;
-        padding: 0px;
-        font-size:22px;
-        font-family: 'Times New Roman', Times, serif;
-      }
-      span{
-        color: #00A;
-        font-family: sans-serif;
-      }
-      .btns:hover , .pickbtns:hover{
-        background-color: #11ab;
-      }
-    </style>
-  </head>
-  <body>
-    <div id="div1">
-        <div id="header">
-            <a href="{% url 'app:home' %}"><button id="back"><i class="fa fa-arrow-left"></i></button></a>
-        </div>
-        <p id="des">Player X's turn</p>
-        <table align="center">
-          <tr>
-            <td><input type="button" value="" onclick="done('0')" id="b0"/></td>
-            <td><input type="button" value="" onclick="done('1')" id="b1"/></td>
-            <td><input type="button" value="" onclick="done('2')" id="b2"/></td>
-          </tr>
-          <tr>
-            <td><input type="button" value="" onclick="done('3')" id="b3"/></td>
-            <td><input type="button" value="" onclick="done('4')" id="b4"/></td>
-            <td><input type="button" value="" onclick="done('5')" id="b5"/></td>
-          </tr>
-          <tr>
-            <td><input type="button" value="" onclick="done('6')" id="b6"/></td>
-            <td><input type="button" value="" onclick="done('7')" id="b7"/></td>
-            <td><input type="button" value="" onclick="done('8')" id="b8"/></td>
-          </tr>
-        </table>
-        <button onclick="restart()" class="btns">Restart</button>
+    <title>Local | XO Online</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=BioRhyme:wght@400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://ahmed0saber.github.io/XO-online/external-files/style.css">
+</head>
+<body>
+    <div class="loader">
+        <div class="circle"></div>
     </div>
-  </body>
-  <script>
-    var turn=0 , board=[];
-    for(var i=0;i<9;i++)
-    {
-      board[i]='';
-    }
+    <header>
+        <span class="logo">XO Online</span>
+        <nav>
+            <div>
+                <a class="active" href="{% url 'app:home' %}"><i class="fa fa-home"></i> <span>Home</span></a>
+                <a href="{% url 'app:board' %}"><i class="fa fa-trophy"></i> <span>Leaderboard</span></a>
+                <a href="{% url 'chat:chat' %}"><i class="fa fa-envelope"></i> <span>Chat</span></a>
+                <a href="{% url 'app:notifications' %}"><i class="fa fa-bell"></i> <span>Notifications</span></a>
+                <a href="{% url 'accounts:profile' %}"><i class="fa fa-user"></i> <span>Profile</span></a>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <section class="home">
 
-    function done(x){
-      var my_element = document.getElementById('b'+x) ;
-      var text = document.getElementById('des') ;
-        if(turn==0){my_element.disabled=true;
-            turn=1;
-            my_element.value="X";
-            text.innerHTML="Player O's turn";
-            board[x]='X';
-        }
-        else if(turn==1)
-        {
-            my_element.disabled=true;
-            turn=0;
-            my_element.value="O";
-            text.innerHTML="Player X's turn";
-            board[x]='O';
-        }
-        
-        if(check_win(board[x]))
-        {
-            
-            document.getElementById('des').innerHTML=board[x]+' wins';
-            for(var i=0;i<=8;i++)
-            {
-                document.getElementById('b'+i).disabled=true;
-            }
-        }
-        else if(check_draw())
-        {
-          document.getElementById('des').innerHTML='draw';
-        }
-    }
+            <div id="header">
+                <a href="{% url 'app:two' %}"><button id="back"><i class="fa fa-arrow-left"></i></button></a>
+            </div>
 
+            <section id="play" class="local">
+                <p id="des">Player X's turn</p>
+                <div class="grid-container" onclick="done('0')">
+                    <p class="grid"></p>
+                </div>
+                <div class="grid-container" onclick="done('1')">
+                    <p class="grid"></p>
+                </div>
+                <div class="grid-container" onclick="done('2')">
+                    <p class="grid"></p>
+                </div>
 
-    function check_win(player)
-    {
-        for(var i=0;i<=2;i++)
-        {
-            if(board[i]==board[i+3]&&board[i]==board[i+6]&&board[i]==player)
-            {
-                return true;
-            }
-        }
-        for(var i=0;i<=6;i+=3)
-        {
-            if(board[i]==board[i+1]&&board[i]==board[i+2]&&board[i]==player)
-            {
-                return true;
-            }
-        }
-        if(board[0]==board[4]&&board[0]==board[8]&&board[0]==player)
-        {
-            return true;
-        }
-        if(board[2]==board[4]&&board[2]==board[6]&&board[2]==player)
-        {
-            return true;
-        }
-    }
+                <div class="grid-container" onclick="done('3')">
+                    <p class="grid"></p>
+                </div>
+                <div class="grid-container" onclick="done('4')">
+                    <p class="grid"></p>
+                </div>
+                <div class="grid-container" onclick="done('5')">
+                    <p class="grid"></p>
+                </div>
 
-    function check_draw()
-    {
-      for(var i=0;i<9;i++)
-      {
-        if(board[i]=='')
-        {
-          return false;
-        }
-      }
-      return true;
-    }
+                <div class="grid-container" onclick="done('6')">
+                    <p class="grid"></p>
+                </div>
+                <div class="grid-container" onclick="done('7')">
+                    <p class="grid"></p>
+                </div>
+                <div class="grid-container" onclick="done('8')">
+                    <p class="grid"></p>
+                </div>
 
-    function restart()
-    {
-        for(var i=0;i<=8;i++)
-        {
-            document.getElementById('b'+i).disabled=false;
-            document.getElementById('b'+i).value='';
-            board[i]='';
-        }
-        turn=0;
-        document.getElementById('des').innerHTML="Player X's turn";
-    }
-    </script>
+                <div class="btn-container">
+                    <button onclick="restart()" class="btns">Restart</button>
+                </div>
+            </section>
+        </section>
+    </main>
+</body>
+<script src="https://ahmed0saber.github.io/XO-online/external-files/script.js"></script>
+<script src="https://ahmed0saber.github.io/XO-online/external-files/local.js"></script>
+<script src="https://kit.fontawesome.com/282bcf757e.js" crossorigin="anonymous"></script>
 </html>
