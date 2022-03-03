@@ -27,7 +27,7 @@ def notifications(request):
 
 def board(request):
     winners = CustomUser.objects.all().order_by('-won_games')
-    return render(request, 'app/leaderboard.html', {'users': winners[3:], 'first': winners[0], 'second': winners[1], 'third': winners[2]})
+    return render(request, 'app/leaderboard.html', {'users': winners, 'first': winners[0], 'second': winners[1], 'third': winners[2]})
 
 def local(request):
     return render(request, 'app/local.html')
