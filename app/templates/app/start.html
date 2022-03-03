@@ -1,186 +1,56 @@
 {% load static %}
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-    <title>Online Tic Tac Toe</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#00B">
+    <title>Home | XO Online</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=BioRhyme:wght@400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://ahmed0saber.github.io/XO-online/external-files/style.css">
+
     <link rel="manifest" href="{% url 'app:manifest' %}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="icon" href="{% static 'logo/tic-tac-toe.svg' %}">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-        }
+    <meta name="theme-color" content="#1282A2">
 
-        #header {
-            margin: 0px auto;
-            padding: 0;
-            width: 304px;
-            height: 454px;
-            border: 2px solid black;
-            background-color: #CCF;
-            border: 2px solid #33F;
-            box-shadow: 0 0 5px #117;
-            box-sizing: border-box;
-        }
-
-        .h_btns {
-            margin: 0;
-            width: 60px;
-            height: 40px;
-            border: none;
-            background-color: #EEF;
-            transition-duration: 0.4s;
-        }
-
-        .h_btns:hover {
-            background-color: #AAF
-        }
-
-        #selected {
-            height: 3px;
-            background-color: blue;
-            width: 60px;
-            margin-left: 0px;
-            transition-duration: 0.4s;
-        }
-
-        #iframe1 {
-            height: calc(100% - 43px);
-            overflow-x: hidden;
-            margin: 0;
-            padding: 0;
-            border: none;
-            display: none;
-            background-color: #CCF;
-        }
-
-        .fa {
-            font-size: 25px;
-            color: #117;
-            background: transparent
-        }
-
-        #loading {
-            height: calc(100% - 43px);
-            overflow-x: hidden;
-            overflow-y: hidden;
-            margin: 0;
-            padding: 0;
-            border: none;
-            display: block;
-            background-color: #FFF;
-        }
-        #status {
-            height: 200px;
-            width: 200px;
-            margin: 104px 50px;
-            background-image: url(https://raw.githubusercontent.com/niklausgerber/PreLoadMe/master/img/status.gif);
-            background-repeat: no-repeat;
-            background-position: center;
-        }
-    </style>
 </head>
-
-<body onload="checkurl()">
-    <div id="header">
-        <button class="h_btns" onclick="move(1)"><i class="fa fa-home"></i></button><button class="h_btns"
-            onclick="move(2)"><i class="fa fa-trophy"></i></button><button class="h_btns" onclick="move(3)"><i
-                class="fa fa-envelope"></i></button><button class="h_btns" onclick="move(4)"><i
-                class="fa fa-bell"></i></button><button class="h_btns" onclick="move(5)"><i
-                class="fa fa-user"></i></button>
-        <div id="selected"></div>
-        <iframe src="{% url 'app:home' %}" id="iframe1" onload="frameloaded()"></iframe>
-        <div id="loading">
-            <div id="status">&nbsp;</div>
-        </div>
+<body>
+    <div class="loader">
+        <div class="circle"></div>
     </div>
+    <header>
+        <span class="logo">XO Online</span>
+        <nav>
+            <div>
+                <a class="active" href="{% url 'app:home' %}"><i class="fa fa-home"></i> <span>Home</span></a>
+                <a href="{% url 'app:board' %}"><i class="fa fa-trophy"></i> <span>Leaderboard</span></a>
+                <a href="{% url 'chat:chat' %}"><i class="fa fa-envelope"></i> <span>Chat</span></a>
+                <a href="{% url 'app:notifications' %}"><i class="fa fa-bell"></i> <span>Notifications</span></a>
+                <a href="{% url 'accounts:profile' %}"><i class="fa fa-user"></i> <span>Profile</span></a>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <section class="home">
+            <section class="logo-container">
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="300" height="300" viewBox="0 0 265 300"><defs><style>.a{clip-path:url(#g);}.b{fill:#1282a2;}.b,.c,.d{font-size:200px;font-family:"BioRhyme";}.c{fill:#f7fff7;}.d{fill:#fff;}.e{fill:#2e3532;}.f{filter:url(#c);}.g{filter:url(#a);}</style><filter id="a" x="13.5" y="-24.5" width="199" height="275" filterUnits="userSpaceOnUse"><feOffset dx="3" dy="3" input="SourceAlpha"/><feGaussianBlur stdDeviation="1.5" result="b"/><feFlood/><feComposite operator="in" in2="b"/><feComposite in="SourceGraphic"/></filter><filter id="c"><feOffset dx="3" dy="3" input="SourceAlpha"/><feGaussianBlur stdDeviation="1.5" result="d"/><feFlood flood-opacity="0.702" result="e"/><feComposite operator="out" in="SourceGraphic" in2="d"/><feComposite operator="in" in="e"/><feComposite operator="in" in2="SourceGraphic"/></filter><clipPath id="g"><rect width="300" height="300"/></clipPath></defs><g id="f" class="a"><rect class="e" width="300" height="300"/><g class="g" transform="matrix(1, 0, 0, 1, 0, 0)"><text class="b" transform="translate(17 187)"><tspan x="0" y="0">X</tspan></text></g><g data-type="innerShadowGroup"><text class="c" transform="translate(113 244)"><tspan x="0" y="0">O</tspan></text><g class="f" transform="matrix(1, 0, 0, 1, 0, 0)"><text class="d" transform="translate(113 244)"><tspan x="0" y="0">O</tspan></text></g></g></g></svg>
+            </section>
+            <section class="btns">
+                <a href="./single-player.html">Single Player</a>
+                <a href="./two-players.html">Two Players</a>
+                <a href="./about.html">About US</a>
+                <a>Change Language</a>
+            </section>
+        </section>
+    </main>
 </body>
-<script>
-    var ratio = window.innerWidth/304;
-    var ratioheight = window.innerHeight/454;
-    console.log(ratio);
-    if(ratio>1.3)
-    {
-      ratio=1.3;
-    }
-    document.getElementById("header").style.transform = "scale("+ratio+")";
-    console.log(ratioheight);
-    $("#header").css("height", 454*ratioheight/ratio);
-    var topmargin = (ratio-1)*454*ratioheight/ratio/2;
-    document.getElementById("header").style.marginTop = topmargin+"px";
-    
-    api_url="https://tttapi.herokuapp.com/api/v1/---------/X";
-        fetch(api_url)
-            .then(response => response.json())
-            .then(data => console.log(data));
-    
-
-    function frameloaded() {
-        $("#loading").css("display", "none");
-        $("#iframe1").css("display", "block");
-        var fwindow = document.getElementById("iframe1").contentWindow;
-        if (fwindow.location.pathname == '/chat/') {
-            var element = fwindow.document.getElementById("msg_container");
-            element.scrollTop = element.scrollHeight;
-            var containerheight = ((454*ratioheight/ratio)-454)+362;
-            element.style.height = containerheight+"px";
-        }
-    }
-    function move(i) {
-        $("#iframe1").css("display", "none");
-        $("#loading").css("display", "block");
-
-        if (i == 1) {
-            $("#selected").css("margin-left", "0px");
-            $("#iframe1").attr("src", "{% url 'app:home' %}");
-        }
-        else if (i == 2) {
-            $("#selected").css("margin-left", "60px");
-            $("#iframe1").attr("src", "{% url 'app:board' %}");
-        }
-        else if (i == 3) {
-            $("#selected").css("margin-left", "120px");
-            $("#iframe1").attr("src", "{% url 'chat:chat' %}");
-        }
-        else if (i == 4) {
-            $("#selected").css("margin-left", "180px");
-            $("#iframe1").attr("src", "{% url 'app:notifications' %}");
-        }
-        else if (i == 5) {
-            $("#selected").css("margin-left", "240px");
-            $("#iframe1").attr("src", "{% url 'accounts:profile' %}");
-        }
-    }
-
-    function checkurl() {
-        var url = window.location.href;
-        console.log(url);
-
-        let ourSubstring = "user";
-
-        if (url.includes(ourSubstring)) {
-            console.log("The word Example is in the string.");
-
-
-            var myUrl = new URL(url);
-            var user_id = myUrl.searchParams.get("user");
-            console.log(user_id);
-            $("#iframe1").attr("src", url.slice(0, url.indexOf('?')) + "accounts/user/" + user_id);
-            history.pushState({}, null, url.slice(0, url.indexOf('?')));
-
-        } else {
-            console.log("The word Example is not in the string.");
-        }
-    }
-</script>
+<script src="https://ahmed0saber.github.io/XO-online/external-files/script.js"></script>
 <script>
     if ('serviceWorker' in navigator){
         navigator.serviceWorker.register('/sw.js')
     }
 </script>
+<script src="https://kit.fontawesome.com/282bcf757e.js" crossorigin="anonymous"></script>
 </html>
