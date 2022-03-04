@@ -1,383 +1,293 @@
-<html>
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-	<title>online Tic Tac Toe</title>
-	<style>
-		body {
-			margin: 0;
-			padding: 0;
-			width: 300px;
-			height: 407px;
-			background-color: #EEE;
-			overflow: hidden;
-		}
-
-		#div1 {
-			margin: auto;
-			text-align: center;
-		}
-
-		#back {
-			height: 40px;
-			width: 40px;
-			margin: 5px;
-			background-color: #119;
-			border: none;
-			transition-duration: 0.3s;
-		 }
-		 #back:hover{
-			background-color: #119a;
-		 }
-		 #header{
-			background-color: #33F0;
-			height: 50px;
-			text-align: left;
-		 }
-		 .fa{
-			font-size: 25px;
-			color: #eee;
-			background:transparent;
-		 }
-		#header span {
-			color: #009;
-		}
-
-		table#table {
-			margin-top: -10px;
-
-		}
-
-		input.button {
-			width: 75px;
-			height: 75px;
-			font-size: 55px;
-			color: #007;
-			border: 2px solid #0077;
-			font-family: sans-serif;
-			transition-duration: 0.2s;
-			border-radius: 0;
-			-webkit-border-radius: 0;
-        	-webkit-appearance: none;
-			padding:0;
-		}
-
-		input.button:hover {
-			background-color: #88E;
-		}
-
-		input:disabled,
-		input[disabled] {
-			background-color: #BBF;
-		}
-
-		.btns {
-			height: 35px;
-			width: 100px;
-			margin-top: 3px;
-			font-size: 22px;
-			font-family: 'Times New Roman', Times, serif;
-			background-color: #00B;
-			color: #EEE;
-			border: 1px solid #000;
-			border-radius: 10px;
-		}
-
-		p#des {
-			margin-top: 10px;
-			padding: 0px;
-			font-size: 17px;
-			font-family: 'Times New Roman', Times, serif;
-		}
-
-		.span1 {
-			color: #EEE;
-			font-family: sans-serif;
-		}
-
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Local | XO Online</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=BioRhyme:wght@400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://ahmed0saber.github.io/XO-online/external-files/style.css">
+    <style>
 		#restart {
 			display: none;
 		}
-		img{
-		  width: 38px;
-		  height: 38px;
-		  border: 1px solid #007;
-		  border-radius: 50%;
-		}
-		#img1{
-		  float: right;
-		}
-		#img2{
-		  float: left;
-		}
-		#header2{
-		  display: flex;
-		}
-		#player1 , #player2{
-		  width: 140px;
-		  border: 1px solid #007;
-		  font-size: 12px;
-		}
-		#player1{
-		  float: left;
-		  border-radius: 0px 25px 25px 0px;
-		}
-		#player2{
-		  float: right;
-		  border-radius: 25px 0px 0px 25px;
-		}
-		p{
-		  line-height: 2px;
-		}
-		#vs{
-		  line-height: 10px;
-		}
-		#des{
-		  line-height: 14px;
-		}
-		.btns:hover , .pickbtns:hover{
-		  background-color: #11ab;
-		}
 	</style>
 </head>
-
 <body>
-	<div id="div1">
-		<div id="header">
-			<a href="{% url 'app:new_game' %}"><button id="back"><i class="fa fa-arrow-left"></i></button></a>
-			<span class="span1"></span>
-		</div>
-		<div id="header2">
-		  <div id="player1">
-		    <img id="img1">
-		    <p id="name1">Player 1</p>
-		    <p id="turn1">X/O</p>
-		  </div>
-		  <div><p id="vs">VS</p></div>
-		  <div id="player2">
-		    <img id="img2">
-		    <p id="name2">Player 2</p>
-		    <p id="turn2">X/O</p>
-		  </div>
-		</div>
-		<p id="des"></p>
-		<table align="center" id='table'>
-			<tbody><tr>
-				<td><input type="button" disabled value="" data-index="0" class="button"></td>
-				<td><input type="button" disabled value="" data-index="1" class="button"></td>
-				<td><input type="button" disabled value="" data-index="2" class="button"></td>
-			</tr>
-			<tr>
-				<td><input type="button" disabled value="" data-index="3" class="button"></td>
-				<td><input type="button" disabled value="" data-index="4" class="button"></td>
-				<td><input type="button" disabled value="" data-index="5" class="button"></td>
-			</tr>
-			<tr>
-				<td><input type="button" disabled value="" data-index="6" class="button"></td>
-				<td><input type="button" disabled value="" data-index="7" class="button"></td>
-				<td><input type="button" disabled value="" data-index="8" class="button"></td>
-			</tr>
-		</tbody></table>
-		<button id="restart" class="btns">Restart</button>
+    <div class="loader">
+        <div class="circle"></div>
+    </div>
+    <header>
+        <span class="logo">XO Online</span>
+        <nav>
+            <div>
+                <a class="active" href="{% url 'app:header' %}"><i class="fa fa-home"></i> <span>Home</span></a>
+                <a href="{% url 'app:board' %}"><i class="fa fa-trophy"></i> <span>Leaderboard</span></a>
+                <a href="{% url 'chat:chat' %}"><i class="fa fa-envelope"></i> <span>Chat</span></a>
+                <a href="{% url 'app:notifications' %}"><i class="fa fa-bell"></i> <span>Notifications</span></a>
+                <a href="{% url 'accounts:profile' %}"><i class="fa fa-user"></i> <span>Profile</span></a>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <section class="home">
 
-	</div>
-	<script>
-		let protocol = window.location.protocol == 'https:' ? 'wss:' : 'ws:'
-		let search = window.location.search
-		let char = 'O'
-		let turn = 'X'
-		if (search.includes('&')){
-			let room =  search.slice(search.indexOf('=') + 1, search.indexOf('&'))
-			let user =  search.slice(search.indexOf('=', search.indexOf('&')) + 1)
-			var url =  protocol + '//' + window.location.host + `/ws/game/${room}/${user}/`
-			char = 'X'
-		}else{
-			let room = search.slice(search.indexOf('=') + 1)
-			var url = protocol + '//' + window.location.host + `/ws/game/${room}/`
-		}
-		
-		let buttons = document.querySelectorAll('.button')
-		function start_socket(time) {
-			let socket = new WebSocket(url)
-			socket.onopen = e => {
-				// time = 1000
-				console.log('connected')
-				
-			}
+            <div id="header">
+                <a href="{% url 'app:new_game' %}"><button id="back"><i class="fa fa-arrow-left"></i></button></a>
+                <span class="span1"></span>
+            </div>
 
+            <section id="play" class="local">
+                <div style="display:flex;justify-content:space-evenly;">
+                    <div id="player1" style="color:#f7f7f7">
+                        <img id="img1" src="" style="width:50px;border-radius:50%;border:2px solid #f7f7f7;">
+                        <p id="name1">Player 1</p>
+                        <p id="turn1">X/O</p>
+                    </div>
+                    <div>
+                        <p id="vs" style="color:#1282A2;font-size:28px;">VS</p>
+                    </div>
+                    <div id="player2" style="color:#f7f7f7">
+                        <img id="img2" src="" style="width:50px;border-radius:50%;border:2px solid #f7f7f7;">
+                        <p id="name2">Player 2</p>
+                        <p id="turn2">X/O</p>
+                    </div>
+                </div>
+                <p id="des"></p>
+                </div>
+                
+                <div class="grid-container" data-index="0">
+                    <p class="grid"></p>
+                </div>
+                <div class="grid-container" data-index="1">
+                    <p class="grid"></p>
+                </div>
+                <div class="grid-container" data-index="2">
+                    <p class="grid"></p>
+                </div>
 
-			socket.onmessage = e => {
-				time = 1000
-				let data = JSON.parse(e.data)
-				if (data.type == "game_play") {
-					buttons[data.move].disabled = true
-					buttons[data.move].value = data.player
-					let result = check_end()
-					if(result == "X"){
-						if (result != char){
-							socket.send(JSON.stringify({"type":"completed"}))
-						}
-						document.getElementById('des').innerText = 'Player X won'
-						buttons.forEach(but => but.disabled = true)
-						document.getElementById('restart').style.display = 'inline-block'
-						return
-					}else if(result == 'O'){
-						if (result != char){
-							socket.send(JSON.stringify({"type":"completed"}))
-						}
-						document.getElementById('des').innerText = 'Player O won'
-						buttons.forEach(but => but.disabled = true)
-						document.getElementById('restart').style.display = 'inline-block'
-						return
-					}else if (result == 'draw'){
-						if (char=='O'){
-						socket.send(JSON.stringify({"type":"draw"}))
-						}
-						document.getElementById('des').innerText = 'Draw'
-						document.getElementById('restart').style.display = 'inline-block'
-						return
-					}
+                <div class="grid-container" data-index="3">
+                    <p class="grid"></p>
+                </div>
+                <div class="grid-container" data-index="4">
+                    <p class="grid"></p>
+                </div>
+                <div class="grid-container" data-index="5">
+                    <p class="grid"></p>
+                </div>
 
-					turn = data.player == 'X' ? 'O' : 'X'
-					document.getElementById('des').innerText = `Player ${turn}'s turn`
-					if (turn == char) {
-						buttons.forEach(element => {
-							if (element.value == "") {
-								element.disabled = false
-							}
-						})
-					}
-				} else if (data.type == 'created') {
-					char = 'X'
-					room = data.room
-					url = protocol + '//' + window.location.host + `/ws/game/${room}/`
-					document.querySelector('#header span').innerText = `Room: ${data.room}`
-					document.getElementById('des').innerText = 'Waiting for other player to join';
-				} else if (data.type == "room_completed") {
-					console.log(data);
-					restart();
-					document.getElementById("name1").textContent=data.self.name;
-					document.getElementById("name2").textContent=data.competitor.name;
-					document.getElementById("turn1").textContent=char;
-					document.getElementById("turn2").textContent= char == 'X' ? 'O' : 'X';
-					document.getElementById("img1").src=data.self.image;
-					document.getElementById("img2").src=data.competitor.image;
-					turn = 'X';
-				
-					if (char == 'X'){
-						buttons.forEach(element => {
-							if (element.value == "") {
-								element.disabled = false
-							}
-						})
-						document.getElementById('des').innerText = 'player X Your turn first'
-					}else{
-						buttons.forEach(element => { element.disabled = true })
-						document.getElementById('des').innerText = 'Waiting Player X to start the game'
-						buttons.forEach(el => el.disabled = true)
-					}
+                <div class="grid-container" data-index="6">
+                    <p class="grid"></p>
+                </div>
+                <div class="grid-container" data-index="7">
+                    <p class="grid"></p>
+                </div>
+                <div class="grid-container" data-index="8">
+                    <p class="grid"></p>
+                </div>
 
-				} else if (data.type == "error") {
-					document.getElementById('des').innerText = data.error;
-					
-					document.getElementById("name1").textContent="Player 1";
-					document.getElementById("name2").textContent="Player 2";
-					document.getElementById("turn1").textContent="X/O";
-					document.getElementById("turn2").textContent="X/O";
-					document.getElementById("img1").src="";
-					document.getElementById("img2").src="";
-					alert("The other player left the game , the game will be restarted preparing for another player to join !!");
-					char = 'X'
-					restart();
-				}else if (data.type == 'restart'){
-					restart()
-				}
-			}
-
-			let check_end = () => {
-				let is_win = check_win()
-				if (is_win){
-					return is_win
-				}else if (check_draw()) {
-					return 'draw'
-				} else { return false}
-				
-			}
-
-			let check_win = () => {
-				for (var i = 0; i <= 2; i++) {
-					if (buttons[i].value == buttons[i + 3].value && buttons[i].value == buttons[i + 6].value && (buttons[i].value == "X" || buttons[i].value == "O")) {
-						return buttons[i].value;
-					}
-				}
-				for (var i = 0; i <= 6; i += 3) {
-					if (buttons[i].value == buttons[i + 1].value && buttons[i].value == buttons[i + 2].value &&  (buttons[i].value == "X" || buttons[i].value == "O")) {
-						return buttons[i].value;
-
-					}
-				}
-				if (buttons[0].value == buttons[4].value && buttons[0].value == buttons[8].value &&  (buttons[0].value == "X" || buttons[0].value == "O")) {
-					return buttons[0].value;
-
-				}
-				if (buttons[2].value == buttons[4].value && buttons[2].value == buttons[6].value &&  (buttons[2].value == "X" || buttons[2].value == "O")) {
-					return buttons[2].value;
-
-				}
-				return false
-			}
-
-			let check_draw = () => {
-				for (button of buttons){
-					if (button.value == ''){ return false}
-				}
-				return true;
-			}
-
-			let restart = ()=>{
-				buttons.forEach((button)=>{
-					button.value = ''
-					button.disabled = false
-				})
-				document.getElementById('des').innerText = 'New Game';
-				document.getElementById('restart').style.display = 'none';
-			}
-
-			document.getElementById('restart').onclick = ()=>{
-				socket.send(JSON.stringify({
-					'type':'restart'
-				}))
-			}
-
-
-
-			socket.onerror = e => {
-		    document.getElementById('des').innerText = e.error;
-			}
-
-			socket.onclose = (e) => {
-				setTimeout(() => {
-					start_socket(time * 2)
-				}, time)
-			}
-
-			buttons.forEach(button => {
-				button.onclick = e => {
-					buttons.forEach(el=>el.disabled=true)
-					socket.send(
-						JSON.stringify({
-							'type': 'game_play',
-							'player': char,
-							'move': `${e.target.dataset.index}`
-						})
-					)
-				}
-			});
-		}
-		start_socket(1000)
-
-	</script>
+                <div class="btn-container">
+                    <button onclick="restart()" id="restart" class="btns">Restart</button>
+                </div>
+            </section>
+        </section>
+    </main>
 </body>
+<script>
+let protocol = window.location.protocol == 'https:' ? 'wss:' : 'ws:'
+let search = window.location.search
+let char = 'O'
+let turn = 'X'
+if (search.includes('&')){
+    let room =  search.slice(search.indexOf('=') + 1, search.indexOf('&'))
+    let user =  search.slice(search.indexOf('=', search.indexOf('&')) + 1)
+    var url =  protocol + '//' + window.location.host + `/ws/game/${room}/${user}/`
+    char = 'X'
+}else{
+    let room = search.slice(search.indexOf('=') + 1)
+    var url = protocol + '//' + window.location.host + `/ws/game/${room}/`
+}
 
+let buttons = document.querySelectorAll('.grid')
+function start_socket(time) {
+    let socket = new WebSocket(url)
+    socket.onopen = e => {
+        // time = 1000
+        console.log('connected')
+        
+    }
+
+
+    socket.onmessage = e => {
+        time = 1000
+        let data = JSON.parse(e.data)
+        if (data.type == "game_play") {
+            buttons[data.move].classList.add("done");
+            buttons[data.move].textContent = data.player;
+            let result = check_end()
+            if(result == "X"){
+                if (result != char){
+                    socket.send(JSON.stringify({"type":"completed"}))
+                }
+                document.getElementById('des').innerText = 'Player X won'
+                buttons.forEach(button => button.classList.add("done"))
+                document.getElementById('restart').style.display = 'inline-block'
+                return
+            }else if(result == 'O'){
+                if (result != char){
+                    socket.send(JSON.stringify({"type":"completed"}))
+                }
+                document.getElementById('des').innerText = 'Player O won'
+                buttons.forEach(button => button.classList.add("done"))
+                document.getElementById('restart').style.display = 'inline-block'
+                return
+            }else if (result == 'draw'){
+                if (char=='O'){
+                socket.send(JSON.stringify({"type":"draw"}))
+                }
+                document.getElementById('des').innerText = 'Draw'
+                document.getElementById('restart').style.display = 'inline-block'
+                return
+            }
+
+            turn = data.player == 'X' ? 'O' : 'X'
+            document.getElementById('des').innerText = `Player ${turn}'s turn`
+            if (turn == char) {
+                buttons.forEach(button => {
+                    if (button.textContent == "") {
+                        button.classList.remove("done")
+                    }
+                })
+            }
+        } else if (data.type == 'created') {
+            char = 'X'
+            room = data.room
+            url = protocol + '//' + window.location.host + `/ws/game/${room}/`
+            document.querySelector('#header span').innerText = `Room: ${data.room}`
+            document.getElementById('des').innerText = 'Waiting for other player to join';
+        } else if (data.type == "room_completed") {
+            console.log(data);
+            restart();
+            document.getElementById("name1").textContent=data.self.name;
+            document.getElementById("name2").textContent=data.competitor.name;
+            document.getElementById("turn1").textContent=char;
+            document.getElementById("turn2").textContent= char == 'X' ? 'O' : 'X';
+            document.getElementById("img1").src=data.self.image;
+            document.getElementById("img2").src=data.competitor.image;
+            turn = 'X';
+        
+            if (char == 'X'){
+                buttons.forEach(button => {
+                    if (button.textContent == "") {
+                        button.classList.remove("done")
+                    }
+                })
+                document.getElementById('des').innerText = 'player X Your turn first'
+            }else{
+                buttons.forEach(button => button.classList.add("done"))
+                document.getElementById('des').innerText = 'Waiting Player X to start the game'
+                buttons.forEach(button => button.classList.add("done"))
+            }
+
+        } else if (data.type == "error") {
+            document.getElementById('des').innerText = data.error;
+            
+            document.getElementById("name1").textContent="Player 1";
+            document.getElementById("name2").textContent="Player 2";
+            document.getElementById("turn1").textContent="X/O";
+            document.getElementById("turn2").textContent="X/O";
+            document.getElementById("img1").src="";
+            document.getElementById("img2").src="";
+            alert("The other player left the game , the game will be restarted preparing for another player to join !!");
+            char = 'X'
+            restart();
+        }else if (data.type == 'restart'){
+            restart()
+        }
+    }
+
+    let check_end = () => {
+        let is_win = check_win()
+        if (is_win){
+            return is_win
+        }else if (check_draw()) {
+            return 'draw'
+        } else { return false}
+        
+    }
+
+    let check_win = () => {
+        for (var i = 0; i <= 2; i++) {
+            if (buttons[i].textContent == buttons[i + 3].textContent && buttons[i].textContent == buttons[i + 6].textContent && (buttons[i].textContent == "X" || buttons[i].textContent == "O")) {
+                return buttons[i].textContent;
+            }
+        }
+        for (var i = 0; i <= 6; i += 3) {
+            if (buttons[i].textContent == buttons[i + 1].textContent && buttons[i].textContent == buttons[i + 2].textContent &&  (buttons[i].textContent == "X" || buttons[i].textContent == "O")) {
+                return buttons[i].textContent;
+            }
+        }
+        if (buttons[0].textContent == buttons[4].textContent && buttons[0].textContent == buttons[8].textContent &&  (buttons[0].textContent == "X" || buttons[0].textContent == "O")) {
+            return buttons[0].textContent;
+        }
+        if (buttons[2].textContent == buttons[4].textContent && buttons[2].textContent == buttons[6].textContent &&  (buttons[2].textContent == "X" || buttons[2].textContent == "O")) {
+            return buttons[2].textContent;
+        }
+        return false
+    }
+
+    let check_draw = () => {
+        for (button of buttons){
+            if (button.textContent == ''){ return false}
+        }
+        return true;
+    }
+
+    let restart = ()=>{
+        buttons.forEach((button)=>{
+            button.textContent = ''
+            button.classList.remove('done')
+        })
+        document.getElementById('des').innerText = 'New Game';
+        document.getElementById('restart').style.display = 'none';
+    }
+
+    document.getElementById('restart').onclick = ()=>{
+        socket.send(JSON.stringify({
+            'type':'restart'
+        }))
+    }
+
+
+
+    socket.onerror = e => {
+    document.getElementById('des').innerText = e.error;
+    }
+
+    socket.onclose = (e) => {
+        setTimeout(() => {
+            start_socket(time * 2)
+        }, time)
+    }
+
+    buttons.forEach(button => {
+        button.onclick = e => {
+            buttons.forEach(button=>button.classList.add('done'))
+            socket.send(
+                JSON.stringify({
+                    'type': 'game_play',
+                    'player': char,
+                    'move': `${e.target.dataset.index}`
+                })
+            )
+        }
+    });
+}
+start_socket(1000)
+
+</script>
+<script src="https://ahmed0saber.github.io/XO-online/external-files/script.js"></script>
+<script src="https://kit.fontawesome.com/282bcf757e.js" crossorigin="anonymous"></script>
 </html>
