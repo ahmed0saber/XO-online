@@ -1,116 +1,83 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-	<title>online Tic Tac Toe</title>
-	<style>
-		body {
-			margin: 0;
-			padding: 0;
-			width: 300px;
-			height: 407px;
-			background-color: #EEE;
-			overflow: hidden;
-		}
-		#div1 {
-			margin: auto;
-			text-align: center;
-		}
-        #header{
-            background-color: #33F0;
-            height: 42px;
-            text-align:left;
-        }
-        .btn-simple{
-            margin:5px;
-        }
-		.ps {
-			font-size: 15px;
-			font-family: Times New Roman;
-		}
-		.btns {
-			height: 35px;
-			width: 200px;
-			margin: 5px;
-			font-size: 18px;
-			color: #FFF;
-			background-color: #00B;
-			border: 2px solid #007;
-			border-radius: 10px;
-		}
-		.inputs {
-			height: 30px;
-			width: 200px;
-			margin: 5px;
-			padding-left: 5px;
-			font-size: 17px;
-			background-color: #DDF;
-			border: 2px solid #00A;
-			border-radius: 10px;
-			outline: none;
-		}
-		::placeholder {
-		  color: #3379;
-		}
-		hr {
-  border: 0;
-  clear:both;
-  display:block;
-  width: 80%;               
-  background-color:#0079;
-  height: 1px;
-}
-	</style>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online | XO Online</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=BioRhyme:wght@400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://ahmed0saber.github.io/XO-online/external-files/style.css">
 </head>
 <body>
-	<div id="div1">
-        <div id="header">
-            <a href="{% url 'app:home' %}"><button id="back" class="btn btn-primary btn-round btn-simple">Back</button></a>
-        </div>
-		<p class="ps">Play an auto matching random game</p>
-		<a href="{% url 'app:game' %}?room=random"><button class="btns">Search for a match</button></a>
-		<hr>
-		<p class="ps">Play a custom game</p>
-		<a href="{% url 'app:game' %}?room=create"><button class="btns">Create room</button></a>
-		<p class="ps">-or-</p>
-		<input type="text" placeholder="Room code" class="inputs">
-		<p id='response'></p>
-		<a id='join' href=""><button class="btns">Join room</button></a>
-	</div>
-	<script>
-		let check_room = async room => {
-			let url = "{%url 'app:check_room' %}?room=" + room
-			let res = await fetch(url)
-			if (res.ok) {
-				res = await res.json()
-				document.querySelector('input').style.borderColor = 'green'
-				document.querySelector('input').style.outlineColor = 'green'
-				document.getElementById('response').innerText = res.message
-				return true
-			} else {
-				res = await res.json()
-				document.querySelector('input').style.borderColor = 'red'
-				document.querySelector('input').style.outlineColor = 'red'
-				document.getElementById('response').innerText = res.error
-				return false
-			}
-		}
-		document.querySelector('input').onkeypress =  (e) => {
-			if (e.keyCode == 13) {
-				document.getElementById('join').click()
-			}
-		}
-		document.querySelector('input').oninput =  async (e) => {
-			
-			let is_valid = await check_room(e.target.value)
-			if (is_valid){
-				document.getElementById('join').href = `{% url 'app:game' %}?room=${e.target.value}`
-			}else{
-				document.getElementById('join').href = '#'
-			}
-			
-		}
-	</script>
+    <div class="loader">
+        <div class="circle"></div>
+    </div>
+    <header>
+        <span class="logo">XO Online</span>
+        <nav>
+            <div>
+                <a class="active" href="{% url 'app:header' %}"><i class="fa fa-home"></i> <span>Home</span></a>
+                <a href="{% url 'app:board' %}"><i class="fa fa-trophy"></i> <span>Leaderboard</span></a>
+                <a href="{% url 'chat:chat' %}"><i class="fa fa-envelope"></i> <span>Chat</span></a>
+                <a href="{% url 'app:notifications' %}"><i class="fa fa-bell"></i> <span>Notifications</span></a>
+                <a href="{% url 'accounts:profile' %}"><i class="fa fa-user"></i> <span>Profile</span></a>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <section class="home">
+            <section class="logo-container">
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="300" height="300" viewBox="0 0 265 300"><defs><style>.a{clip-path:url(#g);}.b{fill:#1282a2;}.b,.c,.d{font-size:200px;font-family:"BioRhyme";}.c{fill:#f7fff7;}.d{fill:#fff;}.e{fill:#2e3532;}.f{filter:url(#c);}.g{filter:url(#a);}</style><filter id="a" x="13.5" y="-24.5" width="199" height="275" filterUnits="userSpaceOnUse"><feOffset dx="3" dy="3" input="SourceAlpha"/><feGaussianBlur stdDeviation="1.5" result="b"/><feFlood/><feComposite operator="in" in2="b"/><feComposite in="SourceGraphic"/></filter><filter id="c"><feOffset dx="3" dy="3" input="SourceAlpha"/><feGaussianBlur stdDeviation="1.5" result="d"/><feFlood flood-opacity="0.702" result="e"/><feComposite operator="out" in="SourceGraphic" in2="d"/><feComposite operator="in" in="e"/><feComposite operator="in" in2="SourceGraphic"/></filter><clipPath id="g"><rect width="300" height="300"/></clipPath></defs><g id="f" class="a"><rect class="e" width="300" height="300"/><g class="g" transform="matrix(1, 0, 0, 1, 0, 0)"><text class="b" transform="translate(17 187)"><tspan x="0" y="0">X</tspan></text></g><g data-type="innerShadowGroup"><text class="c" transform="translate(113 244)"><tspan x="0" y="0">O</tspan></text><g class="f" transform="matrix(1, 0, 0, 1, 0, 0)"><text class="d" transform="translate(113 244)"><tspan x="0" y="0">O</tspan></text></g></g></g></svg>
+            </section>
+            <section class="btns">
+                <p>Play an auto matching game.</p>
+                <a href="{% url 'app:game' %}?room=random">Search for a game</a>
+                <hr>
+                <p>Play a custom game.</p>
+                <a href="{% url 'app:game' %}?room=create">Create room</a>
+                <p>or</p>
+                <input type="text" placeholder="Room Code">
+                <p id='response'></p>
+                <a id='join' href="">Join room</a>
+                <a href="{% url 'app:two' %}"><i class="fa fa-angle-left"></i> Back</a>
+            </section>
+        </section>
+    </main>
 </body>
+<script>
+let check_room = async room => {
+    let url = "{%url 'app:check_room' %}?room=" + room
+    let res = await fetch(url)
+    if (res.ok) {
+        res = await res.json()
+        document.querySelector('input').style.borderColor = 'green'
+        document.querySelector('input').style.outlineColor = 'green'
+        document.getElementById('response').innerText = res.message
+        return true
+    } else {
+        res = await res.json()
+        document.querySelector('input').style.borderColor = 'red'
+        document.querySelector('input').style.outlineColor = 'red'
+        document.getElementById('response').innerText = res.error
+        return false
+    }
+}
+document.querySelector('input').onkeypress =  (e) => {
+    if (e.keyCode == 13) {
+        document.getElementById('join').click()
+    }
+}
+document.querySelector('input').oninput =  async (e) => {
+    let is_valid = await check_room(e.target.value)
+    if (is_valid){
+        document.getElementById('join').href = `{% url 'app:game' %}?room=${e.target.value}`
+    }else{
+        document.getElementById('join').href = '#'
+    }
+}
+</script>
+<script src="https://ahmed0saber.github.io/XO-online/external-files/script.js"></script>
+<script src="https://kit.fontawesome.com/282bcf757e.js" crossorigin="anonymous"></script>
 </html>
